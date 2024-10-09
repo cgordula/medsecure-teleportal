@@ -1,0 +1,11 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+
+.form-container {
+    max-width: 600px; /* Adjust the max width as needed */
+    margin: 0 auto; /* Center the form */
+    padding: 20px; /* Add padding */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    border-radius: 8px; /* Rounded corners */
+    background-color: white; /* Background color */
+}
