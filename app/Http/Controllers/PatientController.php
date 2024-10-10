@@ -17,21 +17,20 @@ class PatientController extends Controller
     // Handle form submission
     public function store(Request $request)
     {
-        $request->validate([
-            'first_name' => 'required|max:100',
-            'last_name' => 'required|max:100',
-            'email' => 'required|email|unique:patients,email',
-            'password' => 'required|min:8|confirmed',
+        $validatedData = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:patients,email', // Ensure the email is unique
+            'password' => 'required|confirmed|min:8', // Confirm the password
         ]);
 
         Patient::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'status' => 'Active'
+            'first_name' => $validatedData['first_name'],
+            'last_name' => $validatedData['last_name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']), // Hash the password before saving
         ]);
 
-        return redirect()->route('patients.register')->with('success', 'Registration successful.');
+        return redirect()->back()->with('success', 'Patient registered successfully!');
     }
 }

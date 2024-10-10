@@ -19,4 +19,4 @@ Route::get('/', function () {
 });
 
 Route::get('/register', [PatientController::class, 'create'])->name('patients.register');
-Route::post('/register', [PatientController::class, 'store'])->name('patients.store');
+Route::post('/patients', [PatientController::class, 'store'])->name('patients.store');

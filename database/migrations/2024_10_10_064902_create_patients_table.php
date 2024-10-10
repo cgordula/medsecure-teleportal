@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePatientRegistersTable extends Migration
+class CreatePatientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,13 +15,11 @@ class CreatePatientRegistersTable extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->timestamp('registration_date')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent()->onUpdate(now());
-            $table->enum('status', ['Active', 'Inactive'])->default('Active');
+            $table->string('first_name');  // Storing the first name
+            $table->string('last_name');   // Storing the last name
+            $table->string('email')->unique();  // Email should be unique
+            $table->string('password');    // Storing the hashed password
+            $table->timestamps();
         });
     }
 
