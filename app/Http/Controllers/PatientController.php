@@ -11,7 +11,7 @@ class PatientController extends Controller
     // Show the registration form
     public function create()
     {
-        return view('patients.register');
+        return view('patients.patient_register');
     }
 
     // Handle form submission
