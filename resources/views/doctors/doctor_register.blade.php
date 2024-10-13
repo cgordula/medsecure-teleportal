@@ -15,6 +15,14 @@
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
 
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
+
             
             <form action="{{ route('doctors.store') }}" method="POST">
                 @csrf
@@ -55,6 +63,10 @@
 
                 <button type="submit" class="btn btn-primary">Register</button>
             </form>
+
+            <div class="mt-3">
+                <p>Already have an account? <a href="{{ route('doctors.login') }}">Log in here</a>.</p>
+            </div>
 
         </div>
     </div>

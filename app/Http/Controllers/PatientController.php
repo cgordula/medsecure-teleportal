@@ -37,7 +37,7 @@ class PatientController extends Controller
 
         session()->flash('success', 'Registration successful! You can now log in.');
 
-        return redirect()->route('patients.login');
+        return redirect()->route('patients.login.form');
     }
 
 

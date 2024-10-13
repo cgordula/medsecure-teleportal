@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class DoctorsController extends Controller
 {
@@ -37,6 +38,41 @@ class DoctorsController extends Controller
             'role' => 'doctor', // Default role for doctors
         ]);
 
-        return redirect()->back()->with('success', 'Doctor registered successfully.');
+        session()->flash('success', 'Registration successful! You can now log in.');
+        return redirect()->route('doctors.login.form');
     }
+
+
+     // Show the login form
+     public function doctorLoginForm()
+     {
+         return view('doctors.login'); 
+     }
+ 
+     // Handle login
+     public function doctorLogin(Request $request)
+     {
+         // Validate login request
+         $credentials = $request->validate([
+             'email' => ['required', 'email'],
+             'password' => ['required'],
+         ]);
+ 
+         // Attempt login using Auth facade
+         if (Auth::guard('doctors')->attempt($credentials)) {
+             // Login successful, redirect to patient dashboard or home
+             return redirect()->route('doctors.doctor-dashboard');
+         }
+ 
+         // Login failed, redirect back to login form with error
+         return back()->withErrors([
+             'email' => 'The provided credentials do not match our records.',
+         ])->onlyInput('email'); // Keep the email input val
+     }
+ 
+ 
+     public function doctorDashboard()
+     {
+         return view('doctors.doctor-dashboard'); // This points to the view file you'll create next
+     }
 }

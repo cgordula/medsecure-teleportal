@@ -37,8 +37,17 @@ Route::middleware(['auth:patients'])->group(function () {
 Route::get('/admin/register', [AdminController::class, 'createAdmin'])->name('admin.create');
 Route::post('/admin/register', [AdminController::class, 'storeAdmin'])->name('admin.store');
 
-Route::get('/doctor/register', [DoctorsController::class, 'createDoctor'])->name('doctors.create');
-Route::post('/doctor/register', [DoctorsController::class, 'storeDoctor'])->name('doctors.store');
+
+
+Route::get('/doctors/register', [DoctorsController::class, 'createDoctor'])->name('doctors.register');
+Route::post('/doctors/register', [DoctorsController::class, 'storeDoctor'])->name('doctors.store');
+
+Route::get('/doctors/login', [DoctorsController::class, 'doctorLoginForm'])->name('doctors.login.form');
+Route::post('/doctors/login', [DoctorsController::class, 'doctorLogin'])->name('doctors.login');
+
+Route::middleware(['auth:doctors'])->group(function () {
+    Route::get('/doctors/doctor-dashboard', [DoctorsController::class, 'doctorDashboard'])->name('doctors.doctor-dashboard');
+});
 
 
 
