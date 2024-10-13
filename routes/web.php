@@ -20,14 +20,25 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/patients/register', [PatientController::class, 'create'])->name('patients.register');
-Route::post('/patients/register', [PatientController::class, 'store'])->name('patients.store');
 
-Route::get('/admin/register', [AdminController::class, 'create'])->name('admins.create');
-Route::post('/admin/register', [AdminController::class, 'store'])->name('admins.store');
+Route::get('/patients/register', [PatientController::class, 'createPatient'])->name('patients.register');
+Route::post('/patients/register', [PatientController::class, 'storePatient'])->name('patients.store');
 
-Route::get('/doctor/register', [DoctorsController::class, 'create'])->name('doctors.create');
-Route::post('/doctor/register', [DoctorsController::class, 'store'])->name('doctors.store');
+Route::get('/patients/login', [PatientController::class, 'patientLoginForm'])->name('patients.login.form');
+Route::post('/patients/login', [PatientController::class, 'patientLogin'])->name('patients.login');
+
+Route::middleware(['auth:patients'])->group(function () {
+    Route::get('/patients/patient-dashboard', [PatientController::class, 'patientDashboard'])->name('patients.patient-dashboard');
+});
+
+
+
+
+Route::get('/admin/register', [AdminController::class, 'createAdmin'])->name('admin.create');
+Route::post('/admin/register', [AdminController::class, 'storeAdmin'])->name('admin.store');
+
+Route::get('/doctor/register', [DoctorsController::class, 'createDoctor'])->name('doctors.create');
+Route::post('/doctor/register', [DoctorsController::class, 'storeDoctor'])->name('doctors.store');
 
 
 

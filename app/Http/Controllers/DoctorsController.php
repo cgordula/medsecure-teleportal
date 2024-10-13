@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Hash;
 class DoctorsController extends Controller
 {
 
-    public function create()
+    public function createDoctor()
     {
         return view('doctors.doctor_register');
     }
 
-    public function store(Request $request)
+    public function storeDoctor(Request $request)
     {
         // Validate the request
         $validatedData = $request->validate([

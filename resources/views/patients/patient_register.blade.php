@@ -14,6 +14,14 @@
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
 
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
+
             <form action="{{ route('patients.store') }}" method="POST">
                 @csrf
                 <div class="mb-3">
@@ -43,6 +51,10 @@
 
                 <button type="submit" class="btn btn-primary">Register</button>
             </form>
+
+            <div class="mt-3">
+                <p>Already have an account? <a href="{{ route('patients.login') }}">Log in here</a>.</p>
+            </div>
         </div>
     </div>
 

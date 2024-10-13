@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    public function create()
+    public function createAdmin()
     {
         return view('admin.admin_register');
     }
 
-    public function store(Request $request)
+    public function storeAdmin(Request $request)
     {
         $request->validate([
             'first_name' => 'required|string|max:255',

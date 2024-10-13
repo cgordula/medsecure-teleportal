@@ -2,10 +2,11 @@
 
 
 .form-container {
-    max-width: 600px; /* Adjust the max width as needed */
-    margin: 0 auto; /* Center the form */
-    padding: 20px; /* Add padding */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
-    border-radius: 8px; /* Rounded corners */
-    background-color: white; /* Background color */
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: white;
+
 }
