@@ -32,10 +32,15 @@ Route::middleware(['auth:patients'])->group(function () {
 });
 
 
-
-
-Route::get('/admin/register', [AdminController::class, 'createAdmin'])->name('admin.create');
+Route::get('/admin/register', [AdminController::class, 'createAdmin'])->name('admin.register');
 Route::post('/admin/register', [AdminController::class, 'storeAdmin'])->name('admin.store');
+
+Route::get('/admin/login', [AdminController::class, 'adminLoginForm'])->name('admin.login.form');
+Route::post('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.login');
+
+Route::middleware(['auth:admin'])->group(function () {
+    Route::get('/admin/admin-dashboard', [AdminController::class, 'adminDashboard'])->name('admin.admin-dashboard');
+});
 
 
 

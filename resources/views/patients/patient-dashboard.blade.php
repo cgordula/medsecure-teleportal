@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient Login</title>
+    <title>Patient Dashboard</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
     <div class="container mt-5">
-        Dashboard
+        <h2>Welcome, {{ Auth::guard('patients')->user()->first_name }}</h2>
+        <p>This is your dashboard.</p>
     </div>
 
     <script src="{{ asset('js/app.js') }}"></script>

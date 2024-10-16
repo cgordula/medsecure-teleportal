@@ -16,67 +16,68 @@ class AdminController extends Controller
 
     public function storeAdmin(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:admins',
+            'email' => 'required|string|email|max:255|unique:admin',
             'password' => 'required|string|confirmed|min:8',
             'role' => 'required|string|in:admin,doctor,editor,viewer', // Validate role
         ]);
 
         // Create admin user
         Admin::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role, // Save role
+            'first_name' => $validatedData['first_name'],
+            'last_name' => $validatedData['last_name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'role' => $validatedData['role'] // Save role
         ]);
 
-        return redirect()->back()->with('success', 'Admin registered successfully!');
+      
+        session()->flash('success', 'Admin registered successfully! You can now log in.');
+
+        return redirect()->route('admin.login.form');
     }
 
-    // public function register(Request $request)
-    // {
-    //     $request->validate([
-    //         'first_name' => 'required|string|max:255',
-    //         'last_name' => 'required|string|max:255',
-    //         'email' => 'required|string|email|max:255|unique:admins',
-    //         'password' => 'required|string|min:8|confirmed',
-    //     ]);
+    // Show the login form
+    public function adminLoginForm()
+    {
+        return view('admin.login'); 
+    }
 
-    //     $admin = Admin::create([
-    //         'first_name' => $request->first_name,
-    //         'last_name' => $request->last_name,
-    //         'email' => $request->email,
-    //         'password' => Hash::make($request->password),
-    //         'role' => 'admin', // Default role, change as needed
-    //     ]);
+    // Handle login
+    public function adminLogin(Request $request)
+    {
+        // Validate login request
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
 
-    //     Auth::login($admin);
+        // Check if the email exists in the admin table
+        $adminExists = Admin::where('email', $credentials['email'])->exists();
 
-    //     return redirect()->route('admin.dashboard'); // Redirect to your admin dashboard
-    // }
+        // Attempt login using Auth facade
+        if (Auth::guard('admin')->attempt($credentials)) {
+            // Login successful, redirect to patient dashboard or home
+            return redirect()->route('admin.admin-dashboard');
+        }
 
-    // public function login(Request $request)
-    // {
-    //     $request->validate([
-    //         'email' => 'required|string|email',
-    //         'password' => 'required|string',
-    //     ]);
+        if (!$adminExists) {
+            return back()->withErrors([
+                'email' => 'No account found with this email address.',
+            ])->onlyInput('email'); // Keep the email input value
+        }
 
-    //     if (Auth::attempt($request->only('email', 'password'))) {
-    //         return redirect()->route('admin.dashboard'); // Redirect to admin dashboard on success
-    //     }
+        // Login failed, redirect back to login form with error
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email'); // Keep the email input val
+    }
 
-    //     return back()->withErrors([
-    //         'email' => 'The provided credentials do not match our records.',
-    //     ]);
-    // }
 
-    // public function logout()
-    // {
-    //     Auth::logout();
-    //     return redirect()->route('admin.login'); // Redirect to login page after logout
-    // }
+    public function adminDashboard()
+    {
+        return view('admin.admin-dashboard');
+    }
 }

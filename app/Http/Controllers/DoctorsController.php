@@ -43,36 +43,36 @@ class DoctorsController extends Controller
     }
 
 
-     // Show the login form
-     public function doctorLoginForm()
-     {
-         return view('doctors.login'); 
-     }
- 
-     // Handle login
-     public function doctorLogin(Request $request)
-     {
-         // Validate login request
-         $credentials = $request->validate([
-             'email' => ['required', 'email'],
-             'password' => ['required'],
-         ]);
- 
-         // Attempt login using Auth facade
-         if (Auth::guard('doctors')->attempt($credentials)) {
-             // Login successful, redirect to patient dashboard or home
-             return redirect()->route('doctors.doctor-dashboard');
-         }
- 
-         // Login failed, redirect back to login form with error
-         return back()->withErrors([
-             'email' => 'The provided credentials do not match our records.',
-         ])->onlyInput('email'); // Keep the email input val
-     }
- 
- 
-     public function doctorDashboard()
-     {
-         return view('doctors.doctor-dashboard'); // This points to the view file you'll create next
-     }
+    // Show the login form
+    public function doctorLoginForm()
+    {
+        return view('doctors.login'); 
+    }
+
+    // Handle login
+    public function doctorLogin(Request $request)
+    {
+        // Validate login request
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        // Attempt login using Auth facade
+        if (Auth::guard('doctors')->attempt($credentials)) {
+            // Login successful, redirect to patient dashboard or home
+            return redirect()->route('doctors.doctor-dashboard');
+        }
+
+        // Login failed, redirect back to login form with error
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email'); // Keep the email input val
+    }
+
+
+    public function doctorDashboard()
+    {
+        return view('doctors.doctor-dashboard'); // This points to the view file you'll create next
+    }
 }

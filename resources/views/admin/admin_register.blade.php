@@ -15,7 +15,15 @@
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
 
-            <form action="{{ route('admins.store') }}" method="POST">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
+
+            <form action="{{ route('admin.store') }}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label for="first_name" class="form-label">First Name</label>
@@ -54,6 +62,10 @@
 
                 <button type="submit" class="btn btn-primary">Register</button>
             </form>
+
+            <div class="mt-3">
+                <p>Already have an account? <a href="{{ route('admin.login') }}">Log in here</a>.</p>
+            </div>
         </div>
     </div>
 
