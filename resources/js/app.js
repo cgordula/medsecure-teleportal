@@ -5,6 +5,7 @@ window.$ = window.jQuery = $;
 
 
 $(document).ready(function() {
+    console.log("DOM is ready!");
     // Clear error messages on focus
     $('input').on('focus', function() {
         $('.alert-danger').remove();
@@ -17,7 +18,7 @@ $(document).ready(function() {
             successMessage.fadeOut('slow', function() {
                 $(this).remove(); // Remove the element after fading out
             }); 
-        }, 3000); // 3000 milliseconds = 3 seconds
+        }, 2000); // 3000 milliseconds = 3 seconds
     }
 
     // Set timeout for error message
@@ -27,7 +28,7 @@ $(document).ready(function() {
             errorMessage.fadeOut('slow', function() {
                 $(this).remove(); // Remove the element after fading out
             }); 
-        }, 3000); // 3000 milliseconds = 3 seconds
+        }, 2000); // 3000 milliseconds = 3 seconds
     }
 });
 

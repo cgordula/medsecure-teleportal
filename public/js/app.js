@@ -3026,6 +3026,7 @@ __webpack_require__.r(__webpack_exports__);
 
 window.$ = window.jQuery = (jquery__WEBPACK_IMPORTED_MODULE_1___default());
 jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).ready(function () {
+  console.log("DOM is ready!");
   // Clear error messages on focus
   jquery__WEBPACK_IMPORTED_MODULE_1___default()('input').on('focus', function () {
     jquery__WEBPACK_IMPORTED_MODULE_1___default()('.alert-danger').remove();
@@ -3038,7 +3039,7 @@ jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).ready(function () {
       successMessage.fadeOut('slow', function () {
         jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).remove(); // Remove the element after fading out
       });
-    }, 3000); // 3000 milliseconds = 3 seconds
+    }, 2000); // 3000 milliseconds = 3 seconds
   }
 
   // Set timeout for error message
@@ -3048,7 +3049,7 @@ jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).ready(function () {
       errorMessage.fadeOut('slow', function () {
         jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).remove(); // Remove the element after fading out
       });
-    }, 3000); // 3000 milliseconds = 3 seconds
+    }, 2000); // 3000 milliseconds = 3 seconds
   }
 });
 
