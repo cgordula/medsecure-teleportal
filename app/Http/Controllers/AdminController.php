@@ -80,4 +80,13 @@ class AdminController extends Controller
     {
         return view('admin.admin-dashboard');
     }
+
+
+
+    public function logout(Request $request)
+    {
+        Auth::guard('admin')->logout(); // Log out the admin
+
+        return redirect()->route('admin.login.form')->with('success', 'You have been logged out successfully.');
+    }
 }

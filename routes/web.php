@@ -42,6 +42,8 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/admin-dashboard', [AdminController::class, 'adminDashboard'])->name('admin.admin-dashboard');
 });
 
+Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
 
 
 Route::get('/doctors/register', [DoctorsController::class, 'createDoctor'])->name('doctors.register');
