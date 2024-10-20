@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
-<div class="container mt-5">
+<div class="container d-flex align-items-center justify-content-center min-vh-100">
         <div class="form-container">
             <h2 class="text-center">Admin Registration</h2>
 

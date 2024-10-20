@@ -9,7 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container d-flex align-items-center justify-content-center min-vh-100">
         <div class="form-container">
             <h2 class="text-center">Admin Login</h2>
 
