@@ -31,6 +31,8 @@ Route::middleware(['auth:patients'])->group(function () {
     Route::get('/patients/patient-dashboard', [PatientController::class, 'patientDashboard'])->name('patients.patient-dashboard');
 });
 
+Route::post('/patients/logout', [PatientController::class, 'patientLogout'])->name('patients.logout');
+
 
 Route::get('/admin/register', [AdminController::class, 'createAdmin'])->name('admin.register');
 Route::post('/admin/register', [AdminController::class, 'storeAdmin'])->name('admin.store');
@@ -42,7 +44,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/admin-dashboard', [AdminController::class, 'adminDashboard'])->name('admin.admin-dashboard');
 });
 
-Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+Route::post('/admin/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');
 
 
 

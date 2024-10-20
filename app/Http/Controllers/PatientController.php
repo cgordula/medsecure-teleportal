@@ -71,6 +71,14 @@ class PatientController extends Controller
 
     public function patientDashboard()
     {
-        return view('patients.patient-dashboard'); // This points to the view file you'll create next
+        return view('patients.patient-dashboard');
+    }
+
+
+    public function patientLogout(Request $request)
+    {
+        Auth::guard('patients')->logout(); // Log out the admin
+
+        return redirect()->route('patients.login.form')->with('success', 'You have been logged out successfully.');
     }
 }
