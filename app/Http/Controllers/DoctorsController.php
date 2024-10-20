@@ -73,6 +73,14 @@ class DoctorsController extends Controller
 
     public function doctorDashboard()
     {
-        return view('doctors.doctor-dashboard'); // This points to the view file you'll create next
+        return view('doctors.doctor-dashboard');
+    }
+
+
+    public function doctorLogout(Request $request)
+    {
+        Auth::guard('doctors')->logout(); // Log out the doctor
+
+        return redirect()->route('doctors.login.form')->with('success', 'You have been logged out successfully.');
     }
 }

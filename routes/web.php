@@ -58,6 +58,8 @@ Route::middleware(['auth:doctors'])->group(function () {
     Route::get('/doctors/doctor-dashboard', [DoctorsController::class, 'doctorDashboard'])->name('doctors.doctor-dashboard');
 });
 
+Route::post('/doctors/logout', [DoctorsController::class, 'doctorLogout'])->name('doctors.logout');
+
 
 
 

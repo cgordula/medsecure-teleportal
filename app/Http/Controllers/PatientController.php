@@ -77,7 +77,7 @@ class PatientController extends Controller
 
     public function patientLogout(Request $request)
     {
-        Auth::guard('patients')->logout(); // Log out the admin
+        Auth::guard('patients')->logout(); // Log out the patient
 
         return redirect()->route('patients.login.form')->with('success', 'You have been logged out successfully.');
     }

@@ -3025,6 +3025,32 @@ __webpack_require__.r(__webpack_exports__);
 
 
 window.$ = window.jQuery = (jquery__WEBPACK_IMPORTED_MODULE_1___default());
+jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).ready(function () {
+  // Clear error messages on focus
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()('input').on('focus', function () {
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()('.alert-danger').remove();
+  });
+
+  // Set timeout for success message
+  var successMessage = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#success-message');
+  if (successMessage.length) {
+    setTimeout(function () {
+      successMessage.fadeOut('slow', function () {
+        jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).remove(); // Remove the element after fading out
+      });
+    }, 3000); // 3000 milliseconds = 3 seconds
+  }
+
+  // Set timeout for error message
+  var errorMessage = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#error-message');
+  if (errorMessage.length) {
+    setTimeout(function () {
+      errorMessage.fadeOut('slow', function () {
+        jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).remove(); // Remove the element after fading out
+      });
+    }, 3000); // 3000 milliseconds = 3 seconds
+  }
+});
 
 /***/ }),
 
