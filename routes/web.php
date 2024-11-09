@@ -27,8 +27,13 @@ Route::post('/patients/register', [PatientController::class, 'storePatient'])->n
 Route::get('/patients/login', [PatientController::class, 'patientLoginForm'])->name('patients.login.form');
 Route::post('/patients/login', [PatientController::class, 'patientLogin'])->name('patients.login');
 
+Route::get('/patients/profile', [PatientController::class, 'patientProfile'])->name('patients.profile');
+
+
 Route::middleware(['auth:patients'])->group(function () {
     Route::get('/patients/patient-dashboard', [PatientController::class, 'patientDashboard'])->name('patients.patient-dashboard');
+    Route::get('/patients/profile', [PatientController::class, 'patientProfile'])->name('patients.profile');
+    Route::get('/patients/create-appointment', [PatientController::class, 'createAppointment'])->name('patients.create-appointment');
 });
 
 Route::post('/patients/logout', [PatientController::class, 'patientLogout'])->name('patients.logout');
@@ -56,6 +61,7 @@ Route::post('/doctors/login', [DoctorsController::class, 'doctorLogin'])->name('
 
 Route::middleware(['auth:doctors'])->group(function () {
     Route::get('/doctors/doctor-dashboard', [DoctorsController::class, 'doctorDashboard'])->name('doctors.doctor-dashboard');
+    Route::get('/doctors/profile', [DoctorsController::class, 'doctorProfile'])->name('doctors.profile');
 });
 
 Route::post('/doctors/logout', [DoctorsController::class, 'doctorLogout'])->name('doctors.logout');
