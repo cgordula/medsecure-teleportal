@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+    <!-- Use mix for cache-busting -->
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 </head>
 <body>
-    <div class="container d-flex align-items-center justify-content-center min-vh-100">
+    <div class="container-fluid min-vh-100 d-flex align-items-center">
         <div class="form-container">
             <h2 class="text-center">Admin Login</h2>
 
@@ -18,14 +18,14 @@
                     {{ session('success') }}
                 </div>
             @endif
-            
+
             @if ($errors->any())
                 <div id="error-message" class="alert alert-danger">
                     @foreach ($errors->all() as $error)
                         <div>{{ $error }}</div>
                     @endforeach
                 </div>
-             @endif
+            @endif
 
             <form action="{{ route('admin.login') }}" method="POST">
                 @csrf
@@ -42,14 +42,16 @@
                 <button type="submit" class="btn btn-primary">Login</button>
             </form>
 
-            <div class="mt-3">
+            <div class="mt-3 text-center">
                 <p>Don't have an account? <a href="{{ route('admin.register') }}">Register here</a>.</p>
             </div>
+            
         </div>
+        
     </div>
 
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/admin.js') }}"></script> 
-
+    <!-- Use mix for cache-busting -->
+    <script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ mix('js/admin.js') }}"></script>
 </body>
 </html>
