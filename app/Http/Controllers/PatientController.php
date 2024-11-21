@@ -90,6 +90,14 @@ class PatientController extends Controller
     }
 
 
+    // Show Patient Create Appointment
+    public function createAppointment()
+    {
+        return view('patients.create-appointment');
+    }
+  
+
+
 
     // Dashboard Metrics
     // public function getDashboardMetrics() {
