@@ -9,6 +9,19 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Include moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <!-- Include fullCalendar -->
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.0.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.0.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.0.0/main.min.js"></script>
+
+
+
+
     <style>
         /* Sidebar styling when collapsed */
         .sidebar.collapsed #desktop-logo {
@@ -17,6 +30,117 @@
 
         .sidebar.collapsed #mobile-logo {
             display: block;
+        }
+
+        /* Dashboard content layout */
+        .dashboard-header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .dashboard-summary {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .summary-item {
+            text-align: center;
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        .summary-item h3 {
+            font-size: 18px;
+            color: #007bff;
+        }
+
+        .appointments-section, .telemedicine-section {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .appointments, .telemedicine {
+            width: 48%;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .appointments h3, .telemedicine h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .appointment-item, .telemedicine-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+        }
+
+        .appointment-item:last-child, .telemedicine-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .doctor-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .doctor-info h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .doctor-info p {
+            margin: 5px 0;
+        }
+
+        .action-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-action {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            width: 48%;
+        }
+
+        .btn-action:hover {
+            background-color: #0056b3;
+        }
+
+        /* Calendar Styling */
+        #calendar {
+            margin-top: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
         }
 
 
@@ -74,6 +198,7 @@
         </div>
     </nav>
 
+
     <!-- Main Content -->
     <div class="content">
         @yield('content') <!-- This will render the specific page content -->
@@ -85,6 +210,7 @@
     </footer>
 
     <script src="{{ asset('js/app.js') }}"></script>
+
     <script>
         function updateDateTime() {
             const dateTimeElement = document.getElementById('current-date-time');
@@ -107,10 +233,14 @@
     <script>
          function toggleSidebar() {
             const sidebar = document.querySelector('.sidebar');
+            const content = document.querySelector('.content');
+            const navbar = document.querySelector('.navbar');
             const mobileLogo = document.getElementById('mobile-logo');
-            
-            // Toggle the 'collapsed' class on the sidebar
+
+            // Toggle the 'collapsed' class on the sidebar and content
             sidebar.classList.toggle('collapsed');
+            content.classList.toggle('collapsed');
+            navbar.classList.toggle('collapsed');
             
             // Show the mobile logo if the sidebar is collapsed
             if (sidebar.classList.contains('collapsed')) {
@@ -120,6 +250,7 @@
             }
         }
     </script>
+
 
 </body>
 </html>

@@ -1,7 +1,5 @@
-@import '~bootstrap/dist/css/bootstrap.min.css';
-@import '~font-awesome/css/font-awesome.css';
-
-
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'font-awesome/css/font-awesome.css';
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -76,7 +74,15 @@ body {
     transition: margin-left 0.3s;
 }
 
+.content.collapsed {
+    margin-left: 60px;
+}
+
 .navbar {
     margin-left: 250px;
     transition: margin-left 0.3s;
+}
+
+.navbar.collapsed {
+    margin-left: 60px;
 }

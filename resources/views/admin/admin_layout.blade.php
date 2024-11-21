@@ -106,12 +106,16 @@
     </script>
 
     <script>
-        function toggleSidebar() {
+         function toggleSidebar() {
             const sidebar = document.querySelector('.sidebar');
+            const content = document.querySelector('.content');
+            const navbar = document.querySelector('.navbar');
             const mobileLogo = document.getElementById('mobile-logo');
-            
-            // Toggle the 'collapsed' class on the sidebar
+
+            // Toggle the 'collapsed' class on the sidebar and content
             sidebar.classList.toggle('collapsed');
+            content.classList.toggle('collapsed');
+            navbar.classList.toggle('collapsed');
             
             // Show the mobile logo if the sidebar is collapsed
             if (sidebar.classList.contains('collapsed')) {
