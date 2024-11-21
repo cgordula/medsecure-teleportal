@@ -22,6 +22,24 @@
         </div>
     </div>
 
+    <div class="dashboard-metrics">
+        <h2>Monthly Metrics</h2>
+        <div class="metrics-grid">
+            <div class="metric-item">
+                <h3>Month-to-Date Appointments</h3>
+                <p>2</p>
+            </div>
+            <div class="metric-item">
+                <h3>Different Doctors Consulted</h3>
+                <p>5</p>
+            </div>
+            <div class="metric-item">
+                <h3>Telemedicine Sessions</h3>
+                <p>6</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Appointments and Telemedicine -->
     <div class="appointments-section">
         <!-- Upcoming Appointments -->
@@ -56,7 +74,7 @@
         <h3>Your Doctor</h3>
         <p><strong>Dr. Jane Smith</strong></p>
         <p>Specialty: Internal Medicine</p>
-        <p>Contact: +123 456 7890</p>
+        <p>License No.: 12345678</p>
     </div>
 
     <!-- Quick Action Buttons -->
@@ -64,6 +82,13 @@
         <a href="{{ route('patients.create-appointment') }}" class="btn-action">Create Appointment</a>
         <a href="{{ route('patients.profile') }}" class="btn-action">View Profile</a>
     </div>
+
+
+    <div id="realTimeCalendarContainer">
+        <div id="realTimeCalendar"></div>
+    </div>
+
+
 
     
 @endsection

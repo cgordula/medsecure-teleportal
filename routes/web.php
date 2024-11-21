@@ -27,9 +27,6 @@ Route::post('/patients/register', [PatientController::class, 'storePatient'])->n
 Route::get('/patients/login', [PatientController::class, 'patientLoginForm'])->name('patients.login.form');
 Route::post('/patients/login', [PatientController::class, 'patientLogin'])->name('patients.login');
 
-Route::get('/patients/profile', [PatientController::class, 'patientProfile'])->name('patients.profile');
-
-
 Route::middleware(['auth:patients'])->group(function () {
     Route::get('/patients/patient-dashboard', [PatientController::class, 'patientDashboard'])->name('patients.patient-dashboard');
     Route::get('/patients/profile', [PatientController::class, 'patientProfile'])->name('patients.profile');

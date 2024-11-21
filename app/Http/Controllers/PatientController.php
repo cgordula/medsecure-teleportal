@@ -81,4 +81,49 @@ class PatientController extends Controller
 
         return redirect()->route('patients.login.form')->with('success', 'You have been logged out successfully.');
     }
+
+
+    // Show the Patient Profile
+    public function patientProfile()
+    {
+        return view('patients.profile');
+    }
+
+
+
+    // Dashboard Metrics
+    // public function getDashboardMetrics() {
+    //     $userId = Auth::guard('patients')->id();
+    
+    //     // Current month
+    //     $startOfMonth = now()->startOfMonth();
+    //     $endOfMonth = now()->endOfMonth();
+    
+    //     $telemedicineAppointments = Appointment::where('patient_id', $userId)
+    //         ->where('type', 'telemedicine')
+    //         ->whereBetween('date', [$startOfMonth, $endOfMonth])
+    //         ->count();
+    
+    //     $inPersonAppointments = Appointment::where('patient_id', $userId)
+    //         ->where('type', 'in-person')
+    //         ->whereBetween('date', [$startOfMonth, $endOfMonth])
+    //         ->count();
+    
+    //     $pendingPrescriptions = Prescription::where('patient_id', $userId)
+    //         ->where('status', 'pending')
+    //         ->count();
+    
+    //     $completedConsultations = Consultation::where('patient_id', $userId)
+    //         ->where('status', 'completed')
+    //         ->whereBetween('date', [$startOfMonth, $endOfMonth])
+    //         ->count();
+    
+    //     return view('patients.patient-dashboard', compact(
+    //         'telemedicineAppointments', 
+    //         'inPersonAppointments', 
+    //         'pendingPrescriptions', 
+    //         'completedConsultations'
+    //     ));
+    // }
+    
 }

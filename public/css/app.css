@@ -2332,7 +2332,6 @@ body {
 
 }
 
-
 /* Full sidebar */
 .sidebar {
     height: 100vh;
@@ -2376,8 +2375,17 @@ body {
     width: 60px;
 }
 
+/* Default sidebar text visibility when not collapsed */
+.sidebar-text {
+    font-size: 17px;
+    transition: opacity 0.3s, visibility 0s 0.3s;
+}
+
+/* Optional: When sidebar is collapsed on larger screens */
 .sidebar.collapsed .sidebar-text {
     opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0s 0.3s;
 }
 
 .sidebar.collapsed .sidebar-link i {
@@ -2397,9 +2405,11 @@ body {
 .navbar {
     margin-left: 250px;
     transition: margin-left 0.3s;
+    position: relative;
 }
 
 .navbar.collapsed {
     margin-left: 60px;
 }
+
 

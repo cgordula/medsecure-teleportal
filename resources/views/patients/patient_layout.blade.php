@@ -14,10 +14,12 @@
 
     <!-- Include moment.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <!-- Include fullCalendar -->
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.0.0/main.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.0.0/main.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.0.0/main.min.js"></script>
+
+   <!-- FullCalendar Core -->
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/index.global.min.js"></script>
+
+    <!-- FullCalendar DayGrid (Month view) -->
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/index.global.min.js"></script>
 
 
 
@@ -46,6 +48,7 @@
             color: #333;
         }
 
+        /* Dashboard Summary Section */
         .dashboard-summary {
             display: flex;
             justify-content: space-between;
@@ -53,12 +56,13 @@
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap; /* Allow items to wrap on smaller screens */
         }
 
         .summary-item {
             text-align: center;
-            flex: 1;
-            margin: 0 10px;
+            flex: 1 1 calc(33.333% - 20px); /* Default: 3 items per row */
+            margin: 10px 0;
         }
 
         .summary-item h3 {
@@ -66,26 +70,33 @@
             color: #007bff;
         }
 
-        .appointments-section, .telemedicine-section {
-            margin-top: 30px;
+        /* Appointments and Telemedicine Sections */
+        .appointments-section, 
+        .telemedicine-section {
             display: flex;
             justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap; /* Allow sections to stack */
+            margin-top: 30px;
         }
 
-        .appointments, .telemedicine {
-            width: 48%;
+        .appointments, 
+        .telemedicine {
+            width: 48%; /* Default: Two side-by-side sections */
             background-color: #fff;
             padding: 15px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        .appointments h3, .telemedicine h3 {
+        .appointments h3, 
+        .telemedicine h3 {
             margin-bottom: 15px;
             font-size: 18px;
         }
 
-        .appointment-item, .telemedicine-item {
+        .appointment-item, 
+        .telemedicine-item {
             margin-bottom: 15px;
             padding: 10px;
             background-color: #f8f9fa;
@@ -93,10 +104,7 @@
             border-left: 4px solid #007bff;
         }
 
-        .appointment-item:last-child, .telemedicine-item:last-child {
-            margin-bottom: 0;
-        }
-
+        /* Doctor Info Section */
         .doctor-info {
             margin-top: 20px;
             padding: 15px;
@@ -114,10 +122,12 @@
             margin: 5px 0;
         }
 
+        /* Quick Action Buttons */
         .action-buttons {
             margin-top: 20px;
             display: flex;
             justify-content: space-between;
+            gap: 10px; /* Add spacing between buttons */
         }
 
         .btn-action {
@@ -127,21 +137,76 @@
             border-radius: 5px;
             text-decoration: none;
             text-align: center;
-            width: 48%;
+            flex: 1; /* Buttons take equal space */
         }
 
         .btn-action:hover {
             background-color: #0056b3;
         }
 
-        /* Calendar Styling */
-        #calendar {
-            margin-top: 30px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+        /* Calendar Styling */  
+        #realTimeCalendarContainer {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
         }
+
+        #realTimeCalendar {
+            width: 600px; 
+            /* max-width: 100%;  */
+            height: auto;
+            background-color: #fff;
+            padding: 15px; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+        }
+
+
+
+        /* dashboard metrics section */
+        .dashboard-metrics {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-metrics h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .metrics-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .metric-item {
+            flex: 1 1 calc(33.333% - 20px); /* Default: 3 items per row */
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #007bff;
+            text-align: center;
+        }
+
+        .metric-item h3 {
+            font-size: 16px;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .metric-item p {
+            font-size: 50px;
+            color: #555;
+            font-weight: bold;
+        }
+
+
 
 
         /* For screens smaller than or equal to 767px, show the mobile logo */
@@ -152,6 +217,82 @@
             #mobile-logo {
                 display: block !important;
             }
+
+            .metric-item {
+                flex: 1 1 100%; /* Stacks into 3 rows on small screens */
+            }
+
+            .dashboard-summary {
+                flex-direction: column; /* Stack summary items */
+            }
+
+            .summary-item {
+                flex: 1 1 100%; /* Take full width for each item */
+                margin-bottom: 15px;
+            }
+
+            .appointments, 
+            .telemedicine {
+                width: 100%; /* Stack sections on top of each other */
+            }
+
+            .action-buttons {
+                flex-direction: column; /* Stack buttons vertically */
+            }
+
+            .navbar {
+                margin-left: 60px !important; /* shift navbar to the right */
+            }
+
+            .sidebar.collapsed {
+                width: 60px;
+            }
+
+            
+            .content {
+                margin-left: 60px !important;
+            }
+
+            .sidebar {
+                width: 60px !important; /* collapse to 60px */
+            }
+
+
+            .sidebar.collapsed .sidebar-text {
+                opacity: 0 !important;
+                visibility: hidden !important;
+            }
+
+            .sidebar-text {
+                opacity: 0 !important;
+                visibility: hidden !important;
+            }
+           
+
+            /* Adjust navbar content when collapsed */
+            .navbar .container-fluid {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .navbar .d-flex {
+                width: 100%; /* Allow space for content */
+            }
+
+            /* Adjust logout button */
+            .navbar .d-flex justify-content-end {
+                display: flex;
+                justify-content: flex-end;
+                flex-grow: 1;
+            }
+
+            /* Ensure logout button doesn't overflow */
+            .btn-action {
+                width: auto; /* Let the button take its natural width */
+            }
+
+
         }
     </style>
 </head>
@@ -231,25 +372,53 @@
     </script>
 
     <script>
-         function toggleSidebar() {
-            const sidebar = document.querySelector('.sidebar');
-            const content = document.querySelector('.content');
-            const navbar = document.querySelector('.navbar');
-            const mobileLogo = document.getElementById('mobile-logo');
+        function toggleSidebar() {
+            // Check if the screen width is 768px or more (non-mobile)
+            if (window.innerWidth >= 768) {
+                const sidebar = document.querySelector('.sidebar');
+                const content = document.querySelector('.content');
+                const navbar = document.querySelector('.navbar');
+                const mobileLogo = document.getElementById('mobile-logo');
 
-            // Toggle the 'collapsed' class on the sidebar and content
-            sidebar.classList.toggle('collapsed');
-            content.classList.toggle('collapsed');
-            navbar.classList.toggle('collapsed');
-            
-            // Show the mobile logo if the sidebar is collapsed
-            if (sidebar.classList.contains('collapsed')) {
-                mobileLogo.classList.remove('d-none');
-            } else {
-                mobileLogo.classList.add('d-none');
+                // Toggle the 'collapsed' class on the sidebar and content
+                sidebar.classList.toggle('collapsed');
+                content.classList.toggle('collapsed');
+                navbar.classList.toggle('collapsed');
+                
+                // Show the mobile logo if the sidebar is collapsed
+                if (sidebar.classList.contains('collapsed')) {
+                    mobileLogo.classList.remove('d-none');
+                } else {
+                    mobileLogo.classList.add('d-none');
+                }
             }
         }
     </script>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('realTimeCalendar');
+
+            // Use the global FullCalendar object
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth', // Month view
+                headerToolbar: {
+                    left: 'prev,next today', // Navigation buttons
+                    center: 'title',        // Title (month and year)
+                    right: 'dayGridMonth,dayGridWeek', // View options
+                },
+                nowIndicator: true, // Highlights the current time
+                selectable: false,  // Disables selection since it's a view-only calendar
+            });
+
+            calendar.render();
+        });
+    </script>
+
+
+
 
 
 </body>
