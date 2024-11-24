@@ -84,10 +84,70 @@ class PatientController extends Controller
 
 
     // Show the Patient Profile
-    public function patientProfile()
+     public function patientProfile()
+     {
+         $patient = Auth::guard('patients')->user(); // Get the authenticated patient's data
+         
+         return view('patients.profile', compact('patient'));
+     }
+
+
+    // Show Edit Profile Form
+    public function editPatientProfile()
     {
-        return view('patients.profile');
+        $patient = Auth::guard('patients')->user(); // Get the authenticated patient's data
+        return view('patients.edit-profile', compact('patient'));
     }
+
+    // Update the Patient Profile
+    public function updatePatientProfile(Request $request)
+    {
+        // Validate the incoming data
+        $validatedData = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:patients,email,' . Auth::guard('patients')->id(), // Ensure unique email, except for the logged-in patient
+            'phone' => 'nullable|string|max:20',
+            'gender' => 'nullable|string|max:10',
+            'birthdate' => 'nullable|date',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Get the authenticated patient
+        $patient = Auth::guard('patients')->user();
+
+
+        // Handle photo upload
+        if ($request->hasFile('profile_picture')) {
+            // Get the original file name
+            $originalFileName = $request->file('profile_picture')->getClientOriginalName();
+            
+            // Optionally, you could append a unique identifier to prevent name conflicts
+            // e.g., using the time as a unique prefix or a random string
+            $newFileName = time() . '_' . $originalFileName;
+        
+            // Store the file in the 'public/patient_photos' directory and save the new file name
+            $photoPath = $request->file('profile_picture')->storeAs('public/patient_photos', $newFileName);
+            
+            // Save just the file name in the database
+            $validatedData['profile_picture'] = $newFileName;
+        }
+        
+    
+        // Calculate the patient's age from the birthdate
+        if ($request->has('birthdate') && $request->birthdate) {
+            $birthdate = \Carbon\Carbon::parse($request->birthdate);
+            $age = $birthdate->age;  // Calculate age
+            $validatedData['age'] = $age;  // Store age
+        }      
+
+        // Update patient information
+        $patient->update($validatedData);
+
+        // Return to the profile page with a success message
+        return redirect()->route('patients.profile')->with('success', 'Profile updated successfully!');
+    }
+
 
 
     // Show Patient Create Appointment

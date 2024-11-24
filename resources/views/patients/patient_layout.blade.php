@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- Include jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
 
     <!-- Include moment.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
@@ -21,6 +21,10 @@
     <!-- FullCalendar DayGrid (Month view) -->
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/index.global.min.js"></script>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
 
@@ -399,21 +403,26 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('realTimeCalendar');
+            // Check if the current page is NOT the profile page
+            if (!document.body.classList.contains('profile-page')) {
+                var calendarEl = document.getElementById('realTimeCalendar');
 
-            // Use the global FullCalendar object
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth', // Month view
-                headerToolbar: {
-                    left: 'prev,next today', // Navigation buttons
-                    center: 'title',        // Title (month and year)
-                    right: 'dayGridMonth,dayGridWeek', // View options
-                },
-                nowIndicator: true, // Highlights the current time
-                selectable: false,  // Disables selection since it's a view-only calendar
-            });
+                // Only initialize the calendar if the element exists
+                if (calendarEl) {
+                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                        initialView: 'dayGridMonth', // Month view
+                        headerToolbar: {
+                            left: 'prev,next today', // Navigation buttons
+                            center: 'title',        // Title (month and year)
+                            right: 'dayGridMonth,dayGridWeek', // View options
+                        },
+                        nowIndicator: true, // Highlights the current time
+                        selectable: false,  // Disables selection since it's a view-only calendar
+                    });
 
-            calendar.render();
+                    calendar.render();
+                }
+            }
         });
     </script>
 
