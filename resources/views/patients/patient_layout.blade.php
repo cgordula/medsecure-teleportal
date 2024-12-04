@@ -315,7 +315,7 @@
             <i class="fas fa-user"></i>
             <span class="sidebar-text">Profile</span>
         </a>
-        <a href="{{ route('patients.create-appointment') }}" class="sidebar-link">
+        <a href="{{ route('patients.appointment') }}" class="sidebar-link">
             <i class="fas fa-calendar-plus"></i>
             <span class="sidebar-text">Create Appointment</span>
         </a>

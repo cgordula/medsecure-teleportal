@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Patient;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Models\MedicalInformation;
+use App\Models\EmergencyContact;
 
 
 class PatientController extends Controller
@@ -88,7 +90,11 @@ class PatientController extends Controller
      {
          $patient = Auth::guard('patients')->user(); // Get the authenticated patient's data
          
-         return view('patients.profile', compact('patient'));
+         $medicalInfo = $patient->medical_information;
+         $emergencyContact = $patient->emergency_contact;
+     
+         // Return the profile view with the necessary data
+         return view('patients.profile', compact('patient', 'medicalInfo', 'emergencyContact'));
      }
 
 
@@ -159,45 +165,9 @@ class PatientController extends Controller
     // Show Patient Create Appointment
     public function createAppointment()
     {
-        return view('patients.create-appointment');
+        return view('patients.appointment');
     }
   
 
-
-
-    // Dashboard Metrics
-    // public function getDashboardMetrics() {
-    //     $userId = Auth::guard('patients')->id();
-    
-    //     // Current month
-    //     $startOfMonth = now()->startOfMonth();
-    //     $endOfMonth = now()->endOfMonth();
-    
-    //     $telemedicineAppointments = Appointment::where('patient_id', $userId)
-    //         ->where('type', 'telemedicine')
-    //         ->whereBetween('date', [$startOfMonth, $endOfMonth])
-    //         ->count();
-    
-    //     $inPersonAppointments = Appointment::where('patient_id', $userId)
-    //         ->where('type', 'in-person')
-    //         ->whereBetween('date', [$startOfMonth, $endOfMonth])
-    //         ->count();
-    
-    //     $pendingPrescriptions = Prescription::where('patient_id', $userId)
-    //         ->where('status', 'pending')
-    //         ->count();
-    
-    //     $completedConsultations = Consultation::where('patient_id', $userId)
-    //         ->where('status', 'completed')
-    //         ->whereBetween('date', [$startOfMonth, $endOfMonth])
-    //         ->count();
-    
-    //     return view('patients.patient-dashboard', compact(
-    //         'telemedicineAppointments', 
-    //         'inPersonAppointments', 
-    //         'pendingPrescriptions', 
-    //         'completedConsultations'
-    //     ));
-    // }
     
 }

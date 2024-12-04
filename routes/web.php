@@ -27,12 +27,16 @@ Route::post('/patients/register', [PatientController::class, 'storePatient'])->n
 Route::get('/patients/login', [PatientController::class, 'patientLoginForm'])->name('patients.login.form');
 Route::post('/patients/login', [PatientController::class, 'patientLogin'])->name('patients.login');
 
+
+
+
 Route::middleware(['auth:patients'])->group(function () {
     Route::get('/patients/patient-dashboard', [PatientController::class, 'patientDashboard'])->name('patients.patient-dashboard');
     Route::get('/patients/profile', [PatientController::class, 'patientProfile'])->name('patients.profile');
     Route::get('/patient/edit-profile', [PatientController::class, 'editPatientProfile'])->name('patients.edit-profile');
     Route::put('/patient/update-profile', [PatientController::class, 'updatePatientProfile'])->name('patients.update-profile');
-    Route::get('/patients/create-appointment', [PatientController::class, 'createAppointment'])->name('patients.create-appointment');
+    
+    Route::get('/patients/appointment', [PatientController::class, 'createAppointment'])->name('patients.appointment');
 });
 
 Route::post('/patients/logout', [PatientController::class, 'patientLogout'])->name('patients.logout');

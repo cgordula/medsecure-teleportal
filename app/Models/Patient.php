@@ -36,4 +36,15 @@ class Patient extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function medical_information()
+    {
+        return $this->hasOne(MedicalInformation::class);
+    }
+
+    // Assuming the relationship for emergency contact
+    public function emergency_contact()
+    {
+        return $this->hasOne(EmergencyContact::class);
+    }
 }
