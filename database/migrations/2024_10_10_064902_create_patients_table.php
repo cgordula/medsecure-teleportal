@@ -24,6 +24,14 @@ class CreatePatientsTable extends Migration
             $table->integer('age')->nullable(); 
             $table->date('birthdate')->nullable();  // Birthdate (nullable)
             $table->string('profile_picture')->nullable();  // Profile picture (nullable)
+              // Address fields
+            $table->string('address_line1')->nullable();  // First line of the address
+            $table->string('address_line2')->nullable();  // Second line of the address (optional)
+            $table->string('city')->nullable();  // City name
+            $table->string('state')->nullable();  // State or province name
+            $table->string('postal_code')->nullable();  // Postal or ZIP code
+            $table->string('country')->nullable();  // Country name
+            
             $table->timestamps();
         });
     }

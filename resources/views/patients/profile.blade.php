@@ -26,6 +26,13 @@
                 <p class="text-muted"><strong>Birthdate: </strong>{{ $patient->birthdate ? \Carbon\Carbon::parse($patient->birthdate)->format('F j, Y') : '' }}</p>
                 <p class="text-muted"><strong>Phone: </strong>{{ $patient->phone }}</p>
                 <p class="text-muted"><strong>Email: </strong>{{ $patient->email }}</p>
+                <p class="text-muted"><strong>Address Line 1:</strong> {{ $patient->address_line1 ?? '' }}</p>
+                <p class="text-muted"><strong>Address Line 2:</strong> {{ $patient->address_line2 ?? '' }}</p>
+                <p class="text-muted"><strong>City:</strong> {{ $patient->city ?? '' }}</p>
+                <p class="text-muted"><strong>State:</strong> {{ $patient->state ?? '' }}</p>
+                <p class="text-muted"><strong>Postal Code:</strong> {{ $patient->postal_code ?? '' }}</p>
+                <p class="text-muted"><strong>Country:</strong> {{ $patient->country ?? '' }}</p>
+
                 <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#editProfileModal">Edit Profile</a>
             </div>
         </div>
@@ -113,6 +120,32 @@
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $patient->email) }}" required>
+                    </div>
+
+                    <!-- Address Fields -->
+                    <div class="form-group">
+                        <label for="address_line1">Address Line 1</label>
+                        <input type="text" class="form-control" id="address_line1" name="address_line1" value="{{ old('address_line1', $patient->address_line1) }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="address_line2">Address Line 2</label>
+                        <input type="text" class="form-control" id="address_line2" name="address_line2" value="{{ old('address_line2', $patient->address_line2) }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" class="form-control" id="city" name="city" value="{{ old('city', $patient->city) }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <input type="text" class="form-control" id="state" name="state" value="{{ old('state', $patient->state) }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="postal_code">Postal Code</label>
+                        <input type="text" class="form-control" id="postal_code" name="postal_code" value="{{ old('postal_code', $patient->postal_code) }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <input type="text" class="form-control" id="country" name="country" value="{{ old('country', $patient->country) }}">
                     </div>
 
                     <!-- Photo Upload (Optional) -->

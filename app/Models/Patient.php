@@ -13,7 +13,7 @@ class Patient extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'phone', 'gender', 'birthdate', 'profile_picture',
+        'first_name', 'last_name', 'email', 'password', 'phone', 'gender', 'birthdate', 'profile_picture',  'address_line1', 'address_line2', 'city', 'state', 'postal_code', 'country',
     ];
 
     protected $casts = [
