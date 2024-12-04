@@ -75,8 +75,7 @@
         }
 
         /* Appointments and Telemedicine Sections */
-        .appointments-section, 
-        .telemedicine-section {
+        .appointments-section {
             display: flex;
             justify-content: space-between;
             gap: 20px;
@@ -85,7 +84,7 @@
         }
 
         .appointments, 
-        .telemedicine {
+        .history {
             width: 48%; /* Default: Two side-by-side sections */
             background-color: #fff;
             padding: 15px;
@@ -94,13 +93,13 @@
         }
 
         .appointments h3, 
-        .telemedicine h3 {
+        .history h3 {
             margin-bottom: 15px;
             font-size: 18px;
         }
 
         .appointment-item, 
-        .telemedicine-item {
+        .history-item {
             margin-bottom: 15px;
             padding: 10px;
             background-color: #f8f9fa;
@@ -204,8 +203,8 @@
             margin-bottom: 10px;
         }
 
-        .metric-item p {
-            font-size: 50px;
+        .metric-item p, .summary-item p {
+            font-size: 40px;
             color: #555;
             font-weight: bold;
         }
@@ -236,7 +235,7 @@
             }
 
             .appointments, 
-            .telemedicine {
+            .history {
                 width: 100%; /* Stack sections on top of each other */
             }
 

@@ -9,16 +9,16 @@
     <!-- Health Summary Section -->
     <div class="dashboard-summary">
         <div class="summary-item">
-            <h3>Telemedicine Available</h3>
-            <p>Online consultations available</p>
+            <h3>Upcoming Appointments</h3>
+            <p>2</p>
         </div>
         <div class="summary-item">
-            <h3>Upcoming Appointments</h3>
-            <p>2 appointments scheduled</p>
+            <h3>Telemedicine History</h3>
+            <p>1</p>
         </div>
         <div class="summary-item">
             <h3>Doctor</h3>
-            <p>Dr. Jane Smith</p>
+            <p>1</p>
         </div>
     </div>
 
@@ -55,14 +55,14 @@
             </div>
         </div>
 
-        <!-- Telemedicine Section -->
-        <div class="telemedicine">
-            <h3>Telemedicine Consultations</h3>
-            <div class="telemedicine-item">
+        <!-- History Section -->
+        <div class="history">
+            <h3>History Summary</h3>
+            <div class="history-item">
                 <strong>Dr. John Doe</strong>
                 <p>March 18, 2024 - 10:00 AM (Virtual)</p>
             </div>
-            <div class="telemedicine-item">
+            <div class="history-item">
                 <strong>Dr. Jane Smith</strong>
                 <p>March 22, 2024 - 11:00 AM (Virtual)</p>
             </div>
