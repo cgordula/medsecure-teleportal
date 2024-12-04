@@ -1,7 +1,10 @@
 @extends('patients.patient_layout')
 
 @section('content')
-<h2>Your Profile</h2>
+<div class="profile-header">
+    <h1>Your Profile</h1>
+</div>
+
 
 <!-- Success message after updating profile -->
 @if(session('success'))

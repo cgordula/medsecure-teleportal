@@ -37,6 +37,9 @@ Route::middleware(['auth:patients'])->group(function () {
     Route::put('/patient/update-profile', [PatientController::class, 'updatePatientProfile'])->name('patients.update-profile');
     
     Route::get('/patients/appointment', [PatientController::class, 'createAppointment'])->name('patients.appointment');
+
+    Route::post('/patients/store-appointment', [AppointmentController::class, 'storeAppointment'])->name('patients.store-appointment');
+
 });
 
 Route::post('/patients/logout', [PatientController::class, 'patientLogout'])->name('patients.logout');

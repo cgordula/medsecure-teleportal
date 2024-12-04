@@ -39,14 +39,14 @@
         }
 
         /* Dashboard content layout */
-        .dashboard-header {
+        .dashboard-header, .appointment-header, .profile-header {
             background-color: #f8f9fa;
             padding: 20px;
             border-bottom: 1px solid #e0e0e0;
             margin-bottom: 20px;
         }
 
-        .dashboard-header h1 {
+        .dashboard-header h1, .appointment-header h1, .profile-header h1 {
             margin: 0;
             font-size: 24px;
             color: #333;
@@ -400,7 +400,7 @@
 
 
 
-    <script>
+    <!-- <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Check if the current page is NOT the profile page
             if (!document.body.classList.contains('profile-page')) {
@@ -423,9 +423,28 @@
                 }
             }
         });
-    </script>
+    </script> -->
 
+    @if(Route::currentRouteName() === 'patients.patient-dashboard') <!-- Check if the current route is the dashboard -->
 
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var calendarEl = document.getElementById('realTimeCalendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth', // Month view
+                    headerToolbar: {
+                        left: 'prev,next today', // Navigation buttons
+                        center: 'title',         // Title (month and year)
+                        right: 'dayGridMonth,dayGridWeek', // View options
+                    },
+                    nowIndicator: true,         // Highlights the current time
+                    selectable: true,          // Allow selecting days
+                });
+
+                calendar.render();
+            });
+        </script>
+    @endif
 
 
 
