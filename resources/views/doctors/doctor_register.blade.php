@@ -28,27 +28,27 @@
                 @csrf
                 <div class="mb-3">
                     <label for="first_name" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="first_name" name="first_name" required>
+                    <input type="text" class="form-control" id="first_name" name="first_name" value="{{ old('first_name') }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="last_name" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="last_name" name="last_name" required>
+                    <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name') }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="specialization" class="form-label">Specialization</label>
-                    <input type="text" class="form-control" id="specialization" name="specialization" required>
+                    <input type="text" class="form-control" id="specialization" name="specialization" value="{{ old('specialization') }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="license_number" class="form-label">License Number</label>
-                    <input type="text" class="form-control" id="license_number" name="license_number" required>
+                    <input type="text" class="form-control" id="license_number" name="license_number" value="{{ old('license_number') }}" required>
                 </div>
 
                 <div class="mb-3">
