@@ -26,45 +26,42 @@
             
             <form action="{{ route('doctors.store') }}" method="POST">
                 @csrf
-                <div class="mb-3">
-                    <label for="first_name" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="first_name" name="first_name" value="{{ old('first_name') }}" required>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="first_name" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="first_name" name="first_name" value="{{ old('first_name') }}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="last_name" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name') }}" required>
+                    </div>
+                    <div class="col-12">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="specialization" class="form-label">Specialization</label>
+                        <input type="text" class="form-control" id="specialization" name="specialization" value="{{ old('specialization') }}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="license_number" class="form-label">License Number</label>
+                        <input type="text" class="form-control" id="license_number" name="license_number" value="{{ old('license_number') }}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="password_confirmation" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
+                    </div>
                 </div>
-
-                <div class="mb-3">
-                    <label for="last_name" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name') }}" required>
+                <div class="mt-4 text-center">
+                    <button type="submit" class="btn btn-primary w-50">Register</button>
                 </div>
-
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="specialization" class="form-label">Specialization</label>
-                    <input type="text" class="form-control" id="specialization" name="specialization" value="{{ old('specialization') }}" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="license_number" class="form-label">License Number</label>
-                    <input type="text" class="form-control" id="license_number" name="license_number" value="{{ old('license_number') }}" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="password_confirmation" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Register</button>
             </form>
 
-            <div class="mt-3">
+            <div class="mt-3 text-center">
                 <p>Already have an account? <a href="{{ route('doctors.login') }}">Log in here</a>.</p>
             </div>
 
