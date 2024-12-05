@@ -6,10 +6,20 @@
 </div>
 
 
-<!-- Success message after updating profile -->
-@if(session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
+<!-- Success/Error message after updating profile -->
+@if (session('success'))
+    <div id="success-message" class="alert alert-success">
+        {{ session('success') }}
+    </div>
 @endif
+
+@if ($errors->any())
+    <div id="error-message" class="alert alert-danger">
+        @foreach ($errors->all() as $error)
+            <div>{{ $error }}</div>
+        @endforeach
+    </div>
+    @endif
 
 
 <div class="row">
@@ -48,6 +58,8 @@
                 <p><strong>Name:</strong> {{ $emergencyContact->name ?? 'N/A' }}</p>
                 <p><strong>Relationship:</strong> {{ $emergencyContact->relationship ?? 'N/A' }}</p>
                 <p><strong>Phone:</strong> {{ $emergencyContact->phone ?? 'N/A' }}</p>
+
+                <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#editEmergencyContactModal">Edit Contact</a>
             </div>
         </div>
     </div>
@@ -300,10 +312,43 @@
 </div>
 
 
+<!-- Emergency Contact Modal -->
+<div class="modal fade" id="editEmergencyContactModal" tabindex="-1" role="dialog" aria-labelledby="editEmergencyContactModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editEmergencyContactModalLabel">Edit Emergency Contact</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ route('patients.edit-profile') }}" method="POST">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="patient_id" value="{{ auth()->user()->id }}">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $emergencyContact->name ?? '') }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="relationship">Relationship</label>
+                        <input type="text" class="form-control" id="relationship" name="relationship" value="{{ old('relationship', $emergencyContact->relationship ?? '') }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone', $emergencyContact->phone ?? '') }}" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 @endsection
-
-
-<!-- Add these to the bottom of your HTML or inside the <head> tag -->
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 

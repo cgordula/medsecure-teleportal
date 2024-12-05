@@ -5,6 +5,7 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DoctorsController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\EmergencyContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,7 @@ Route::middleware(['auth:patients'])->group(function () {
     Route::get('/patients/patient-dashboard', [PatientController::class, 'patientDashboard'])->name('patients.patient-dashboard');
     Route::get('/patients/profile', [PatientController::class, 'patientProfile'])->name('patients.profile');
     Route::get('/patient/edit-profile', [PatientController::class, 'editPatientProfile'])->name('patients.edit-profile');
+    Route::put('/patient/edit-profile', [EmergencyContactController::class, 'updateEmergencyContact'])->name('patients.edit-profile');
     Route::put('/patient/update-profile', [PatientController::class, 'updatePatientProfile'])->name('patients.update-profile');
     
     Route::get('/patients/appointment', [PatientController::class, 'createAppointment'])->name('patients.appointment');
