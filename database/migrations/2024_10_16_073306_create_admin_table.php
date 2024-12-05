@@ -20,6 +20,9 @@ class CreateAdminTable extends Migration
             $table->string('email')->unique(); // Email field with unique constraint
             $table->string('password'); // Password field
             $table->string('role')->default('admin'); // Role column with a default value
+
+            $table->rememberToken(); 
+            
             $table->timestamps(); // Created at and updated at timestamps
         });
     }

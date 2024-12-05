@@ -54,12 +54,17 @@ class AdminController extends Controller
             'password' => ['required'],
         ]);
 
+        // Check if "Remember Me" checkbox is selected
+        $remember = $request->has('remember');
+
+
         // Check if the email exists in the admin table
         $adminExists = Admin::where('email', $credentials['email'])->exists();
 
         // Attempt login using Auth facade
         if (Auth::guard('admin')->attempt($credentials)) {
             // Login successful, redirect to patient dashboard or home
+            $request->session()->regenerate();
             return redirect()->route('admin.admin-dashboard');
         }
 
@@ -86,6 +91,8 @@ class AdminController extends Controller
     public function adminLogout(Request $request)
     {
         Auth::guard('admin')->logout(); // Log out the admin
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         return redirect()->route('admin.login.form')->with('success', 'You have been logged out successfully.');
     }

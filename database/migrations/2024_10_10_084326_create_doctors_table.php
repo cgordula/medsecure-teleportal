@@ -22,6 +22,9 @@ class CreateDoctorsTable extends Migration
             $table->string('specialization');
             $table->string('license_number')->unique();
             $table->string('role')->default('doctor'); // Default role for doctors
+
+            $table->rememberToken(); 
+            
             $table->timestamps();
         });
     }
