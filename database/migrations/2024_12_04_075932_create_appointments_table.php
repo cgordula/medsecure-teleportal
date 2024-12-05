@@ -15,16 +15,19 @@ class CreateAppointmentsTable extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('patient_id');
-            $table->date('appointment_date');
-            $table->time('appointment_time');
-            $table->string('status')->default('Scheduled'); // Could be 'Scheduled', 'Completed', 'Canceled'
-            $table->text('notes')->nullable(); // Optional notes
-            $table->timestamps();
+            $table->unsignedBigInteger('patient_id');  // Foreign key to the 'patients' table
+            $table->date('appointment_date');  // Date of the appointment
+            $table->time('appointment_time');  // Time of the appointment
+            $table->string('doctor');  // Name of the doctor or reference to doctor table
+            $table->string('status')->default('Scheduled');  // Status, e.g., 'Scheduled', 'Completed', 'Canceled'
+            $table->text('message')->nullable();  // Optional message or notes from the patient
+            $table->timestamps();  // Created and updated timestamps
 
+            // Foreign key constraint to link appointments with patients
             $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade');
         });
     }
+
 
     /**
      * Reverse the migrations.

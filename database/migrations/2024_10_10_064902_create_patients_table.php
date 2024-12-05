@@ -32,6 +32,7 @@ class CreatePatientsTable extends Migration
             $table->string('postal_code')->nullable();  // Postal or ZIP code
             $table->string('country')->nullable();  // Country name
             
+            
             $table->timestamps();
         });
     }
