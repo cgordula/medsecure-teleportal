@@ -58,9 +58,14 @@ class PatientController extends Controller
             'password' => ['required'],
         ]);
 
+        // Check if "Remember Me" checkbox is selected
+        $remember = $request->has('remember');
+
         // Attempt login using Auth facade
-        if (Auth::guard('patients')->attempt($credentials)) {
-            // Login successful, redirect to patient dashboard or home
+        if (Auth::guard('patients')->attempt($credentials, $remember)) {
+
+            // Login successful, regenerate session and redirect
+            $request->session()->regenerate();
             return redirect()->route('patients.patient-dashboard');
         }
 
@@ -80,6 +85,8 @@ class PatientController extends Controller
     public function patientLogout(Request $request)
     {
         Auth::guard('patients')->logout(); // Log out the patient
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         return redirect()->route('patients.login.form')->with('success', 'You have been logged out successfully.');
     }
