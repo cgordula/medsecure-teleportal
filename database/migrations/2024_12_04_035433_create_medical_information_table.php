@@ -25,7 +25,7 @@ class CreateMedicalInformationTable extends Migration
             $table->text('consultation_notes')->nullable(); // Doctor's notes
             $table->json('diagnoses')->nullable(); // JSON field for diagnosed conditions
             $table->json('prescriptions')->nullable(); // JSON field for prescriptions
-            $table->json('vital_signs')->nullable(); // JSON field for vital signs like BP, heart rate, etc.
+            $table->json('body_measures')->nullable(); // JSON field for body measurements
 
             $table->timestamps(); // Created at and Updated at timestamps
 

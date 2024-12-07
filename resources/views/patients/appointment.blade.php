@@ -19,6 +19,12 @@
         </div>
     @endif
 
+    @if (session('warning'))
+        <div class="alert alert-warning">
+            {{ session('warning') }}
+        </div>
+    @endif
+
     <!-- Full Width Form Wrapper (Specific Class for Appointment Form) -->
     <div class="appointment-form-container">
         <!-- Appointment Form -->
@@ -26,25 +32,6 @@
             @csrf
             <input type="hidden" name="patient_id" value="{{ auth()->user()->id }}">
 
-            <div class="form-group">
-                <label for="first_name">First Name:</label>
-                <input type="text" class="form-control" id="first_name" name="first_name" value="{{ old('first_name') }}" required>
-            </div>
-
-            <div class="form-group">
-                <label for="last_name">Last Name:</label>
-                <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name') }}" required>
-            </div>
-
-            <div class="form-group">
-                <label for="email">Email Address:</label>
-                <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
-            </div>
-
-            <div class="form-group">
-                <label for="phone">Phone Number:</label>
-                <input type="tel" class="form-control" id="phone" name="phone" value="{{ old('phone') }}" required>
-            </div>
 
             <div class="form-group">
                 <label for="appointment_date">Preferred Date:</label>
@@ -70,8 +57,11 @@
                 <textarea class="form-control" id="message" name="message" rows="4"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary">Book Appointment</button>
+            <button type="submit" class="btn btn-primary" id="bookAppointment">Book Appointment</button>
         </form>
     </div>
+
+
+
 
 @endsection

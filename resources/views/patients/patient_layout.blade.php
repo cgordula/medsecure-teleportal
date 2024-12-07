@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>Patient Dashboard</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
@@ -37,6 +39,51 @@
         .sidebar.collapsed #mobile-logo {
             display: block;
         }
+
+        /* Hide the sidebar text when collapsed */
+        .sidebar.collapsed .sidebar-text {
+            display: none;
+        }
+
+        .sidebar-link {
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .sidebar-link:hover {
+            color: #007bff; /* Highlight color on hover */
+        }
+
+
+        /* Tooltip text for collapsed sidebar only */
+        .sidebar.collapsed .sidebar-link::after {
+            content: attr(data-title); /* Use the data-title attribute */
+            position: absolute;
+            left: 100%; /* Position to the right of the icon */
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            z-index: 1000;
+        }
+
+        /* Show the tooltip on hover when sidebar is collapsed */
+        .sidebar.collapsed .sidebar-link:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+
 
         /* Dashboard content layout */
         .dashboard-header, .appointment-header, .profile-header {
@@ -261,16 +308,42 @@
             }
 
 
-            .sidebar.collapsed .sidebar-text {
-                opacity: 0 !important;
-                visibility: hidden !important;
+            .sidebar-link::after {
+                content: attr(data-title); /* Use the data-title attribute */
+                position: absolute;
+                left: 100%; /* Position to the right of the icon */
+                top: 50%;
+                transform: translateY(-50%);
+                background-color: #333;
+                color: #fff;
+                padding: 5px 10px;
+                border-radius: 4px;
+                white-space: nowrap;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.2s ease, visibility 0.2s ease;
+                z-index: 1000;
+            }
+
+            /* Show the tooltip on hover */
+            .sidebar-link:hover::after {
+                opacity: 1;
+                visibility: visible;
+            }
+            
+
+            .sidebar:not(.collapsed) .sidebar-text {
+                display: inline-block;
             }
 
             .sidebar-text {
-                opacity: 0 !important;
-                visibility: hidden !important;
+                display: none !important;
             }
-           
+
+            .sidebar.collapsed:hover .sidebar-text {
+                display: none !important;
+            }
+
 
             /* Adjust navbar content when collapsed */
             .navbar .container-fluid {
@@ -307,17 +380,21 @@
             <img src="{{ asset('m-logo.png') }}" alt="Logo" style="height: 60px;"  id="mobile-logo" class="sidebar-logo d-none">
         </div>
         
-        <a href="{{ route('patients.patient-dashboard') }}" class="sidebar-link">
+        <a href="{{ route('patients.patient-dashboard') }}" class="sidebar-link" data-title="Dashboard">
             <i class="fas fa-tachometer-alt"></i>
             <span class="sidebar-text">Dashboard</span>
         </a>
-        <a href="{{ route('patients.profile') }}" class="sidebar-link">
+        <a href="{{ route('patients.profile') }}" class="sidebar-link" data-title="Profile">
             <i class="fas fa-user"></i>
             <span class="sidebar-text">Profile</span>
         </a>
-        <a href="{{ route('patients.appointment') }}" class="sidebar-link">
+        <a href="{{ route('patients.appointment') }}" class="sidebar-link" data-title="Create Appointment">
             <i class="fas fa-calendar-plus"></i>
             <span class="sidebar-text">Create Appointment</span>
+        </a>
+        <a href="{{ route('patients.tech-support') }}" class="sidebar-link" data-title="Contact Support Team">
+            <i class="fas fa-headset"></i>
+            <span class="sidebar-text">Contact Support Team</span>
         </a>
     </div>
 

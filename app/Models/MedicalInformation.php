@@ -22,7 +22,7 @@ class MedicalInformation extends Model
         'consultation_notes', 
         'diagnoses', 
         'prescriptions', 
-        'vital_signs'
+        'body_measures'
     ];
 
      // Define the relationship to the Patient model

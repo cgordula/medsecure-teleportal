@@ -8,11 +8,26 @@ use App\Models\Appointment;
 
 class AppointmentController extends Controller
 {
+
+    
+    // Show Patient Create Appointment
+    public function createAppointment()
+    {
+        return view('patients.appointment');
+    }
+  
     public function storeAppointment(Request $request)
     {
+        $patient = auth()->user();
+
         // Ensure the patient is logged in and get their ID
         if (!auth()->check()) {
             return redirect()->route('login')->with('error', 'You must be logged in to book an appointment.');
+        }
+
+        if (empty($patient->first_name) && empty($patient->last_name) && empty($patient->phone) && empty($patient->email) && empty($patient->birthdate) && empty($patient->country)) {
+            // Redirect to profile page with a message to complete their profile
+            return redirect()->route('patients.store-appointment')->with('warning', 'Please complete your profile information before booking an appointment.');
         }
 
         // Validate the incoming request data

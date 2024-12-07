@@ -19,7 +19,7 @@
             <div>{{ $error }}</div>
         @endforeach
     </div>
-    @endif
+@endif
 
 
 <div class="row">
@@ -169,19 +169,19 @@
                 @endif
                 <hr>
 
-                <!-- Vital Signs -->
-                <p class="text-muted"><strong>Vital Signs:</strong></p>
+                <!-- Body Measurements -->
+                <p class="text-muted"><strong>Body Measurements (cm):</strong></p>
                 @php
-                    $vitalSigns = json_decode($medicalInfo->vital_signs ?? '{}', true);
+                    $bodyMeasures = json_decode($medicalInfo->body_measures ?? '{}', true);
                 @endphp
-                @if(is_array($vitalSigns) && count($vitalSigns) > 0)
+                @if(is_array($bodyMeasures) && count($bodyMeasures) > 0)
                     <ul>
-                        @foreach($vitalSigns as $key => $value)
+                        @foreach($bodyMeasures as $key => $value)
                             <li><strong>{{ ucfirst(str_replace('_', ' ', $key)) }}:</strong> {{ $value }}</li>
                         @endforeach
                     </ul>
                 @else
-                    <p>No vital signs available.</p>
+                    <p>N/A</p>
                 @endif
             </div>
         </div>
@@ -201,7 +201,7 @@
             </div>
             
             <!-- Profile Edit Form -->
-            <form action="{{ route('patients.update-profile') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('patients.update-profile') }}" method="POST" enctype="multipart/form-data" id="profileForm">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
@@ -302,7 +302,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary" id="profileSave">Save changes</button>
                 </div>
             </form>
 
@@ -351,4 +351,7 @@
 
 
 @endsection
+
+
+
 

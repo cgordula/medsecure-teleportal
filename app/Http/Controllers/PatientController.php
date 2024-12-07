@@ -167,14 +167,11 @@ class PatientController extends Controller
         return redirect()->route('patients.profile')->with('success', 'Profile updated successfully!');
     }
 
-
-
-    // Show Patient Create Appointment
-    public function createAppointment()
+    public function techSupport()
     {
-        return view('patients.appointment');
+        $patient = Auth::guard('patients')->user(); // Get the authenticated patient's data
+        return view('patients.tech-support', compact('patient'));
     }
-  
 
     
 }
