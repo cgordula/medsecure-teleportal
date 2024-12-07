@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Models\Patient;
 use Illuminate\Support\Facades\Hash;
@@ -28,12 +30,16 @@ class PatientController extends Controller
             'password' => 'required|confirmed|min:8', // Confirm the password
         ]);
 
+        $token = Str::random(60);
+
         Patient::create([
             'first_name' => $validatedData['first_name'],
             'last_name' => $validatedData['last_name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']), // Hash the password before saving
+            'token' => $token,
         ]);
+
 
         // return redirect()->back()->with('success', 'Patient registered successfully!');
 

@@ -3,52 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient Login</title>
+    <title>Reset Password</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
     <div class="container d-flex align-items-center justify-content-center min-vh-100">
         <div class="form-container">
-            <h2 class="text-center">Patient Login</h2>
+            <h2 class="text-center">Reset Your Password</h2>
 
             @if (session('success'))
                 <div id="success-message" class="alert alert-success">
                     {{ session('success') }}
                 </div>
             @endif
-            
+
             @if ($errors->any())
                 <div id="error-message" class="alert alert-danger">
                     @foreach ($errors->all() as $error)
                         <div>{{ $error }}</div>
                     @endforeach
                 </div>
-             @endif
+            @endif
 
-            <form action="{{ route('patients.login') }}" method="POST">
+            <form action="{{ route('patients.password.update') }}" method="POST">
                 @csrf
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
-                </div>
+                <input type="hidden" name="token" value="{{ $token }}">
+                <input type="hidden" name="email" value="{{ $email }}">
 
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
+                    <label for="password" class="form-label">New Password</label>
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
 
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                    <label class="form-check-label" for="remember">Remember Me</label>
+                <div class="mb-3">
+                    <label for="password_confirmation" class="form-label">Confirm New Password</label>
+                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary">Reset Password</button>
             </form>
-
-            <div class="mt-3">
-                <p>Don't have an account? <a href="{{ route('patients.register') }}">Register here</a>.</p>
-                <p><a href="{{ route('password.request') }}">Forgot Password?</a></p>
-            </div>
         </div>
     </div>
 

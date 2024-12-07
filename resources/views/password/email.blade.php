@@ -1,15 +1,16 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient Login</title>
+    <title>Forgot Password</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
     <div class="container d-flex align-items-center justify-content-center min-vh-100">
         <div class="form-container">
-            <h2 class="text-center">Patient Login</h2>
+            <h2 class="text-center">Forgot Your Password?</h2>
 
             @if (session('success'))
                 <div id="success-message" class="alert alert-success">
@@ -25,29 +26,19 @@
                 </div>
              @endif
 
-            <form action="{{ route('patients.login') }}" method="POST">
+
+            <form action="{{ route('password.email') }}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
                 </div>
 
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
-                </div>
-
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                    <label class="form-check-label" for="remember">Remember Me</label>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary">Send Password Reset Link</button>
             </form>
 
             <div class="mt-3">
-                <p>Don't have an account? <a href="{{ route('patients.register') }}">Register here</a>.</p>
-                <p><a href="{{ route('password.request') }}">Forgot Password?</a></p>
+                <p>Remember your password? <a href="{{ route('patients.login') }}">Login here</a>.</p>
             </div>
         </div>
     </div>

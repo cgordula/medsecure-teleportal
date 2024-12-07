@@ -33,6 +33,8 @@ class CreatePatientsTable extends Migration
             $table->string('country')->nullable();  // Country name
             
             $table->rememberToken();  // Required for "Remember Me" functionality
+
+            $table->string('token')->nullable();
             
             $table->timestamps();
         });

@@ -117,13 +117,14 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
+        'patients' => [
+            'provider' => 'patients',  // Use the 'patients' provider
+            'table' => 'password_resets',  // Use the 'password_resets' table for storing reset tokens
+            'expire' => 60,  // Expiration time for the reset link
+            'throttle' => 60,  // Rate limiting
         ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------

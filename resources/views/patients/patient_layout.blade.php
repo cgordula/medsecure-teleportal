@@ -74,7 +74,7 @@
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.2s ease, visibility 0.2s ease;
-            z-index: 1000;
+            z-index: 1000 !important;
         }
 
         /* Show the tooltip on hover when sidebar is collapsed */
@@ -83,6 +83,9 @@
             visibility: visible;
         }
 
+        .sidebar-container {
+            overflow: visible;
+        }
 
 
         /* Dashboard content layout */
@@ -322,13 +325,14 @@
                 opacity: 0;
                 visibility: hidden;
                 transition: opacity 0.2s ease, visibility 0.2s ease;
-                z-index: 1000;
+                z-index: 1000 !important;
             }
 
             /* Show the tooltip on hover */
             .sidebar-link:hover::after {
                 opacity: 1;
                 visibility: visible;
+                z-index: 1000 !important;
             }
             
 

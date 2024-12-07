@@ -6,6 +6,10 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DoctorsController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\EmergencyContactController;
+use App\Http\Controllers\PatientTechSupportController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +33,13 @@ Route::post('/patients/register', [PatientController::class, 'storePatient'])->n
 Route::get('/patients/login', [PatientController::class, 'patientLoginForm'])->name('patients.login.form');
 Route::post('/patients/login', [PatientController::class, 'patientLogin'])->name('patients.login');
 
+// Forgot Password Routes
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+// Reset Password Routes
+Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('patients.password.reset');
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('patients.password.update');
 
 
 
@@ -36,13 +47,15 @@ Route::middleware(['auth:patients'])->group(function () {
     Route::get('/patients/patient-dashboard', [PatientController::class, 'patientDashboard'])->name('patients.patient-dashboard');
     Route::get('/patients/profile', [PatientController::class, 'patientProfile'])->name('patients.profile');
     Route::get('/patient/edit-profile', [PatientController::class, 'editPatientProfile'])->name('patients.edit-profile');
-    Route::put('/patient/edit-profile', [EmergencyContactController::class, 'updateEmergencyContact'])->name('patients.edit-profile');
+    Route::put('/patient/edit-profile', [EmergencyContactController::class, 'updateEmergencyContact'])->name('patients.edit-contact');
     Route::put('/patient/update-profile', [PatientController::class, 'updatePatientProfile'])->name('patients.update-profile');
     
     Route::get('/patients/appointment', [AppointmentController::class, 'createAppointment'])->name('patients.appointment');
     Route::post('/patients/store-appointment', [AppointmentController::class, 'storeAppointment'])->name('patients.store-appointment');
 
     Route::get('/patients/tech-support', [PatientController::class, 'techSupport'])->name('patients.tech-support');
+    Route::post('/patients/submit-tech-support', [PatientTechSupportController::class, 'submitTechSupport'])->name('patients.submit-tech-support');
+    
 
 
 });
