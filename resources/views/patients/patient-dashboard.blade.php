@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <div class="dashboard-metrics">
+    <!-- <div class="dashboard-metrics">
         <h2>Monthly Metrics</h2>
         <div class="metrics-grid">
             <div class="metric-item">
@@ -38,44 +38,55 @@
                 <p>6</p>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Appointments and Telemedicine -->
     <div class="appointments-section">
         <!-- Upcoming Appointments -->
         <div class="appointments">
             <h3>Upcoming Appointments</h3>
-            <div class="appointment-item">
-                <strong>Dr. John Doe</strong>
-                <p>March 15, 2024 - 2:00 PM</p>
-            </div>
-            <div class="appointment-item">
-                <strong>Dr. Jane Smith</strong>
-                <p>March 20, 2024 - 9:00 AM</p>
-            </div>
+            @forelse ($upcomingAppointments as $appointment)
+                <div class="appointment-item">
+                    <strong>{{ $appointment->doctor }}</strong>
+                    <p>{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('F d, Y') }} - {{ $appointment->appointment_time }}</p>
+                </div>
+            @empty
+                <p>No upcoming appointments.</p>
+            @endforelse
         </div>
 
         <!-- History Section -->
         <div class="history">
             <h3>History Summary</h3>
-            <div class="history-item">
-                <strong>Dr. John Doe</strong>
-                <p>March 18, 2024 - 10:00 AM (Virtual)</p>
-            </div>
-            <div class="history-item">
-                <strong>Dr. Jane Smith</strong>
-                <p>March 22, 2024 - 11:00 AM (Virtual)</p>
-            </div>
+            @forelse ($appointmentHistory as $appointment)
+                <div class="history-item">
+                    <strong>{{ $appointment->doctor }}</strong>
+                    <p>{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('F d, Y') }} - {{ $appointment->appointment_time }}</p>
+                </div>
+            @empty
+                <p>No completed appointments found.</p>
+            @endforelse
         </div>
     </div>
 
     <!-- Doctor Info -->
-    <div class="doctor-info">
-        <h3>Your Doctor</h3>
-        <p><strong>Dr. Jane Smith</strong></p>
-        <p>Specialty: Internal Medicine</p>
-        <p>License No.: 12345678</p>
-    </div>
+    @if ($upcomingAppointments->isNotEmpty())
+        @foreach ($upcomingAppointments as $appointment)
+            <div class="doctor-info">
+                <h3>Your Doctor</h3>
+                <p><strong>{{ $appointment->doctor }}</strong></p>
+                <p>Specialty: {{ $appointment->specialization }}</p>
+                <p>License No.: {{ $appointment->license_number }}</p>
+            </div>
+        @endforeach
+    @else
+        <div class="doctor-info">
+            <h3>Your Doctor</h3>
+            <p>No upcoming appointments found.</p>
+        </div>
+    @endif
+
+
 
     <!-- Quick Action Buttons -->
     <div class="action-buttons">

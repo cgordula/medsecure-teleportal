@@ -47,4 +47,13 @@ class Patient extends Authenticatable
     {
         return $this->hasOne(EmergencyContact::class);
     }
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class, 'patient_id');
+    }
+    
+
+
+
 }

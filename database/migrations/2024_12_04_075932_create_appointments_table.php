@@ -19,7 +19,7 @@ class CreateAppointmentsTable extends Migration
             $table->date('appointment_date');  // Date of the appointment
             $table->time('appointment_time');  // Time of the appointment
             $table->string('doctor');  // Name of the doctor or reference to doctor table
-            $table->string('status')->default('Scheduled');  // Status, e.g., 'Scheduled', 'Completed', 'Canceled'
+            $table->string('status')->default('Scheduled');  // Status, e.g., 'Scheduled', 'Completed', 'Cancelled'
             $table->text('message')->nullable();  // Optional message or notes from the patient
             $table->timestamps();  // Created and updated timestamps
 

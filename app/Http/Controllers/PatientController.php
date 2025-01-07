@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\MedicalInformation;
 use App\Models\EmergencyContact;
+use App\Models\Appointment;
+use App\Models\Doctor;
 
 
 class PatientController extends Controller
@@ -82,10 +84,65 @@ class PatientController extends Controller
     }
 
 
+    // public function patientDashboard()
+    // {
+    
+    //     $doctor = Auth::guard('doctors')->user(); 
+    
+    //     return view('patients.patient-dashboard', compact('doctor'));
+    // }
+
+
     public function patientDashboard()
     {
-        return view('patients.patient-dashboard');
+        // Get the authenticated patient
+        $patient = Auth::guard('patients')->user();
+
+        // Fetch upcoming appointments
+        $upcomingAppointments = Appointment::where('patient_id', $patient->id)
+            ->where('status', 'Scheduled') // Filter for scheduled appointments
+            ->whereDate('appointment_date', '>=', now()) // Appointments in the future or today
+            ->orderBy('appointment_date', 'asc') // Sort ascending by date
+            ->get();
+
+
+        // Loop through each appointment and match the doctor
+        foreach ($upcomingAppointments as $appointment) {
+            // Trim spaces for reliable comparison
+            $doctorName = trim($appointment->doctor);
+            
+            // Log::debug('Appointment Doctor Name: ' . $doctorName);
+
+            // Match the doctor based on the full name including "Dr."
+            $matchedDoctor = Doctor::whereRaw("LOWER(CONCAT(first_name, ' ', last_name)) = LOWER(?)", [$doctorName])
+            ->orWhereRaw("LOWER(CONCAT('Dr. ', first_name, ' ', last_name)) = LOWER(?)", [$doctorName])
+            ->first();
+
+
+            if ($matchedDoctor) {
+                // Add doctor details to the appointment
+                $appointment->specialization = $matchedDoctor->specialization;
+                $appointment->license_number = $matchedDoctor->license_number;
+            } else {
+                // Fallback if no doctor matches
+                $appointment->specialization = 'Unknown';
+                $appointment->license_number = 'N/A';
+            }
+        }
+
+        
+        // Fetch past appointments
+        $appointmentHistory = Appointment::where('patient_id', $patient->id)
+            ->where('status', 'Completed') // Filter for completed appointments
+            ->orderBy('appointment_date', 'desc') // Sort descending by date
+            ->get();
+
+        // Pass data to the view
+        return view('patients.patient-dashboard', compact('upcomingAppointments', 'appointmentHistory'));
     }
+
+
+    
 
 
     public function patientLogout(Request $request)
