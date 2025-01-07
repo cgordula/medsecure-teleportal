@@ -82,7 +82,7 @@
     @else
         <div class="doctor-info">
             <h3>Your Doctor</h3>
-            <p>No upcoming appointments found.</p>
+            <p>No doctor information available for upcoming appointments.</p>
         </div>
     @endif
 
