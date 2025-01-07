@@ -23,4 +23,11 @@ class Doctor extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    // Relationship to the Appointment model
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class, 'doctor_id');
+    }
+
 }

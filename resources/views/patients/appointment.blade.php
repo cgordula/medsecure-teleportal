@@ -43,11 +43,14 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="doctor" class="form-label">Select Doctor:</label>
-                    <select class="form-select" id="doctor" name="doctor" required>
-                        <option value="Dr. Orawan Kosumsupamala" {{ old('doctor') == 'Dr. Orawan Kosumsupamala' ? 'selected' : '' }}>Dr. Orawan Kosumsupamala</option>
-                        <option value="Dr. Woraporn Ratanalert" {{ old('doctor') == 'Dr. Woraporn Ratanalert' ? 'selected' : '' }}>Dr. Woraporn Ratanalert</option>
-                        <option value="Dr. Krairit Tiyakul" {{ old('doctor') == 'Dr. Krairit Tiyakul' ? 'selected' : '' }}>Dr. Krairit Tiyakul</option>
+                    <label for="doctor_id" class="form-label">Select Doctor:</label>
+                    <select class="form-select" id="doctor_id" name="doctor_id" required>
+                        <option value="">-- Select Doctor --</option>
+                        @foreach($doctors as $doctor)
+                            <option value="{{ $doctor->id }}" {{ old('doctor_id') == $doctor->id ? 'selected' : '' }}>
+                                Dr. {{ $doctor->first_name }} {{ $doctor->last_name }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
 

@@ -106,25 +106,15 @@ class PatientController extends Controller
             ->get();
 
 
-        // Loop through each appointment and match the doctor
+        // Loop through each appointment and add doctor details
         foreach ($upcomingAppointments as $appointment) {
-            // Trim spaces for reliable comparison
-            $doctorName = trim($appointment->doctor);
-            
-            // Log::debug('Appointment Doctor Name: ' . $doctorName);
-
-            // Match the doctor based on the full name including "Dr."
-            $matchedDoctor = Doctor::whereRaw("LOWER(CONCAT(first_name, ' ', last_name)) = LOWER(?)", [$doctorName])
-            ->orWhereRaw("LOWER(CONCAT('Dr. ', first_name, ' ', last_name)) = LOWER(?)", [$doctorName])
-            ->first();
-
-
-            if ($matchedDoctor) {
+            // Check if a doctor is associated with the appointment
+            if ($appointment->doctor) {
                 // Add doctor details to the appointment
-                $appointment->specialization = $matchedDoctor->specialization;
-                $appointment->license_number = $matchedDoctor->license_number;
+                $appointment->specialization = $appointment->doctor->specialization;
+                $appointment->license_number = $appointment->doctor->license_number;
             } else {
-                // Fallback if no doctor matches
+                // Fallback if no doctor is found
                 $appointment->specialization = 'Unknown';
                 $appointment->license_number = 'N/A';
             }

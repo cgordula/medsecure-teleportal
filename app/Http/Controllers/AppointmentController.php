@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Patient;
 use App\Models\Appointment;
+use App\Models\Doctor;
+
 
 class AppointmentController extends Controller
 {
@@ -13,7 +15,8 @@ class AppointmentController extends Controller
     // Show Patient Create Appointment
     public function createAppointment()
     {
-        return view('patients.appointment');
+        $doctors = Doctor::all(); // Fetch all doctors from the doctors table
+        return view('patients.appointment', compact('doctors'));
     }
   
     public function storeAppointment(Request $request)
@@ -34,7 +37,7 @@ class AppointmentController extends Controller
         $validated = $request->validate([
             'appointment_date' => 'required|date',
             'appointment_time' => 'required|date_format:H:i',
-            'doctor' => 'required|string|max:255',
+            'doctor_id' => 'required|exists:doctors,id',
             'message' => 'nullable|string|max:1000',  // Optional message
         ]);
 
@@ -43,7 +46,7 @@ class AppointmentController extends Controller
             'patient_id' => auth()->user()->id,  // Use the currently authenticated patient's ID
             'appointment_date' => $validated['appointment_date'],
             'appointment_time' => $validated['appointment_time'],
-            'doctor' => $validated['doctor'],
+            'doctor_id' => $validated['doctor_id'],
             'status' => 'Scheduled',  // Default to 'Scheduled' status
             'message' => $validated['message'],  // Optional message, can be null
         ]);
