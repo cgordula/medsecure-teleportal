@@ -10,6 +10,61 @@ body {
 html, body {
     height: 100%;
 }
+/* Sidebar styling when collapsed */
+.sidebar.collapsed #desktop-logo {
+    display: none;
+}
+
+.sidebar.collapsed #mobile-logo {
+    display: block;
+}
+
+/* Hide the sidebar text when collapsed */
+.sidebar.collapsed .sidebar-text {
+    display: none;
+}
+
+.sidebar-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+.sidebar-link:hover {
+    color: #007bff; /* Highlight color on hover */
+}
+
+
+/* Tooltip text for collapsed sidebar only */
+.sidebar.collapsed .sidebar-link::after {
+    content: attr(data-title); /* Use the data-title attribute */
+    position: absolute;
+    left: 100%; /* Position to the right of the icon */
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    z-index: 1000 !important;
+}
+
+/* Show the tooltip on hover when sidebar is collapsed */
+.sidebar.collapsed .sidebar-link:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+.sidebar-container {
+    overflow: visible;
+}
 
 
 .form-container {

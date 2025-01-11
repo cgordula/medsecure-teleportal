@@ -31,61 +31,7 @@
 
 
     <style>
-        /* Sidebar styling when collapsed */
-        .sidebar.collapsed #desktop-logo {
-            display: none;
-        }
-
-        .sidebar.collapsed #mobile-logo {
-            display: block;
-        }
-
-        /* Hide the sidebar text when collapsed */
-        .sidebar.collapsed .sidebar-text {
-            display: none;
-        }
-
-        .sidebar-link {
-            position: relative;
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            text-decoration: none;
-            color: #333;
-        }
-
-        .sidebar-link:hover {
-            color: #007bff; /* Highlight color on hover */
-        }
-
-
-        /* Tooltip text for collapsed sidebar only */
-        .sidebar.collapsed .sidebar-link::after {
-            content: attr(data-title); /* Use the data-title attribute */
-            position: absolute;
-            left: 100%; /* Position to the right of the icon */
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: #333;
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 4px;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.2s ease, visibility 0.2s ease;
-            z-index: 1000 !important;
-        }
-
-        /* Show the tooltip on hover when sidebar is collapsed */
-        .sidebar.collapsed .sidebar-link:hover::after {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .sidebar-container {
-            overflow: visible;
-        }
+        
 
 
         /* Dashboard content layout */
@@ -164,23 +110,6 @@
             border-left: 4px solid #ff007b;
         }
 
-        /* Doctor Info Section */
-        .doctor-info {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .doctor-info h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-
-        .doctor-info p {
-            margin: 5px 0;
-        }
 
         /* Quick Action Buttons */
         .action-buttons {
@@ -485,33 +414,6 @@
             }
         }
     </script>
-
-
-
-    <!-- <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Check if the current page is NOT the profile page
-            if (!document.body.classList.contains('profile-page')) {
-                var calendarEl = document.getElementById('realTimeCalendar');
-
-                // Only initialize the calendar if the element exists
-                if (calendarEl) {
-                    var calendar = new FullCalendar.Calendar(calendarEl, {
-                        initialView: 'dayGridMonth', // Month view
-                        headerToolbar: {
-                            left: 'prev,next today', // Navigation buttons
-                            center: 'title',        // Title (month and year)
-                            right: 'dayGridMonth,dayGridWeek', // View options
-                        },
-                        nowIndicator: true, // Highlights the current time
-                        selectable: false,  // Disables selection since it's a view-only calendar
-                    });
-
-                    calendar.render();
-                }
-            }
-        });
-    </script> -->
 
     @if(Route::currentRouteName() === 'patients.patient-dashboard') <!-- Check if the current route is the dashboard -->
 

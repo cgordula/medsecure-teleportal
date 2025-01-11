@@ -6,6 +6,10 @@ use App\Models\Doctor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Models\MedicalInformation;
+use App\Models\EmergencyContact;
+use App\Models\Appointment;
+use App\Models\Patient;
 
 class DoctorsController extends Controller
 {
@@ -78,7 +82,45 @@ class DoctorsController extends Controller
 
     public function doctorDashboard()
     {
-        return view('doctors.doctor-dashboard');
+        // Get the authenticated patient
+        $doctor = Auth::guard('doctors')->user();
+
+         // Fetch upcoming appointments for the authenticated doctor
+        $upcomingAppointments = Appointment::with('patient') // Eager-load patient relationship
+        ->where('doctor_id', $doctor->id)
+        ->where('status', 'Scheduled') // Only scheduled appointments
+        ->whereDate('appointment_date', '>', now()) // Appointments in the future
+        ->orderBy('appointment_date', 'asc') // Sort by date ascending
+        ->get();
+
+        // Count upcoming appointments
+        $upcomingAppointmentsCount = $upcomingAppointments->count();
+
+        // Fetch past completed appointments
+        $appointmentHistory = Appointment::with('patient') // Eager-load patient relationship
+        ->where('doctor_id', $doctor->id)
+        ->where('status', 'Completed') // Only completed appointments
+        ->whereDate('appointment_date', '<', now()) // Past appointments only
+        ->orderBy('appointment_date', 'desc') // Sort by date descending
+        ->get();
+
+        // Count telemedicine history (past completed appointments)
+        $telemedicineHistoryCount = $appointmentHistory->count();
+
+        // Fetch unique patients associated with all appointments
+        $patientCount = Appointment::where('doctor_id', $doctor->id)
+            ->distinct('patient_id')
+            ->count('patient_id');
+
+        
+        // Pass data to the view
+        return view('doctors.doctor-dashboard', compact(
+            'upcomingAppointments',
+            'appointmentHistory',
+            'upcomingAppointmentsCount',
+            'telemedicineHistoryCount',
+            'patientCount'
+        ));
     }
 
 

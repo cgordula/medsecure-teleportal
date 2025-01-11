@@ -21,30 +21,13 @@
             </p>
         </div>
         <div class="summary-item">
-            <h3>Doctor</h3>
+            <h3>Doctors</h3>
             <p>
                 <a href="#" data-bs-toggle="modal" data-bs-target="#doctorModal">{{ $doctorCount }}</a>
             </p>
         </div>
     </div>
 
-    <!-- <div class="dashboard-metrics">
-        <h2>Monthly Metrics</h2>
-        <div class="metrics-grid">
-            <div class="metric-item">
-                <h3>Month-to-Date Appointments</h3>
-                <p>2</p>
-            </div>
-            <div class="metric-item">
-                <h3>Different Doctors Consulted</h3>
-                <p>5</p>
-            </div>
-            <div class="metric-item">
-                <h3>Telemedicine Sessions</h3>
-                <p>6</p>
-            </div>
-        </div>
-    </div> -->
 
     <!-- Appointments and Telemedicine -->
     <div class="appointments-section">
@@ -150,8 +133,8 @@
                     @forelse ($uniqueDoctors as $doctor)
                         <div>
                             <strong>{{ $doctor->first_name }} {{ $doctor->last_name }}</strong>
-                            <p>Specialization: {{ $doctor->specialization }}</p>
-                            <p>License No.: {{ $doctor->license_number }}</p>
+                            <p class="m-0">Specialization: {{ $doctor->specialization }}</p>
+                            <p class="m-0">License No.: {{ $doctor->license_number }}</p>
                         </div>
                         <hr>
                     @empty
