@@ -148,13 +148,20 @@
             font-size: 18px;
         }
 
-        .appointment-item, 
-        .history-item {
+        .appointment-item{
             margin-bottom: 15px;
             padding: 10px;
             background-color: #f8f9fa;
             border-radius: 5px;
             border-left: 4px solid #007bff;
+        }
+
+        .history-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #ff007b;
         }
 
         /* Doctor Info Section */

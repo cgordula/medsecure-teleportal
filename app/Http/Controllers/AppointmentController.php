@@ -35,7 +35,7 @@ class AppointmentController extends Controller
 
         // Validate the incoming request data
         $validated = $request->validate([
-            'appointment_date' => 'required|date',
+            'appointment_date' => 'required|date|after:today', // Ensure the date is strictly after today
             'appointment_time' => 'required|date_format:H:i',
             'doctor_id' => 'required|exists:doctors,id',
             'message' => 'nullable|string|max:1000',  // Optional message

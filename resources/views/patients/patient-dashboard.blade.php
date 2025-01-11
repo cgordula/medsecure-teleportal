@@ -10,21 +10,18 @@
     <div class="dashboard-summary">
         <div class="summary-item">
             <h3>Upcoming Appointments</h3>
-            <p>{{ $upcomingAppointmentsCount }}</p>
             <p>
                 <a href="#" data-bs-toggle="modal" data-bs-target="#upcomingAppointmentsModal">{{ $upcomingAppointmentsCount }}</a>
             </p>
         </div>
         <div class="summary-item">
             <h3>Telemedicine History</h3>
-            <p>{{ $telemedicineHistoryCount }}</p>
             <p>
                 <a href="#" data-bs-toggle="modal" data-bs-target="#telemedicineHistoryModal">{{ $telemedicineHistoryCount }}</a>
             </p>
         </div>
         <div class="summary-item">
             <h3>Doctor</h3>
-            <p>{{ $doctorCount }}</p>
             <p>
                 <a href="#" data-bs-toggle="modal" data-bs-target="#doctorModal">{{ $doctorCount }}</a>
             </p>
