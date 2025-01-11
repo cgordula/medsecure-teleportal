@@ -11,14 +11,23 @@
         <div class="summary-item">
             <h3>Upcoming Appointments</h3>
             <p>{{ $upcomingAppointmentsCount }}</p>
+            <p>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#upcomingAppointmentsModal">{{ $upcomingAppointmentsCount }}</a>
+            </p>
         </div>
         <div class="summary-item">
             <h3>Telemedicine History</h3>
             <p>{{ $telemedicineHistoryCount }}</p>
+            <p>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#telemedicineHistoryModal">{{ $telemedicineHistoryCount }}</a>
+            </p>
         </div>
         <div class="summary-item">
             <h3>Doctor</h3>
             <p>{{ $doctorCount }}</p>
+            <p>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#doctorModal">{{ $doctorCount }}</a>
+            </p>
         </div>
     </div>
 
@@ -69,24 +78,6 @@
         </div>
     </div>
 
-    <!-- Doctor Info -->
-    @if ($upcomingAppointments->isNotEmpty())
-        @foreach ($upcomingAppointments as $appointment)
-            <div class="doctor-info">
-                <h3>Your Doctor</h3>
-                <strong>Dr. {{ $appointment->doctor->first_name }} {{ $appointment->doctor->last_name }}</strong>
-                <p>Specialty: {{ $appointment->specialization }}</p>
-                <p>License No.: {{ $appointment->license_number }}</p>
-            </div>
-        @endforeach
-    @else
-        <div class="doctor-info">
-            <h3>Your Doctor</h3>
-            <p>No doctor information available for upcoming appointments.</p>
-        </div>
-    @endif
-
-
 
     <!-- Quick Action Buttons -->
     <div class="action-buttons">
@@ -97,6 +88,81 @@
 
     <div id="realTimeCalendarContainer">
         <div id="realTimeCalendar"></div>
+    </div>
+
+    <!-- Modals -->
+
+    <!-- Upcoming Appointments Modal -->
+    <div class="modal fade" id="upcomingAppointmentsModal" tabindex="-1" aria-labelledby="upcomingAppointmentsModalLabel" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="upcomingAppointmentsModalLabel">Upcoming Appointments</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @forelse ($upcomingAppointments as $appointment)
+                        <div>
+                            <strong>{{ $appointment->doctor->first_name }} {{ $appointment->doctor->last_name }}</strong>
+                            <p>{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('F d, Y') }} at {{ $appointment->appointment_time }}</p>
+                        </div>
+                        <hr>
+                    @empty
+                        <p>No upcoming appointments.</p>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Telemedicine History Modal -->
+    <div class="modal fade" id="telemedicineHistoryModal" tabindex="-1" aria-labelledby="telemedicineHistoryModalLabel" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="telemedicineHistoryModalLabel">Telemedicine History</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @forelse ($appointmentHistory as $appointment)
+                        <div>
+                            <strong>{{ $appointment->doctor->first_name }} {{ $appointment->doctor->last_name }}</strong>
+                            <p>{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('F d, Y') }} at {{ $appointment->appointment_time }}</p>
+                        </div>
+                        <hr>
+                    @empty
+                        <p>No telemedicine history.</p>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Doctor Modal -->
+    <div class="modal fade" id="doctorModal" tabindex="-1" aria-labelledby="doctorModalLabel" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="doctorModalLabel">Doctors</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @php
+                        $uniqueDoctors = $upcomingAppointments->pluck('doctor')->unique('id');
+                    @endphp
+                    @forelse ($uniqueDoctors as $doctor)
+                        <div>
+                            <strong>{{ $doctor->first_name }} {{ $doctor->last_name }}</strong>
+                            <p>Specialization: {{ $doctor->specialization }}</p>
+                            <p>License No.: {{ $doctor->license_number }}</p>
+                        </div>
+                        <hr>
+                    @empty
+                        <p>No doctors associated with your appointments.</p>
+                    @endforelse
+                </div>
+            </div>
+        </div>
     </div>
 
 
