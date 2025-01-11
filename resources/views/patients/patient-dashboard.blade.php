@@ -47,7 +47,7 @@
             <h3>Upcoming Appointments</h3>
             @forelse ($upcomingAppointments as $appointment)
                 <div class="appointment-item">
-                    <strong>{{ $appointment->doctor }}</strong>
+                    <strong>Dr. {{ $appointment->doctor->first_name }} {{ $appointment->doctor->last_name }}</strong>
                     <p>{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('F d, Y') }} - {{ $appointment->appointment_time }}</p>
                 </div>
             @empty
@@ -60,7 +60,7 @@
             <h3>History Summary</h3>
             @forelse ($appointmentHistory as $appointment)
                 <div class="history-item">
-                    <strong>{{ $appointment->doctor }}</strong>
+                    <strong>Dr. {{ $appointment->doctor->first_name }} {{ $appointment->doctor->last_name }}</strong>
                     <p>{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('F d, Y') }} - {{ $appointment->appointment_time }}</p>
                 </div>
             @empty
@@ -74,7 +74,7 @@
         @foreach ($upcomingAppointments as $appointment)
             <div class="doctor-info">
                 <h3>Your Doctor</h3>
-                <p><strong>{{ $appointment->doctor }}</strong></p>
+                <strong>Dr. {{ $appointment->doctor->first_name }} {{ $appointment->doctor->last_name }}</strong>
                 <p>Specialty: {{ $appointment->specialization }}</p>
                 <p>License No.: {{ $appointment->license_number }}</p>
             </div>
