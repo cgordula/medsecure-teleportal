@@ -132,4 +132,15 @@ class DoctorsController extends Controller
 
         return redirect()->route('doctors.login.form')->with('success', 'You have been logged out successfully.');
     }
+
+
+    // Show the Patient Profile
+    public function doctorProfile()
+    {
+        $doctor = Auth::guard('doctors')->user(); // Get the authenticated doctors's data
+        
+       
+        // Return the profile view with the necessary data
+        return view('doctors.profile', compact('doctor'));
+    }
 }

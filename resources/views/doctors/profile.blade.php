@@ -1,0 +1,1 @@
+@extends('doctors.doctor_layout')
