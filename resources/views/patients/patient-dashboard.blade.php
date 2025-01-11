@@ -10,15 +10,15 @@
     <div class="dashboard-summary">
         <div class="summary-item">
             <h3>Upcoming Appointments</h3>
-            <p>2</p>
+            <p>{{ $upcomingAppointmentsCount }}</p>
         </div>
         <div class="summary-item">
             <h3>Telemedicine History</h3>
-            <p>1</p>
+            <p>{{ $telemedicineHistoryCount }}</p>
         </div>
         <div class="summary-item">
             <h3>Doctor</h3>
-            <p>1</p>
+            <p>{{ $doctorCount }}</p>
         </div>
     </div>
 

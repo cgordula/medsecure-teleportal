@@ -105,6 +105,24 @@ class PatientController extends Controller
             ->orderBy('appointment_date', 'asc') // Sort ascending by date
             ->get();
 
+        // Count upcoming appointments
+        $upcomingAppointmentsCount = $upcomingAppointments->count();
+
+         // Fetch past appointments (excluding today)
+        $appointmentHistory = Appointment::where('patient_id', $patient->id)
+        ->where('status', 'Completed') // Filter for completed appointments
+        ->whereDate('appointment_date', '<', now()) // Only past dates
+        ->orderBy('appointment_date', 'desc') // Sort descending by date
+        ->get();
+
+        // Count telemedicine history (past completed appointments)
+        $telemedicineHistoryCount = $appointmentHistory->count();
+
+        // Fetch unique doctors associated with all appointments
+        $doctorCount = Appointment::where('patient_id', $patient->id)
+            ->distinct('doctor_id')
+            ->count('doctor_id');
+
 
         // Loop through each appointment and add doctor details
         foreach ($upcomingAppointments as $appointment) {
@@ -121,14 +139,14 @@ class PatientController extends Controller
         }
 
         
-        // Fetch past appointments
-        $appointmentHistory = Appointment::where('patient_id', $patient->id)
-            ->where('status', 'Completed') // Filter for completed appointments
-            ->orderBy('appointment_date', 'desc') // Sort descending by date
-            ->get();
-
         // Pass data to the view
-        return view('patients.patient-dashboard', compact('upcomingAppointments', 'appointmentHistory'));
+        return view('patients.patient-dashboard', compact(
+            'upcomingAppointments',
+            'appointmentHistory',
+            'upcomingAppointmentsCount',
+            'telemedicineHistoryCount',
+            'doctorCount'
+        ));
     }
 
 
