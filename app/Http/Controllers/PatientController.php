@@ -119,9 +119,18 @@ class PatientController extends Controller
         $telemedicineHistoryCount = $appointmentHistory->count();
 
         // Fetch unique doctors associated with all appointments
+        // $uniqueDoctors = $upcomingAppointments->pluck('doctor')->unique('id');
+        // $doctorCount = $uniqueDoctors->count();
+
+        // Fetch unique doctors associated with all appointments
         $doctorCount = Appointment::where('patient_id', $patient->id)
             ->distinct('doctor_id')
             ->count('doctor_id');
+
+        $allDoctors = Doctor::whereIn('id', Appointment::where('patient_id', $patient->id)
+        ->pluck('doctor_id')
+        ->unique())
+        ->get();
 
 
         // Loop through each appointment and add doctor details
@@ -145,7 +154,8 @@ class PatientController extends Controller
             'appointmentHistory',
             'upcomingAppointmentsCount',
             'telemedicineHistoryCount',
-            'doctorCount'
+            'doctorCount',
+            'allDoctors'
         ));
     }
 

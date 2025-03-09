@@ -127,10 +127,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    @php
-                        $uniqueDoctors = $upcomingAppointments->pluck('doctor')->unique('id');
-                    @endphp
-                    @forelse ($uniqueDoctors as $doctor)
+                    @forelse ($allDoctors as $doctor)
                         <div>
                             <strong>{{ $doctor->first_name }} {{ $doctor->last_name }}</strong>
                             <p class="m-0">Specialization: {{ $doctor->specialization }}</p>
