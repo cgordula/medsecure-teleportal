@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @if (app()->environment('production'))
+    <!-- If running on Railway (production environment) -->
+    <link rel="stylesheet" href="https://medsecure-teleportal-production.up.railway.app/css/app.css">
+    @else
+        <!-- If running locally or in a non-production environment -->
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @endif
+
 </head>
 <body>
     <div class="container-fluid min-vh-100 d-flex align-items-center">

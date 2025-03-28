@@ -7,7 +7,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Patient Dashboard</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @if (app()->environment('production'))
+    <!-- If running on Railway (production environment) -->
+    <link rel="stylesheet" href="https://medsecure-teleportal-production.up.railway.app/css/app.css">
+    @else
+        <!-- If running locally or in a non-production environment -->
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @endif
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
