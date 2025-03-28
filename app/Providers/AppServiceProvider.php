@@ -25,10 +25,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
-
-        // Force all URLs to use HTTPS in production (just add this for railway.app deployment)
-        if (env('APP_ENV') === 'production') {
-            URL::forceScheme('https');
-        }
     }
 }
