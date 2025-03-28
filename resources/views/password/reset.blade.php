@@ -52,6 +52,13 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/app.js') }}"></script>
+    @if (app()->environment('production'))
+    <!-- If running on Railway (production environment) -->
+    <script src="https://medsecure-teleportal-production.up.railway.app/js/app.js"></script>
+    @else
+        <!-- If running locally or in a non-production environment -->
+        <script src="{{ asset('js/app.js') }}"></script>
+    @endif
+
 </body>
 </html>
