@@ -15,7 +15,9 @@
     
 </head>
 <body>
-<div class="container d-flex align-items-center justify-content-center min-vh-100">
+<div class="container d-flex align-items-center justify-content-center min-vh-100 flex-column">
+    <img src="{{ asset('medsecure_logo.png') }}" alt="MedSecure Logo" class="mb-5" style="max-width: 200px;">
+    
     <div class="form-container">
         <h2 class="text-center">Admin Registration</h2>
 
@@ -63,7 +65,6 @@
                     <label for="password_confirmation" class="form-label">Confirm Password</label>
                     <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
                 </div>
-                
             </div>
             <div class="mt-4 text-center">
                 <button type="submit" class="btn btn-primary w-50">Register</button>
@@ -76,13 +77,14 @@
     </div>
 </div>
 
-@if (app()->environment('production'))
-    <!-- If running on Railway (production environment) -->
-    <script src="https://medsecure-teleportal-production.up.railway.app/js/app.js"></script>
-@else
-    <!-- If running locally or in a non-production environment -->
-    <script src="{{ asset('js/app.js') }}"></script>
-@endif
+
+    @if (app()->environment('production'))
+        <!-- If running on Railway (production environment) -->
+        <script src="https://medsecure-teleportal-production.up.railway.app/js/app.js"></script>
+    @else
+        <!-- If running locally or in a non-production environment -->
+        <script src="{{ asset('js/app.js') }}"></script>
+    @endif
 
 </body>
 </html>

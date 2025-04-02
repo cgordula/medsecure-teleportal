@@ -14,8 +14,10 @@
 
 </head>
 <body>
-    <div class="container d-flex align-items-center justify-content-center min-vh-100">
-        <div class="form-container">
+<div class="container d-flex align-items-center justify-content-center min-vh-100 flex-column">
+        <img src="{{ asset('medsecure_logo.png') }}" alt="MedSecure Logo" class="mb-5" style="max-width: 200px;">
+        
+        <div class="login-form-container">
             <h2 class="text-center">Patient Login</h2>
 
             @if (session('success'))
@@ -49,7 +51,7 @@
                     <label class="form-check-label" for="remember">Remember Me</label>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary w-50">Login</button>
             </form>
 
             <div class="mt-3">
