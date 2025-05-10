@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Models\TechSupport;
 
-class PatientTechSupportController extends Controller
+class TechSupportController extends Controller
 {
     public function submitTechSupport(Request $request)
     {

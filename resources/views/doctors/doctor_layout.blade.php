@@ -301,6 +301,11 @@
             <i class="fas fa-user"></i>
             <span class="sidebar-text">Profile</span>
         </a>
+
+        <a href="{{ route('doctors.tech-support') }}" class="sidebar-link" data-title="Contact Support Team">
+            <i class="fas fa-headset"></i>
+            <span class="sidebar-text">Contact Support Team</span>
+        </a>
     
     </div>
 

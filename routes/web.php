@@ -6,7 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DoctorsController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\EmergencyContactController;
-use App\Http\Controllers\PatientTechSupportController;
+use App\Http\Controllers\TechSupportController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 
@@ -54,7 +54,7 @@ Route::middleware(['auth:patients'])->group(function () {
     Route::post('/patients/store-appointment', [AppointmentController::class, 'storeAppointment'])->name('patients.store-appointment');
 
     Route::get('/patients/tech-support', [PatientController::class, 'techSupport'])->name('patients.tech-support');
-    Route::post('/patients/submit-tech-support', [PatientTechSupportController::class, 'submitTechSupport'])->name('patients.submit-tech-support');
+    Route::post('/patients/submit-tech-support', [TechSupportController::class, 'submitTechSupport'])->name('patients.submit-tech-support');
     
 
 
@@ -87,8 +87,11 @@ Route::middleware(['auth:doctors'])->group(function () {
     Route::get('/doctors/doctor-dashboard', [DoctorsController::class, 'doctorDashboard'])->name('doctors.doctor-dashboard');
     Route::get('/doctors/profile', [DoctorsController::class, 'doctorProfile'])->name('doctors.profile');
 
-    Route::get('/doctor/edit-profile', [DoctorsController::class, 'editDoctorProfile'])->name('doctors.edit-profile');
-    Route::put('/doctor/update-profile', [DoctorsController::class, 'updateDoctorProfile'])->name('doctors.update-profile');
+    Route::get('/doctors/edit-profile', [DoctorsController::class, 'editDoctorProfile'])->name('doctors.edit-profile');
+    Route::put('/doctors/update-profile', [DoctorsController::class, 'updateDoctorProfile'])->name('doctors.update-profile');
+
+    Route::get('/doctors/tech-support', [DoctorsController::class, 'techSupport'])->name('doctors.tech-support');
+    Route::post('/doctors/submit-tech-support', [TechSupportController::class, 'submitTechSupport'])->name('doctors.submit-tech-support');
 });
 
 Route::post('/doctors/logout', [DoctorsController::class, 'doctorLogout'])->name('doctors.logout');

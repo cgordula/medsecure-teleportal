@@ -193,4 +193,10 @@ class DoctorsController extends Controller
        // Return to the profile page with a success message
        return redirect()->route('doctors.profile')->with('success', 'Profile updated successfully!');
    }
+
+   public function techSupport()
+    {
+        $doctor = Auth::guard('doctors')->user(); // Get the authenticated doctors's data
+        return view('doctors.tech-support', compact('doctor'));
+    }
 }
