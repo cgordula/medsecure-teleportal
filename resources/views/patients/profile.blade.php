@@ -26,30 +26,35 @@
     <!-- Profile Section -->
     <div class="col-md-4">
         <div class="card">
-            <div class="profile-image-wrapper">
+            <div class="patient-profile-image-wrapper">
                 <img src="{{ $patient->profile_picture ? asset('storage/patient_photos/' . $patient->profile_picture) : 'https://via.placeholder.com/350x200' }}" class="card-img-top custom-profile-img" alt="Patient's Photo">
             </div>
 
             <div class="card-body">
-                <h5 class="card-title">{{ $patient->first_name }} {{ $patient->last_name }}</h5>
-                <p class="card-text text-muted">Patient</p>
-                <p class="text-muted"><strong>Member Since: </strong>{{ $patient->created_at->format('F Y') }}</p>
-                <p class="text-muted"><strong>Age: </strong>{{ \Carbon\Carbon::parse($patient->birthdate)->age }} years</p>
-                <p class="text-muted"><strong>Gender: </strong>{{ $patient->gender }}</p>
-                <p class="text-muted"><strong>Birthdate: </strong>{{ $patient->birthdate ? \Carbon\Carbon::parse($patient->birthdate)->format('F j, Y') : '' }}</p>
-                <p class="text-muted"><strong>Phone: </strong>{{ $patient->phone }}</p>
-                <p class="text-muted"><strong>Email: </strong>{{ $patient->email }}</p>
-                <p class="text-muted"><strong>Address Line 1:</strong> {{ $patient->address_line1 ?? '' }}</p>
-                <p class="text-muted"><strong>Address Line 2:</strong> {{ $patient->address_line2 ?? '' }}</p>
-                <p class="text-muted"><strong>City:</strong> {{ $patient->city ?? '' }}</p>
-                <p class="text-muted"><strong>State:</strong> {{ $patient->state ?? '' }}</p>
-                <p class="text-muted"><strong>Postal Code:</strong> {{ $patient->postal_code ?? '' }}</p>
-                <p class="text-muted"><strong>Country:</strong> {{ $patient->country ?? '' }}</p>
+                <h5 class="card-title text-center">{{ $patient->first_name }} {{ $patient->last_name }}</h5>
+                <p class="text-muted text-center"><i class="fas fa-user text-primary me-2 mt-1"></i>Patient</p>
 
-                <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#editProfileModal">Edit Profile</a>
+                <p><i class="fas fa-calendar-alt text-success me-2 mt-5"></i><strong>Member Since:</strong> {{ $patient->created_at->format('F Y') }}</p>
+                <p><i class="fas fa-hourglass-half text-warning me-2 mt-1"></i><strong>Age:</strong> {{ \Carbon\Carbon::parse($patient->birthdate)->age }} years</p>
+                <p><i class="fas fa-venus-mars text-info me-2 mt-1"></i><strong>Gender:</strong> {{ $patient->gender }}</p>
+                <p><i class="fas fa-birthday-cake text-danger me-2 mt-1"></i><strong>Birthdate:</strong> {{ $patient->birthdate ? \Carbon\Carbon::parse($patient->birthdate)->format('F j, Y') : '' }}</p>
+
+                <p><i class="fas fa-phone text-primary me-2 mt-1"></i><strong>Phone:</strong> {{ $patient->phone }}</p>
+                <p><i class="fas fa-envelope text-danger me-2 mt-1"></i><strong>Email:</strong> {{ $patient->email }}</p>
+
+                <hr>
+                <p><i class="fas fa-map-marker-alt text-success me-2 mt-1"></i><strong>Address Line 1:</strong> {{ $patient->address_line1 ?? '' }}</p>
+                <p><i class="fas fa-map-pin text-warning me-2 mt-1"></i><strong>Address Line 2:</strong> {{ $patient->address_line2 ?? '' }}</p>
+                <p><i class="fas fa-city text-secondary me-2 mt-1"></i><strong>City:</strong> {{ $patient->city ?? '' }}</p>
+                <p><i class="fas fa-flag text-primary me-2 mt-1"></i><strong>State:</strong> {{ $patient->state ?? '' }}</p>
+                <p><i class="fas fa-mail-bulk text-info me-2 mt-1"></i><strong>Postal Code:</strong> {{ $patient->postal_code ?? '' }}</p>
+                <p><i class="fas fa-globe text-dark me-2 mt-1"></i><strong>Country:</strong> {{ $patient->country ?? '' }}</p>
+
+                <a href="#" class="btn btn-outline-primary btn-block mt-3" data-toggle="modal" data-target="#editProfileModal">
+                    <i class="fas fa-edit me-1"></i>Edit Profile
+                </a>
             </div>
         </div>
-
         
         <!-- Emergency Contact -->
         <div class="card mt-4">
@@ -96,7 +101,7 @@
                 <hr>
 
                 <!-- Current Medications -->
-                <p class="text-muted"><strong>Current Medications:</strong></p>
+                <p class="text-muted"><strong>Current Medication(s):</strong></p>
                 <ul>
                     @php
                         $currentMedications = json_decode($medicalInfo->current_medications ?? '[]', true);
@@ -128,7 +133,7 @@
                 <hr>
 
                 <!-- Primary Complaint -->
-                <p class="text-muted"><strong>Primary Complaint:</strong></p>
+                <p class="text-muted"><strong>Primary Complaint(s):</strong></p>
                 <p>{{ $medicalInfo->primary_complaint ?? 'No primary complaint available.' }}</p>
                 <hr>
 

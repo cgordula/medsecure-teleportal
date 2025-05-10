@@ -14,10 +14,12 @@ class Doctor extends Authenticatable
         'first_name',
         'last_name',
         'email',
+        'phone',
         'specialization',
         'license_number',
         'password',
         'role',
+        'profile_picture',
     ];
 
     protected $hidden = [

@@ -143,4 +143,54 @@ class DoctorsController extends Controller
         // Return the profile view with the necessary data
         return view('doctors.profile', compact('doctor'));
     }
+
+
+   // Show Edit Profile Form
+   public function editDoctorProfile()
+   {
+       $doctor = Auth::guard('doctors')->user(); // Get the authenticated doctors's data
+       return view('doctors.edit-profile', compact('doctor'));
+   }
+
+   // Update the Doctor's Profile
+   public function updateDoctorProfile(Request $request)
+   {
+       // Validate the incoming data
+       $validatedData = $request->validate([
+           'first_name' => 'required|string|max:255',
+           'last_name' => 'required|string|max:255',
+           'email' => 'required|email|unique:doctors,email,' . Auth::guard('doctors')->id(), // Ensure unique email, except for the logged-in doctor
+           'phone' => 'nullable|string|max:20',
+           'specialization' => 'required|string|max:255',
+           'license_number' => 'required|string|max:255',
+           'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+       ]);
+
+       // Get the authenticated doctor
+       $doctor = Auth::guard('doctors')->user();
+
+
+       // Handle photo upload
+       if ($request->hasFile('profile_picture')) {
+            // Get the original file name
+            $originalFileName = $request->file('profile_picture')->getClientOriginalName();
+            
+            // Optionally, you could append a unique identifier to prevent name conflicts
+            // e.g., using the time as a unique prefix or a random string
+            $newFileName = time() . '_' . $originalFileName;
+        
+            // Store the file in the 'public/doctor_photos' directory and save the new file name
+            $photoPath = $request->file('profile_picture')->storeAs('public/doctor_photos', $newFileName);
+            
+            // Save just the file name in the database
+            $validatedData['profile_picture'] = $newFileName;
+        }    
+   
+
+       // Update doctor information
+       $doctor->update($validatedData);
+
+       // Return to the profile page with a success message
+       return redirect()->route('doctors.profile')->with('success', 'Profile updated successfully!');
+   }
 }
