@@ -33,13 +33,22 @@ class AppointmentController extends Controller
             return redirect()->route('patients.store-appointment')->with('warning', 'Please complete your profile information before booking an appointment.');
         }
 
-        // Validate the incoming request data
+        // Validate the incoming request data (basic format)
         $validated = $request->validate([
-            'appointment_date' => 'required|date|after:today', // Ensure the date is strictly after today
+            'appointment_date' => 'required|date',
             'appointment_time' => 'required|date_format:H:i',
             'doctor_id' => 'required|exists:doctors,id',
-            'message' => 'nullable|string|max:1000',  // Optional message
+            'message' => 'nullable|string|max:1000',
         ]);
+
+        // Combine date and time to form full datetime
+        $appointmentDateTime = \Carbon\Carbon::createFromFormat('Y-m-d H:i', $validated['appointment_date'] . ' ' . $validated['appointment_time']);
+
+        // Ensure it is at least 48 hours from now
+        if ($appointmentDateTime->lt(now()->addHours(48))) {
+            return back()->with('warning', 'Appointments must be booked at least 48 hours in advance.')
+                        ->withInput();
+        }
 
         // Create a new appointment record
         $appointment = Appointment::create([

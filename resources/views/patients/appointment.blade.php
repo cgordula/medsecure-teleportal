@@ -35,6 +35,7 @@
                 <div class="mb-3">
                     <label for="appointment_date" class="form-label">Preferred Date:</label>
                     <input type="date" class="form-control" id="appointment_date" name="appointment_date" value="{{ old('appointment_date') }}" required>
+                    <div class="invalid-feedback"> Please select a date that is at least 48 hours from now.</div>
                 </div>
 
                 <div class="mb-3">
@@ -64,8 +65,36 @@
         </div>
     </div>
 
-
-
-
-
 @endsection
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const dateInput = document.getElementById('appointment_date');
+        const timeInput = document.getElementById('appointment_time');
+        const form = document.getElementById('appointmentForm');
+
+        // Calculate min date = today + 2 days
+        const now = new Date();
+        now.setDate(now.getDate() + 2);
+        const minDate = now.toISOString().split('T')[0];
+        dateInput.setAttribute('min', minDate);
+
+        form.addEventListener('submit', function (e) {
+            const selectedDate = new Date(dateInput.value + 'T' + (timeInput.value || '00:00'));
+            const currentDateTime = new Date();
+            currentDateTime.setHours(currentDateTime.getHours() + 48); // Add 48 hours
+
+            if (selectedDate < currentDateTime) {
+                e.preventDefault();
+                alert("Appointments must be scheduled at least 48 hours in advance.");
+                dateInput.classList.add('is-invalid');
+                timeInput.classList.add('is-invalid');
+            } else {
+                dateInput.classList.remove('is-invalid');
+                timeInput.classList.remove('is-invalid');
+            }
+        });
+    });
+</script>
+
