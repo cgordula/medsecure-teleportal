@@ -86,6 +86,9 @@ Route::post('/doctors/login', [DoctorsController::class, 'doctorLogin'])->name('
 Route::middleware(['auth:doctors'])->group(function () {
     Route::get('/doctors/doctor-dashboard', [DoctorsController::class, 'doctorDashboard'])->name('doctors.doctor-dashboard');
     Route::get('/doctors/profile', [DoctorsController::class, 'doctorProfile'])->name('doctors.profile');
+    Route::get('/doctors/patients', [DoctorsController::class, 'doctorPatients'])->name('doctors.patients');
+    Route::get('/doctors/patient/{id}', [DoctorsController::class, 'doctorPatientList'])->name('doctors.patient');
+
 
     Route::get('/doctors/edit-profile', [DoctorsController::class, 'editDoctorProfile'])->name('doctors.edit-profile');
     Route::put('/doctors/update-profile', [DoctorsController::class, 'updateDoctorProfile'])->name('doctors.update-profile');

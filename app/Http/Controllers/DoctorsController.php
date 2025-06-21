@@ -89,7 +89,7 @@ class DoctorsController extends Controller
         $upcomingAppointments = Appointment::with('patient') // Eager-load patient relationship
         ->where('doctor_id', $doctor->id)
         ->where('status', 'Scheduled') // Only scheduled appointments
-        ->whereDate('appointment_date', '>', now()) // Appointments in the future
+        // ->whereDate('appointment_date', '>', now()) // Appointments in the future
         ->orderBy('appointment_date', 'asc') // Sort by date ascending
         ->get();
 
@@ -109,8 +109,9 @@ class DoctorsController extends Controller
 
         // Fetch unique patients associated with all appointments
         $patientCount = Appointment::where('doctor_id', $doctor->id)
-            ->distinct('patient_id')
-            ->count('patient_id');
+        ->whereNotNull('patient_id')
+        ->distinct()
+        ->count('patient_id');
 
         
         // Pass data to the view
@@ -193,6 +194,30 @@ class DoctorsController extends Controller
        // Return to the profile page with a success message
        return redirect()->route('doctors.profile')->with('success', 'Profile updated successfully!');
    }
+
+   public function doctorPatients()
+    {
+        $doctor = Auth::guard('doctors')->user(); // Get logged-in doctor
+
+        // Assuming 'patients' relationship exists on Doctor model
+        // e.g. public function patients() { return $this->hasMany(Patient::class); }
+        $patients = $doctor->patients;
+
+        // Pass data to the view
+        return view('doctors.patient-list', compact('doctor', 'patients'));
+    }
+
+
+   public function doctorPatientsLists()
+    {
+        $doctor = auth()->user(); // assuming logged-in doctor
+
+        // Get all patients of this doctor (adjust query based on your DB schema)
+        $patients = Patient::where('doctor_id', $doctor->id)->get();
+
+        return view('doctors.patient-list', compact('patients'));
+    }
+
 
    public function techSupport()
     {
