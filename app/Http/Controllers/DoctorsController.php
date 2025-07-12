@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -138,7 +139,7 @@ class DoctorsController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('doctors.login.form')->with('success', 'You have been logged out successfully.');
+        return redirect()->route('doctors.login')->with('success', 'You have been logged out successfully.');
     }
 
 
@@ -202,27 +203,67 @@ class DoctorsController extends Controller
        return redirect()->route('doctors.profile')->with('success', 'Profile updated successfully!');
    }
 
-   public function doctorPatients()
-    {
-        $doctor = Auth::guard('doctors')->user(); // Get logged-in doctor
 
-        // Assuming 'patients' relationship exists on Doctor model
-        // e.g. public function patients() { return $this->hasMany(Patient::class); }
-        $patients = $doctor->patients;
+   public function doctorPatientLists()
+   {
+        $doctor = Auth::guard('doctors')->user();
 
-        // Pass data to the view
-        return view('doctors.patient-list', compact('doctor', 'patients'));
+        // Fetch scheduled appointments
+        $scheduledAppointments = Appointment::with('patient')
+            ->where('doctor_id', $doctor->id)
+            ->where('status', 'Scheduled')
+            ->where('appointment_date', '>', Carbon::now())
+            ->orderBy('appointment_date', 'asc')
+            ->get();
+
+        // Fetch accepted appointments
+        $acceptedAppointments = Appointment::with('patient')
+            ->where('doctor_id', $doctor->id)
+            ->where('status', 'Accepted')
+            ->orderBy('appointment_date', 'asc')
+            ->get();
+
+        // Fetch declined appointments
+        $declinedAppointments = Appointment::with('patient')
+            ->where('doctor_id', $doctor->id)
+            ->where('status', 'Declined')
+            ->orderBy('appointment_date', 'asc')
+            ->get();
+
+        // Fetch cancelled appointments
+        $cancelledAppointments = Appointment::with('patient')
+        ->where('doctor_id', $doctor->id)
+        ->where('status', 'Cancelled')  // or 'Cancelled by Patient' if you have that exact status
+        ->orderBy('appointment_date', 'asc')
+        ->get();
+        
+
+        return view('doctors.patient-list', compact(
+            'scheduledAppointments',
+            'acceptedAppointments',
+            'declinedAppointments',
+            'cancelledAppointments'
+        ));
     }
 
-
-   public function doctorPatientsLists()
+    public function updateAppointmentStatus(Request $request)
     {
-        $doctor = auth()->user(); // assuming logged-in doctor
+        $request->validate([
+            'appointment_id' => 'required|exists:appointments,id',
+            'status' => 'required|in:Accepted,Declined',
+        ]);
 
-        // Get all patients of this doctor (adjust query based on your DB schema)
-        $patients = Patient::where('doctor_id', $doctor->id)->get();
+        $appointment = Appointment::findOrFail($request->appointment_id);
 
-        return view('doctors.patient-list', compact('patients'));
+        // Ensure the logged-in doctor owns the appointment
+        if ($appointment->doctor_id !== Auth::guard('doctors')->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $appointment->status = $request->status;
+        $appointment->save();
+
+        return redirect()->back()->with('success', 'Appointment status updated successfully.');
     }
 
 
