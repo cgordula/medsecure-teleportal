@@ -26,9 +26,11 @@ class Patient extends Authenticatable
 
         // For auto-generating reference number on creation
         static::creating(function ($patient) {
-            $date = now()->format('Ymd');
-            $random = str_pad(mt_rand(1, 9999), 4, '0', STR_PAD_LEFT);
-            $patient->reference_number = 'PAT-' . $date . '-' . $random;
+            if (empty($patient->reference_number)) {
+                $date = now()->format('Ymd');
+                $nextNumber = str_pad(Patient::count() + 1, 4, '0', STR_PAD_LEFT);
+                $patient->reference_number = 'MSP-' . $date . '-' . $nextNumber;
+            }
         });
 
         // For calculating age before saving

@@ -32,6 +32,12 @@ class DoctorsController extends Controller
             'license_number' => 'required|string|max:255',
         ]);
 
+        // Generate unique reference number
+        $date = now()->format('Ymd');
+        // Get the next sequence number (based on how many doctors exist)
+        $nextDoctorNumber = str_pad(Doctor::count() + 1, 4, '0', STR_PAD_LEFT); 
+        // Generate the reference number
+        $referenceNumber = 'MSD-' . $date . '-' . $nextDoctorNumber;
 
         Doctor::create([
             'first_name' => $validatedData['first_name'],
@@ -41,6 +47,7 @@ class DoctorsController extends Controller
             'specialization' => $validatedData['specialization'], // Add specialization
             'license_number' => $validatedData['license_number'], // Add license number
             'role' => 'doctor', // Default role for doctors
+            'reference_number' => $referenceNumber,
         ]);
 
         session()->flash('success', 'Registration successful! You can now log in.');

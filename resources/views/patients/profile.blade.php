@@ -35,7 +35,7 @@
                 <p class="text-muted text-center mb-0"><i class="fas fa-user text-primary me-2 mt-1"></i>Patient</p>
                 <p class="text-center text-secondary"><i class="fas fa-id-badge text-primary me-2"></i>{{ $patient->reference_number }}</p>
 
-                <p><i class="fas fa-calendar-alt text-success me-2 mt-5"></i><strong>Member Since:</strong> {{ $patient->created_at->format('F Y') }}</p>
+                <p><i class="fas fa-calendar-alt text-success me-2 mt-5"></i><strong>Member Since:</strong> {{ $patient->created_at->format('d F Y') }}</p>
                 <p><i class="fas fa-hourglass-half text-warning me-2 mt-1"></i><strong>Age:</strong> {{ \Carbon\Carbon::parse($patient->birthdate)->age }} years</p>
                 <p><i class="fas fa-venus-mars text-info me-2 mt-1"></i><strong>Gender:</strong> {{ $patient->gender }}</p>
                 <p><i class="fas fa-birthday-cake text-danger me-2 mt-1"></i><strong>Birthdate:</strong> {{ $patient->birthdate ? \Carbon\Carbon::parse($patient->birthdate)->format('F j, Y') : '' }}</p>

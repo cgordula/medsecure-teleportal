@@ -34,10 +34,14 @@ class PatientController extends Controller
 
         // Generate unique reference number
         $date = now()->format('Ymd');
-        $random = str_pad(mt_rand(1, 9999), 4, '0', STR_PAD_LEFT);
-        $referenceNumber = 'PAT-' . $date . '-' . $random;
+        // Get the next sequence number (based on how many patients exist)
+        $nextPatientNumber = str_pad(Patient::count() + 1, 4, '0', STR_PAD_LEFT); 
+        // Generate the reference number
+        $referenceNumber = 'MSP-' . $date . '-' . $nextPatientNumber;
+        
 
         $token = Str::random(60);
+        // dd(Patient::count(), $referenceNumber); //debug
 
         Patient::create([
             'first_name' => $validatedData['first_name'],

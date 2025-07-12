@@ -26,6 +26,20 @@ class Doctor extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        // For auto-generating reference number on creation
+        static::creating(function ($doctor) {
+            if (empty($patient->reference_number)) {
+                $date = now()->format('Ymd');
+                $nextNumber = str_pad(Doctor::count() + 1, 4, '0', STR_PAD_LEFT);
+                $doctor->reference_number = 'MSD-' . $date . '-' . $nextNumber;
+            }
+        });
+    }
+
     // Relationship to the Appointment model
     public function appointments()
     {
