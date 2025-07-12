@@ -32,7 +32,8 @@
 
             <div class="card-body">
                 <h5 class="card-title text-center">{{ $patient->first_name }} {{ $patient->last_name }}</h5>
-                <p class="text-muted text-center"><i class="fas fa-user text-primary me-2 mt-1"></i>Patient</p>
+                <p class="text-muted text-center mb-0"><i class="fas fa-user text-primary me-2 mt-1"></i>Patient</p>
+                <p class="text-center text-secondary"><i class="fas fa-id-badge text-primary me-2"></i>{{ $patient->reference_number }}</p>
 
                 <p><i class="fas fa-calendar-alt text-success me-2 mt-5"></i><strong>Member Since:</strong> {{ $patient->created_at->format('F Y') }}</p>
                 <p><i class="fas fa-hourglass-half text-warning me-2 mt-1"></i><strong>Age:</strong> {{ \Carbon\Carbon::parse($patient->birthdate)->age }} years</p>
