@@ -36,7 +36,7 @@ class AdminController extends Controller
       
         session()->flash('success', 'Admin registered successfully! You can now log in.');
 
-        return redirect()->route('admin.login.form');
+        return redirect()->route('admin.login');
     }
 
     // Show the login form

@@ -327,7 +327,7 @@
             <img src="{{ asset('m-logo.png') }}" alt="Logo" style="height: 60px;"  id="mobile-logo" class="sidebar-logo d-none">
         </div>
         
-        <a href="{{ route('patients.patient-dashboard') }}" class="sidebar-link" data-title="Dashboard">
+        <a href="{{ route('patients.patient-dashboard') }}" class="sidebar-link" data-title="Patient Dashboard">
             <i class="fas fa-tachometer-alt"></i>
             <span class="sidebar-text">Dashboard</span>
         </a>
@@ -378,8 +378,12 @@
 
     <!-- Footer -->
     <footer class="footer bg-light text-center py-3">
-        &copy; 2024 MedSecure. All rights reserved.
+        &copy; <span id="year"></span> MedSecure. All rights reserved.
     </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
 
     @if (app()->environment('production'))
     <!-- If running on Railway (production environment) -->
