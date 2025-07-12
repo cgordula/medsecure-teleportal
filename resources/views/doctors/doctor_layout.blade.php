@@ -288,7 +288,7 @@
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="text-center mb-4">
+        <div class="text-center mb-5">
             <img src="{{ asset('medsecure_logo.png') }}" alt="Logo" style="height: 60px;" id="desktop-logo" class="sidebar-logo">
             <img src="{{ asset('m-logo.png') }}" alt="Logo" style="height: 60px;"  id="mobile-logo" class="sidebar-logo d-none">
         </div>
