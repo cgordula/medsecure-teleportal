@@ -15,6 +15,7 @@ class CreatePatientsTable extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
+            $table->string('reference_number')->unique()->nullable();
             $table->string('first_name');  // Storing the first name
             $table->string('last_name');   // Storing the last name
             $table->string('email')->unique();  // Email should be unique

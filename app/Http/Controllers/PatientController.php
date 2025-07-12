@@ -32,6 +32,11 @@ class PatientController extends Controller
             'password' => 'required|confirmed|min:8', // Confirm the password
         ]);
 
+        // Generate unique reference number
+        $date = now()->format('Ymd');
+        $random = str_pad(mt_rand(1, 9999), 4, '0', STR_PAD_LEFT);
+        $referenceNumber = 'PAT-' . $date . '-' . $random;
+
         $token = Str::random(60);
 
         Patient::create([
@@ -40,6 +45,7 @@ class PatientController extends Controller
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']), // Hash the password before saving
             'token' => $token,
+            'reference_number' => $referenceNumber,
         ]);
 
 
@@ -236,6 +242,40 @@ class PatientController extends Controller
         // Return to the profile page with a success message
         return redirect()->route('patients.profile')->with('success', 'Profile updated successfully!');
     }
+
+    public function myAppointments()
+    {
+        $patient = Auth::guard('patients')->user();
+
+        $scheduledAppointments = Appointment::with('doctor')
+            ->where('patient_id', $patient->id)
+            ->where('status', 'Scheduled')
+            ->orderBy('appointment_date', 'asc')
+            ->get();
+
+        $cancelledAppointments = Appointment::with('doctor')
+            ->where('patient_id', $patient->id)
+            ->where('status', 'Cancelled')
+            ->orderBy('appointment_date', 'desc')
+            ->get();
+
+        return view('patients.my-appointments', compact('scheduledAppointments', 'cancelledAppointments'));
+    }
+
+    public function cancelAppointment($id)
+    {
+        $appointment = Appointment::where('id', $id)
+            ->where('patient_id', Auth::guard('patients')->id())
+            ->where('status', 'Scheduled')
+            ->firstOrFail();
+
+        $appointment->status = 'Cancelled';
+        $appointment->save();
+
+        return redirect()->route('patients.my-appointments')->with('success', 'Appointment cancelled successfully.');
+    }
+
+
 
     public function techSupport()
     {

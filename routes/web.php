@@ -52,6 +52,8 @@ Route::middleware(['auth:patients'])->group(function () {
     
     Route::get('/patients/create-appointment', [AppointmentController::class, 'createAppointment'])->name('patients.create-appointment');
     Route::post('/patients/store-appointment', [AppointmentController::class, 'storeAppointment'])->name('patients.store-appointment');
+    Route::get('/my-appointments', [PatientController::class, 'myAppointments'])->name('patients.my-appointments');
+    Route::post('/my-appointments/{id}/cancel', [PatientController::class, 'cancelAppointment'])->name('patients.cancel-appointment');
 
     Route::get('/patients/tech-support', [PatientController::class, 'techSupport'])->name('patients.tech-support');
     Route::post('/patients/submit-tech-support', [TechSupportController::class, 'submitTechSupport'])->name('patients.submit-tech-support');

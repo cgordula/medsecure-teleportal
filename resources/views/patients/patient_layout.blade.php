@@ -339,6 +339,10 @@
             <i class="fas fa-calendar-plus"></i>
             <span class="sidebar-text">Create Appointment</span>
         </a>
+        <a href="{{ route('patients.my-appointments') }}" class="sidebar-link" data-title="My Appointments">
+            <i class="fas fa-file-medical-alt"></i>
+            <span class="sidebar-text">My Appointments</span>
+        </a>
         <a href="{{ route('patients.tech-support') }}" class="sidebar-link" data-title="Contact Support Team">
             <i class="fas fa-headset"></i>
             <span class="sidebar-text">Contact Support Team</span>

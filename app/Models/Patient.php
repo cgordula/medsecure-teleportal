@@ -24,6 +24,14 @@ class Patient extends Authenticatable
     {
         parent::boot();
 
+        // For auto-generating reference number on creation
+        static::creating(function ($patient) {
+            $date = now()->format('Ymd');
+            $random = str_pad(mt_rand(1, 9999), 4, '0', STR_PAD_LEFT);
+            $patient->reference_number = 'PAT-' . $date . '-' . $random;
+        });
+
+        // For calculating age before saving
         static::saving(function ($patient) {
             if ($patient->birthdate) {
                 // Calculate age based on birthdate
