@@ -31,8 +31,8 @@
                 <table class="table table-hover mb-0">
                     <thead>
                         <tr>
-                            <th>Patient Name</th>
                             <th>Appointment Date</th>
+                            <th>Patient Name</th>
                             <th>Reason</th>
                             <th class="text-center">Actions</th>
                         </tr>
@@ -40,11 +40,11 @@
                     <tbody>
                         @forelse ($scheduledAppointments as $appointment)
                             <tr>
-                                <td>{{ $appointment->patient->first_name }} {{ $appointment->patient->last_name }}</td>
                                 <td>
                                     {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d M Y') }},
                                     {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('g:i A') }}
                                 </td>
+                                <td>{{ $appointment->patient->first_name }} {{ $appointment->patient->last_name }}</td>
                                 <td>{{ $appointment->message }}</td>
                                 <td class="text-center d-flex justify-content-center">
                                     {{-- Accept Form --}}
@@ -84,19 +84,19 @@
                 <table class="table table-bordered table-striped mb-0">
                     <thead>
                         <tr>
-                            <th>Patient Name</th>
                             <th>Appointment Date</th>
+                            <th>Patient Name</th>
                             <th>Reason</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($acceptedAppointments as $appointment)
                             <tr>
-                                <td>{{ $appointment->patient->first_name }} {{ $appointment->patient->last_name }}</td>
                                 <td>
                                     {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d M Y') }},
                                     {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('g:i A') }}
                                 </td>
+                                <td>{{ $appointment->patient->first_name }} {{ $appointment->patient->last_name }}</td>
                                 <td>{{ $appointment->message }}</td>
                             </tr>
                         @empty
@@ -118,19 +118,19 @@
                 <table class="table table-bordered table-striped mb-0">
                     <thead>
                         <tr>
-                            <th>Patient Name</th>
                             <th>Appointment Date</th>
+                            <th>Patient Name</th>
                             <th>Reason</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($declinedAppointments as $appointment)
                             <tr>
-                                <td>{{ $appointment->patient->first_name }} {{ $appointment->patient->last_name }}</td>
                                 <td>
                                     {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d M Y') }},
                                     {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('g:i A') }}
                                 </td>
+                                <td>{{ $appointment->patient->first_name }} {{ $appointment->patient->last_name }}</td>
                                 <td>{{ $appointment->message }}</td>
                             </tr>
                         @empty
@@ -152,19 +152,19 @@
                 <table class="table table-bordered table-striped mb-0">
                     <thead>
                         <tr>
-                            <th>Patient Name</th>
                             <th>Appointment Date</th>
+                            <th>Patient Name</th>
                             <th>Reason</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($cancelledAppointments as $appointment)
                             <tr>
-                                <td>{{ $appointment->patient->first_name }} {{ $appointment->patient->last_name }}</td>
                                 <td>
                                     {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d M Y') }},
                                     {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('g:i A') }}
                                 </td>
+                                <td>{{ $appointment->patient->first_name }} {{ $appointment->patient->last_name }}</td>
                                 <td>{{ $appointment->message }}</td>
                             </tr>
                         @empty

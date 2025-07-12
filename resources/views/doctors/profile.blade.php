@@ -35,8 +35,8 @@
                 <div class="card-body text-center">
                     <h5 class="card-title mb-1">{{ $doctor->first_name }} {{ $doctor->last_name }}</h5>
                     <p class="text-muted mb-2"><i class="fas fa-stethoscope text-primary me-1"></i>{{ ucfirst($doctor->role) }}</p>
-                    <p class="text-muted small mb-1"><i class="fas fa-calendar-alt text-success me-2"></i><strong>Member Since:</strong>{{ $doctor->created_at->format('d F Y') }}</p>
-                    <p class="text-center text-secondary"><i class="fas fa-id-badge text-primary me-2"></i>{{ $doctor->reference_number }}</p>
+                    <p class="text-center small text-secondary mb-1"><i class="fas fa-id-badge text-primary me-2"></i>{{ $doctor->reference_number }}</p>
+                    <p class="text-muted small"><i class="fas fa-calendar-alt text-success me-2"></i><strong>Member Since:</strong>{{ $doctor->created_at->format('d F Y') }}</p>
 
                     <a href="#" class="btn btn-outline-primary btn-sm btn-block mt-3" data-toggle="modal" data-target="#editProfileModal">
                         Edit Profile

@@ -32,24 +32,24 @@
 
             <div class="card-body">
                 <h5 class="card-title text-center">{{ $patient->first_name }} {{ $patient->last_name }}</h5>
-                <p class="text-muted text-center mb-0"><i class="fas fa-user text-primary me-2 mt-1"></i>Patient</p>
-                <p class="text-center text-secondary"><i class="fas fa-id-badge text-primary me-2"></i>{{ $patient->reference_number }}</p>
+                <p class="text-muted text-center mb-2"><i class="fas fa-user text-primary me-2 mt-1"></i>Patient</p>
+                <p class="text-center text-secondary small mb-1"><i class="fas fa-id-badge text-primary me-2"></i>{{ $patient->reference_number }}</p>
+                <p class="text-muted text-center small"><i class="fas fa-calendar-alt text-success me-2"></i><strong>Member Since:</strong> {{ $patient->created_at->format('d F Y') }}</p>
 
-                <p><i class="fas fa-calendar-alt text-success me-2 mt-5"></i><strong>Member Since:</strong> {{ $patient->created_at->format('d F Y') }}</p>
-                <p><i class="fas fa-hourglass-half text-warning me-2 mt-1"></i><strong>Age:</strong> {{ \Carbon\Carbon::parse($patient->birthdate)->age }} years</p>
-                <p><i class="fas fa-venus-mars text-info me-2 mt-1"></i><strong>Gender:</strong> {{ $patient->gender }}</p>
-                <p><i class="fas fa-birthday-cake text-danger me-2 mt-1"></i><strong>Birthdate:</strong> {{ $patient->birthdate ? \Carbon\Carbon::parse($patient->birthdate)->format('F j, Y') : '' }}</p>
+                <p class="mt-5"><i class="fas fa-hourglass-half text-warning me-2 mt-1"></i><strong>Age<span class="text-danger">*</span>:</strong> {{ \Carbon\Carbon::parse($patient->birthdate)->age }} years</p>
+                <p><i class="fas fa-venus-mars text-info me-2 mt-1"></i><strong>Gender<span class="text-danger">*</span>:</strong> {{ $patient->gender }}</p>
+                <p><i class="fas fa-birthday-cake text-danger me-2 mt-1"></i><strong>Birthdate<span class="text-danger">*</span>:</strong> {{ $patient->birthdate ? \Carbon\Carbon::parse($patient->birthdate)->format('F j, Y') : '' }}</p>
 
-                <p><i class="fas fa-phone text-primary me-2 mt-1"></i><strong>Phone:</strong> {{ $patient->phone }}</p>
-                <p><i class="fas fa-envelope text-danger me-2 mt-1"></i><strong>Email:</strong> {{ $patient->email }}</p>
+                <p><i class="fas fa-phone text-primary me-2 mt-1"></i><strong>Phone<span class="text-danger">*</span>:</strong> {{ $patient->phone }}</p>
+                <p><i class="fas fa-envelope text-danger me-2 mt-1"></i><strong>Email<span class="text-danger">*</span>:</strong> {{ $patient->email }}</p>
 
                 <hr>
-                <p><i class="fas fa-map-marker-alt text-success me-2 mt-1"></i><strong>Address Line 1:</strong> {{ $patient->address_line1 ?? '' }}</p>
+                <p><i class="fas fa-map-marker-alt text-success me-2 mt-1"></i><strong>Address Line 1<span class="text-danger">*</span>:</strong> {{ $patient->address_line1 ?? '' }}</p>
                 <p><i class="fas fa-map-pin text-warning me-2 mt-1"></i><strong>Address Line 2:</strong> {{ $patient->address_line2 ?? '' }}</p>
-                <p><i class="fas fa-city text-secondary me-2 mt-1"></i><strong>City:</strong> {{ $patient->city ?? '' }}</p>
-                <p><i class="fas fa-flag text-primary me-2 mt-1"></i><strong>State:</strong> {{ $patient->state ?? '' }}</p>
-                <p><i class="fas fa-mail-bulk text-info me-2 mt-1"></i><strong>Postal Code:</strong> {{ $patient->postal_code ?? '' }}</p>
-                <p><i class="fas fa-globe text-dark me-2 mt-1"></i><strong>Country:</strong> {{ $patient->country ?? '' }}</p>
+                <p><i class="fas fa-city text-secondary me-2 mt-1"></i><strong>City<span class="text-danger">*</span>:</strong> {{ $patient->city ?? '' }}</p>
+                <p><i class="fas fa-flag text-primary me-2 mt-1"></i><strong>State<span class="text-danger">*</span>:</strong> {{ $patient->state ?? '' }}</p>
+                <p><i class="fas fa-mail-bulk text-info me-2 mt-1"></i><strong>Postal Code<span class="text-danger">*</span>:</strong> {{ $patient->postal_code ?? '' }}</p>
+                <p><i class="fas fa-globe text-dark me-2 mt-1"></i><strong>Country<span class="text-danger">*</span>:</strong> {{ $patient->country ?? '' }}</p>
 
                 <a href="#" class="btn btn-outline-primary btn-block mt-3" data-toggle="modal" data-target="#editProfileModal">
                     <i class="fas fa-edit me-1"></i>Edit Profile
@@ -60,10 +60,10 @@
         <!-- Emergency Contact -->
         <div class="card mt-4">
             <div class="card-body">
-                <p class="text-muted"><strong>Emergency Contact:</strong></p>
-                <p><strong>Name:</strong> {{ $emergencyContact->name ?? 'N/A' }}</p>
-                <p><strong>Relationship:</strong> {{ $emergencyContact->relationship ?? 'N/A' }}</p>
-                <p><strong>Phone:</strong> {{ $emergencyContact->phone ?? 'N/A' }}</p>
+                <p class="text-muted"><strong>Emergency Contact<span class="text-danger">*</span>:</strong></p>
+                <p><strong>Name<span class="text-danger">*</span>:</strong> {{ $emergencyContact->name ?? 'N/A' }}</p>
+                <p><strong>Relationship<span class="text-danger">*</span>:</strong> {{ $emergencyContact->relationship ?? 'N/A' }}</p>
+                <p><strong>Phone<span class="text-danger">*</span>:</strong> {{ $emergencyContact->phone ?? 'N/A' }}</p>
 
                 <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#editEmergencyContactModal">Edit Contact</a>
             </div>
