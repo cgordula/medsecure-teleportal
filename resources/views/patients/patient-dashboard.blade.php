@@ -61,7 +61,7 @@
 
     <!-- Quick Action Buttons -->
     <div class="action-buttons">
-        <a href="{{ route('patients.appointment') }}" class="btn-action">Create Appointment</a>
+        <a href="{{ route('patients.create-appointment') }}" class="btn-action">Create Appointment</a>
         <a href="{{ route('patients.profile') }}" class="btn-action">View Profile</a>
     </div>
 

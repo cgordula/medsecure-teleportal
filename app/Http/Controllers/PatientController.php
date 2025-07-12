@@ -84,15 +84,6 @@ class PatientController extends Controller
     }
 
 
-    // public function patientDashboard()
-    // {
-    
-    //     $doctor = Auth::guard('doctors')->user(); 
-    
-    //     return view('patients.patient-dashboard', compact('doctor'));
-    // }
-
-
     public function patientDashboard()
     {
         // Get the authenticated patient
@@ -160,8 +151,6 @@ class PatientController extends Controller
     }
 
 
-    
-
 
     public function patientLogout(Request $request)
     {
@@ -169,7 +158,7 @@ class PatientController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('patients.login.form')->with('success', 'You have been logged out successfully.');
+        return redirect()->route('patients.login')->with('success', 'You have been logged out successfully.');
     }
 
 

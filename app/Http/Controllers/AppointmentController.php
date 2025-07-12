@@ -16,7 +16,7 @@ class AppointmentController extends Controller
     public function createAppointment()
     {
         $doctors = Doctor::all(); // Fetch all doctors from the doctors table
-        return view('patients.appointment', compact('doctors'));
+        return view('patients.create-appointment', compact('doctors'));
     }
   
     public function storeAppointment(Request $request)
