@@ -116,30 +116,25 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="patientModalLabel">Scheduled Patients</h5>
+                    <h5 class="modal-title" id="patientModalLabel">Patients</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    @php
-                        // Filter only scheduled appointments and get unique patients
-                        $scheduledAppointments = $upcomingAppointments->where('status', 'Scheduled');
-                        $uniquePatients = $scheduledAppointments->pluck('patient')->unique('id');
-                    @endphp
-
                     @forelse ($uniquePatients as $patient)
                         <div>
                             <strong>{{ $patient->first_name }} {{ $patient->last_name }}</strong>
-                            <p class="m-0">Birthdate: {{ $patient->birthdate ? \Carbon\Carbon::parse($patient->birthdate)->format('F j, Y') : '' }}</p>
-                            <p class="m-0">Age: {{ \Carbon\Carbon::parse($patient->birthdate)->age }} years</p>
+                            <p class="m-0">Birthdate: {{ $patient->birthdate ? \Carbon\Carbon::parse($patient->birthdate)->format('F j, Y') : 'N/A' }}</p>
+                            <p class="m-0">Age: {{ $patient->birthdate ? \Carbon\Carbon::parse($patient->birthdate)->age : 'N/A' }} years</p>
                         </div>
                         <hr>
                     @empty
-                        <p>No patients with scheduled appointments.</p>
+                        <p>No patients found.</p>
                     @endforelse
                 </div>
             </div>
         </div>
     </div>
+
 
 
 @endsection

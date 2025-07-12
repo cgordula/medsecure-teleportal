@@ -8,10 +8,10 @@
 
     <div class="container mt-4">
 
-        {{-- Pending Appointments --}}
+        {{-- Scheduled Appointments --}}
         <div class="card mb-5 shadow">
             <div class="card-header bg-primary text-white">
-                <h4>Pending Appointment Requests</h4>
+                <h4>Scheduled Appointment Requests</h4>
             </div>
             <div class="card-body p-0">
                 <table class="table table-hover mb-0">

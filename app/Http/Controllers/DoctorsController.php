@@ -89,6 +89,7 @@ class DoctorsController extends Controller
         $upcomingAppointments = Appointment::with('patient') // Eager-load patient relationship
         ->where('doctor_id', $doctor->id)
         ->where('status', 'Scheduled') // Only scheduled appointments
+        ->whereDate('appointment_date', '>=', now()->toDateString()) // Only today or future
         // ->whereDate('appointment_date', '>', now()) // Appointments in the future
         ->orderBy('appointment_date', 'asc') // Sort by date ascending
         ->get();
@@ -108,10 +109,15 @@ class DoctorsController extends Controller
         $telemedicineHistoryCount = $appointmentHistory->count();
 
         // Fetch unique patients associated with all appointments
-        $patientCount = Appointment::where('doctor_id', $doctor->id)
-        ->whereNotNull('patient_id')
-        ->distinct()
-        ->count('patient_id');
+        $allAppointments = Appointment::with('patient')
+            ->where('doctor_id', $doctor->id)
+            ->whereNotNull('patient_id')
+            ->get();
+
+        // Get all unique patient models (regardless of appointment status or date)
+        $uniquePatients = $allAppointments->pluck('patient')->unique('id')->values();
+
+        $patientCount = $uniquePatients->count();
 
         
         // Pass data to the view
@@ -120,7 +126,8 @@ class DoctorsController extends Controller
             'appointmentHistory',
             'upcomingAppointmentsCount',
             'telemedicineHistoryCount',
-            'patientCount'
+            'patientCount',
+            'uniquePatients'
         ));
     }
 
