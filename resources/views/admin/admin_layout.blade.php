@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Admin Dashboard</title>
     @if (app()->environment('production'))
     <!-- If running on Railway (production environment) -->
@@ -17,7 +18,7 @@
     <!-- Include moment.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
-    <!-- FullCalendar Core -->
+   <!-- FullCalendar Core -->
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/index.global.min.js"></script>
 
     <!-- FullCalendar DayGrid (Month view) -->
@@ -168,6 +169,13 @@
             color: #555;
             font-weight: bold;
         }
+
+        /* pie chart */
+        canvas#doctorPieChart {
+            max-width: 100%;
+            margin-top: 20px;
+        }
+
 
         /* For screens smaller than or equal to 767px, show the mobile logo */
         @media (max-width: 767px) {
@@ -341,14 +349,100 @@
         <script src="{{ asset('js/app.js') }}"></script>
     @endif
 
+    <!-- chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Pie Chart for Top 5 Doctors -->
+    <script>
+        const ctxDoctorPie = document.getElementById('doctorPieChart').getContext('2d');
+        const doctorPieChart = new Chart(ctxDoctorPie, {
+            type: 'pie',
+            data: {
+                labels: {!! json_encode($doctorAppointmentCounts->pluck('name')) !!},
+                datasets: [{
+                    data: {!! json_encode($doctorAppointmentCounts->pluck('count')) !!},
+                    backgroundColor: [
+                        '#FF6384', // Red
+                        '#36A2EB', // Blue
+                        '#FFCE56', // Yellow
+                        '#4BC0C0', // Teal
+                        '#9966FF'  // Purple
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    }
+                }
+            }
+        });
+    </script>
 
-    @if (app()->environment('production'))
-    <!-- If running on Railway (production environment) -->
-    <script src="https://medsecure-teleportal-production.up.railway.app/js/app.js"></script>
-    @else
-        <!-- If running locally or in a non-production environment -->
-        <script src="{{ asset('js/app.js') }}"></script>
-    @endif
+    <!-- Bar Chart for Top Specializations -->
+    <script>
+        const ctxSpecialization = document.getElementById('specializationChart').getContext('2d');
+
+        const specializationLabels = {!! json_encode($appointmentsBySpecialization->pluck('specialization')) !!};
+        const specializationData = {!! json_encode($appointmentsBySpecialization->pluck('total')) !!};
+
+        new Chart(ctxSpecialization, {
+            type: 'bar',
+            data: {
+                labels: specializationLabels,
+                datasets: [{
+                    label: 'Appointments',
+                    data: specializationData,
+                    backgroundColor: '#007bff'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+    <script>
+        const ctxStatus = document.getElementById('appointmentStatusChart').getContext('2d');
+
+        const statusLabels = {!! json_encode(array_keys($appointmentStatusBreakdown)) !!};
+        const statusCounts = {!! json_encode(array_values($appointmentStatusBreakdown)) !!};
+
+        const statusChart = new Chart(ctxStatus, {
+            type: 'doughnut',
+            data: {
+                labels: statusLabels,
+                datasets: [{
+                    data: statusCounts,
+                    backgroundColor: [
+                        '#007bff', // Scheduled
+                        '#28a745', // Completed
+                        '#ffc107', // Cancelled
+                        '#dc3545', // Declined
+                        '#17a2b8'  // Accepted
+                    ],
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    </script>
+
 
     <script>
         function updateDateTime() {
@@ -393,7 +487,7 @@
         }
     </script>
 
-    @if(Route::currentRouteName() === 'doctors.doctor-dashboard') <!-- Check if the current route is the dashboard -->
+    @if(Route::currentRouteName() === 'admin.admin-dashboard') <!-- Check if the current route is the dashboard -->
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {

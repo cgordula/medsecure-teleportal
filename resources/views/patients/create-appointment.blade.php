@@ -5,26 +5,27 @@
         <h1>Schedule Appointment</h1>
     </div>
 
-    <div class="container d-flex justify-content-center align-items-center mt-5">
-        @if (session('success'))
-            <div id="success-message" class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-        
-        @if ($errors->any())
-            <div id="error-message" class="alert alert-danger">
-                @foreach ($errors->all() as $error)
-                    <div>{{ $error }}</div>
-                @endforeach
-            </div>
-        @endif
+    @if (session('success'))
+        <div id="success-message" class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    
+    @if ($errors->any())
+        <div id="error-message" class="alert alert-danger">
+            @foreach ($errors->all() as $error)
+                <div>{{ $error }}</div>
+            @endforeach
+        </div>
+    @endif
 
-        @if (session('warning'))
-            <div class="alert alert-warning">
-                {{ session('warning') }}
-            </div>
-        @endif
+    @if (session('warning'))
+        <div class="alert alert-warning">
+            {{ session('warning') }}
+        </div>
+    @endif
+
+    <div class="container d-flex justify-content-center align-items-center mt-5">
         <div class="card p-4 shadow" style="max-width: 600px; width: 100%;">
             <h4 class="text-center mb-4">Book an Appointment</h4>
             <form id="appointmentForm" action="{{ route('patients.store-appointment') }}" method="POST">

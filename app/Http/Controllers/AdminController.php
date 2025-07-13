@@ -6,6 +6,10 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use App\Models\Patient;
+use App\Models\Doctor;
+use App\Models\Appointment;
 
 class AdminController extends Controller
 {
@@ -83,7 +87,74 @@ class AdminController extends Controller
 
     public function adminDashboard()
     {
-        return view('admin.admin-dashboard');
+        $totalPatients = Patient::count();
+        $totalDoctors = Doctor::count();
+
+        $upcomingAppointmentsCount = Appointment::where('status', 'Scheduled')->count();
+        $completedAppointmentsCount = Appointment::where('status', 'Completed')->count();
+        $cancelledAppointmentsCount = Appointment::where('status', 'Cancelled')->count();
+        $declinedAppointmentsCount = Appointment::where('status', 'Declined')->count();
+        $acceptedAppointmentsCount = Appointment::where('status', 'Accepted')->count();
+
+        $allPatients = Patient::all();
+        $allDoctors = Doctor::all();
+
+        $upcomingAppointments = Appointment::with(['patient', 'doctor'])
+            ->where('status', 'Scheduled')
+            ->orderBy('appointment_date', 'asc')
+            ->get();
+
+        $completedAppointments = Appointment::with(['patient', 'doctor'])
+            ->where('status', 'Completed')
+            ->orderBy('appointment_date', 'desc')
+            ->get();
+        
+
+        // Get top 5 doctors with most appointments
+        $doctorAppointmentCounts = Appointment::select('doctor_id', DB::raw('COUNT(*) as count'))
+        ->groupBy('doctor_id')
+        ->with('doctor')
+        ->orderByDesc('count')
+        ->take(5)
+        ->get()
+        ->map(function ($item) {
+            return [
+                'name' => $item->doctor->first_name . ' ' . $item->doctor->last_name,
+                'count' => $item->count
+            ];
+        });
+
+        
+        $appointmentsBySpecialization = Appointment::join('doctors', 'appointments.doctor_id', '=', 'doctors.id')
+        ->select('doctors.specialization', DB::raw('count(*) as total'))
+        ->groupBy('doctors.specialization')
+        ->orderByDesc('total')
+        ->limit(5)
+        ->get();
+
+        $appointmentStatusBreakdown = Appointment::select('status', DB::raw('count(*) as total'))
+        ->groupBy('status')
+        ->pluck('total', 'status')
+        ->toArray();
+
+
+
+        return view('admin.admin-dashboard', compact(
+            'totalPatients',
+            'totalDoctors',
+            'upcomingAppointmentsCount',
+            'completedAppointmentsCount',
+            'cancelledAppointmentsCount',
+            'declinedAppointmentsCount',
+            'acceptedAppointmentsCount',
+            'allPatients',
+            'allDoctors',
+            'upcomingAppointments',
+            'completedAppointments',
+            'doctorAppointmentCounts',
+            'appointmentsBySpecialization',
+            'appointmentStatusBreakdown'
+        ));
     }
 
 
