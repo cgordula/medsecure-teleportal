@@ -315,6 +315,11 @@
             <span class="sidebar-text">Profile</span>
         </a>
 
+        <a href="{{ route('admin.patients.index') }}" class="sidebar-link" data-title="Manage Patients">
+            <i class="fas fa-users"></i>
+            <span class="sidebar-text">Manage Patients</span>
+        </a>
+
     </div>
 
     <!-- Navbar -->

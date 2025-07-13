@@ -9,6 +9,7 @@ use App\Http\Controllers\EmergencyContactController;
 use App\Http\Controllers\TechSupportController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\PatientManagementController;
 
 
 /*
@@ -80,6 +81,12 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/appointments/create', [AdminController::class, 'createAppointment'])->name('admin.appointments.create');
     Route::post('/admin/appointments/store', [AdminController::class, 'storeAppointment'])->name('admin.appointments.store');
 
+    Route::get('/admin/patients', [PatientManagementController::class, 'index'])->name('admin.patients.index');
+    Route::get('/admin/patients/{id}/edit', [PatientManagementController::class, 'edit'])->name('admin.patients.edit');
+    Route::put('/admin/patients/{id}', [PatientManagementController::class, 'update'])->name('admin.patients.update');
+
+
+
 });
 
 Route::post('/admin/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');
@@ -106,25 +113,5 @@ Route::middleware(['auth:doctors'])->group(function () {
 });
 
 Route::post('/doctors/logout', [DoctorsController::class, 'doctorLogout'])->name('doctors.logout');
-
-
-
-
-
-
-// Route::get('admin/register', [AdminController::class, 'create'])->name('admin.register.form'); // Registration form
-// Route::post('admin/register', [AdminController::class, 'register'])->name('admin.register'); // Register admin
-
-// Route::get('admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login.form'); // Login form
-// Route::post('admin/login', [AdminController::class, 'login'])->name('admin.login'); // Login admin
-
-// Route::post('admin/logout', [AdminController::class, 'logout'])->name('admin.logout'); // Logout admin
-
-
-// Route::middleware(['auth:admin'])->group(function () {
-//     Route::get('/admin/dashboard', function () {
-//         return view('admin.dashboard');
-//     })->name('admin.dashboard');
-// });
 
 
