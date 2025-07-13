@@ -309,6 +309,12 @@
             <i class="fas fa-calendar-plus"></i>
             <span class="sidebar-text">Create Appointment</span>
         </a>
+
+        <a href="{{ route('admin.profile') }}" class="sidebar-link" data-title="Profile">
+            <i class="fas fa-user"></i>
+            <span class="sidebar-text">Profile</span>
+        </a>
+
     </div>
 
     <!-- Navbar -->

@@ -157,6 +157,51 @@ class AdminController extends Controller
         ));
     }
 
+    public function showProfile()
+    {
+        $admin = auth()->user(); // or use Admin::find($id) if needed
+        return view('admin.admin-profile', compact('admin'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $admin = auth()->user(); // or fetch admin model by id if different
+
+        $validated = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:admin,email,' . $admin->id, // Adjust table name if needed
+            'role' => 'required|string',
+            'password' => 'nullable|confirmed|min:6',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Update fields
+        $admin->first_name = $validated['first_name'];
+        $admin->last_name = $validated['last_name'];
+        $admin->email = $validated['email'];
+        $admin->role = $validated['role'];
+
+        if (!empty($validated['password'])) {
+            $admin->password = bcrypt($validated['password']);
+        }
+
+        if ($request->hasFile('profile_picture')) {
+            $originalFileName = $request->file('profile_picture')->getClientOriginalName();
+            $newFileName = time() . '_' . $originalFileName;
+    
+            $request->file('profile_picture')->storeAs('public/admin_photos', $newFileName);
+    
+            // Save filename to model
+            $admin->profile_picture = $newFileName;
+        }
+            
+        $admin->save();
+
+        return redirect()->back()->with('success', 'Profile updated successfully.');
+    }
+
+
     public function createAppointment()
     {
         $patients = Patient::all();

@@ -72,6 +72,9 @@ Route::get('/admin/login', [AdminController::class, 'adminLoginForm'])->name('ad
 Route::post('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.login');
 
 Route::middleware(['auth:admin'])->group(function () {
+    Route::get('/admin/profile', [AdminController::class, 'showProfile'])->name('admin.profile');
+    Route::put('/admin/profile/update', [AdminController::class, 'updateProfile'])->name('admin.update-profile');
+
     Route::get('/admin/admin-dashboard', [AdminController::class, 'adminDashboard'])->name('admin.admin-dashboard');
 
     Route::get('/admin/appointments/create', [AdminController::class, 'createAppointment'])->name('admin.appointments.create');
