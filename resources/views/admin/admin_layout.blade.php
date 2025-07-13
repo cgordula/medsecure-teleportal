@@ -292,8 +292,8 @@
     </style>
 </head>
 <body>
-     <!-- Sidebar -->
-     <div class="sidebar">
+    <!-- Sidebar -->
+    <div class="sidebar">
         <div class="text-center mb-5">
             <img src="{{ asset('medsecure_logo.png') }}" alt="Logo" style="height: 60px;" id="desktop-logo" class="sidebar-logo">
             <img src="{{ asset('m-logo.png') }}" alt="Logo" style="height: 60px;"  id="mobile-logo" class="sidebar-logo d-none">
@@ -304,6 +304,11 @@
             <span class="sidebar-text">Dashboard</span>
         </a>
     
+        <!-- Add Create Appointment Link -->
+        <a href="{{ route('admin.appointments.create') }}" class="sidebar-link" data-title="Create Appointment">
+            <i class="fas fa-calendar-plus"></i>
+            <span class="sidebar-text">Create Appointment</span>
+        </a>
     </div>
 
     <!-- Navbar -->
@@ -331,6 +336,8 @@
     <div class="content">
         @yield('content') <!-- This will render the specific page content -->
     </div>
+
+    @yield('scripts')
 
     <!-- Footer -->
     <footer class="footer bg-light text-center py-3">

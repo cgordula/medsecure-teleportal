@@ -157,6 +157,61 @@ class AdminController extends Controller
         ));
     }
 
+    public function createAppointment()
+    {
+        $patients = Patient::all();
+        $doctors = Doctor::all();
+
+        $doctorAppointmentCounts = Appointment::select('doctor_id', DB::raw('COUNT(*) as count'))
+            ->groupBy('doctor_id')
+            ->with('doctor')
+            ->orderByDesc('count')
+            ->take(5)
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'name' => $item->doctor->first_name . ' ' . $item->doctor->last_name,
+                    'count' => $item->count
+                ];
+            });
+
+        $appointmentsBySpecialization = Appointment::join('doctors', 'appointments.doctor_id', '=', 'doctors.id')
+            ->select('doctors.specialization', DB::raw('count(*) as total'))
+            ->groupBy('doctors.specialization')
+            ->orderByDesc('total')
+            ->limit(5)
+            ->get();
+
+        $appointmentStatusBreakdown = Appointment::select('status', DB::raw('count(*) as total'))
+            ->groupBy('status')
+            ->pluck('total', 'status')
+            ->toArray();
+
+        return view('admin.create-appointment', compact(
+            'patients',
+            'doctors',
+            'doctorAppointmentCounts',
+            'appointmentsBySpecialization',
+            'appointmentStatusBreakdown'
+        ));
+    }
+
+
+    public function storeAppointment(Request $request)
+    {
+        $validated = $request->validate([
+            'patient_id' => 'required|exists:patients,id',
+            'doctor_id' => 'required|exists:doctors,id',
+            'appointment_date' => 'required|date',
+            'appointment_time' => 'required',
+            'status' => 'required|in:Scheduled,Completed,Cancelled,Declined,Accepted',
+        ]);
+
+        Appointment::create($validated);
+
+        return redirect()->route('admin.appointments.create')->with('success', 'Appointment created successfully.');
+    }
+
 
 
     public function adminLogout(Request $request)

@@ -73,6 +73,10 @@ Route::post('/admin/login', [AdminController::class, 'adminLogin'])->name('admin
 
 Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/admin-dashboard', [AdminController::class, 'adminDashboard'])->name('admin.admin-dashboard');
+
+    Route::get('/admin/appointments/create', [AdminController::class, 'createAppointment'])->name('admin.appointments.create');
+    Route::post('/admin/appointments/store', [AdminController::class, 'storeAppointment'])->name('admin.appointments.store');
+
 });
 
 Route::post('/admin/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');
