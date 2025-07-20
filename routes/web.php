@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\PatientManagementController;
 use App\Http\Controllers\DoctorManagementController;
 use App\Http\Controllers\AppointmentManagementController;
+use App\Http\Controllers\SearchController;
 
 
 /*
@@ -98,6 +99,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::put('/admin/appointments/{appointment}', [AppointmentManagementController::class, 'update'])->name('admin.appointments.update');
     Route::delete('/admin/appointments/{appointment}', [AppointmentManagementController::class, 'destroy'])->name('admin.appointments.destroy');
 
+    Route::get('/admin/search', [SearchController::class, 'index'])->name('admin.search');
 
 });
 

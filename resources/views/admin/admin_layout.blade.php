@@ -357,6 +357,24 @@
 
     <!-- Main Content -->
     <div class="content">
+          <div class="container mt-3 mb-4">
+                <form action="{{ route('admin.search') }}" method="GET" class="d-flex">
+                    <div class="input-group flex-grow-1">
+                        <input 
+                            type="text" 
+                            name="query" 
+                            class="form-control" 
+                            placeholder="Search patients by name/email, appointments by ID/date, or doctors by specialization..."
+                            value="{{ request('query') }}"
+                        >
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+
         @yield('content') <!-- This will render the specific page content -->
     </div>
 
