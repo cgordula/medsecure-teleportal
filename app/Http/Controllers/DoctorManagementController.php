@@ -33,7 +33,7 @@ class DoctorManagementController extends Controller
         return view('admin.doctors.edit', compact('doctor'));
     }
 
-    
+
     public function update(Request $request, $id)
     {
         $doctor = Doctor::findOrFail($id);
@@ -58,4 +58,14 @@ class DoctorManagementController extends Controller
 
         return redirect()->route('admin.doctors.index')->with('success', 'Doctor updated successfully.');
     }
+
+
+    public function destroy($id)
+    {
+        $doctor = Doctor::findOrFail($id);
+        $doctor->delete();
+
+        return redirect()->route('admin.doctors.index')->with('success', 'Doctor deleted successfully.');
+    }
+
 }

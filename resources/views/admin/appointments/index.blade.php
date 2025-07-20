@@ -43,7 +43,7 @@
                     <th>{!! sortLink('appointment_time', 'Time', $sortField ?? '', $sortDirection ?? '') !!}</th>
                     <th>{!! sortLink('status', 'Status', $sortField ?? '', $sortDirection ?? '') !!}</th>
                     <th>Message</th>
-                    <th>Action</th> {{-- New column header --}}
+                    <th>Actions</th>
                 </tr>
             </thead>
 

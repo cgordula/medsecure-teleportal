@@ -86,10 +86,12 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/patients', [PatientManagementController::class, 'index'])->name('admin.patients.index');
     Route::get('/admin/patients/{id}/edit', [PatientManagementController::class, 'edit'])->name('admin.patients.edit');
     Route::put('/admin/patients/{id}', [PatientManagementController::class, 'update'])->name('admin.patients.update');
+    Route::delete('admin/patients/{patient}', [PatientController::class, 'destroy'])->name('admin.patients.destroy');
 
     Route::get('/admin/doctors', [DoctorManagementController::class, 'index'])->name('admin.doctors.index');
     Route::get('/admin/doctors/{id}/edit', [DoctorManagementController::class, 'edit'])->name('admin.doctors.edit');
     Route::put('/admin/doctors/{id}', [DoctorManagementController::class, 'update'])->name('admin.doctors.update');
+    Route::delete('admin/doctors/{doctor}', [DoctorController::class, 'destroy'])->name('admin.doctors.destroy');
 
     Route::get('/admin/appointments', [AppointmentManagementController::class, 'index'])->name('admin.appointments.index');
     Route::get('/admin/appointments/{appointment}/edit', [AppointmentManagementController::class, 'edit'])->name('admin.appointments.edit');

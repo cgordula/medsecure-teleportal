@@ -62,4 +62,13 @@ class PatientManagementController extends Controller
 
         return redirect()->route('admin.patients.index')->with('success', 'Patient updated successfully.');
     }
+
+    public function destroy($id)
+    {
+        $patient = Patient::findOrFail($id);  // Find patient or throw 404 if not found
+        $patient->delete();                   // Delete the patient record
+
+        return redirect()->route('admin.patients.index')->with('success', 'Patient deleted successfully.');
+    }
+
 }

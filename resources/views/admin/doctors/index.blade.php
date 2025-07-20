@@ -57,6 +57,12 @@ function sortLink($field, $label, $currentSortField, $currentSortDir) {
                 <td>{{ $doctor->license_number }}</td>
                 <td>
                     <a href="{{ route('admin.doctors.edit', $doctor->id) }}" class="btn btn-sm btn-primary">Edit</a>
+
+                    <form action="{{ route('admin.doctors.destroy', $doctor->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this doctor?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
                 </td>
             </tr>
         @endforeach
