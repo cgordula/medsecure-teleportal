@@ -23,6 +23,7 @@
                 </div>
             @endforeach
         </div>
+        {{ $patients->appends(request()->input())->links() }}
     @endif
 
     {{-- Appointments --}}
@@ -37,6 +38,7 @@
                 </li>
             @endforeach
         </ul>
+        {{ $appointments->appends(request()->input())->links() }}
     @endif
 
     {{-- Doctors --}}
@@ -55,6 +57,7 @@
                 </div>
             @endforeach
         </div>
+        {{ $doctors->appends(request()->input())->links() }}
     @endif
 
     {{-- Admins --}}
@@ -75,6 +78,7 @@
                 </div>
             @endforeach
         </div>
+        {{ $admins->appends(request()->input())->links() }}
     @endif
 </div>
 @endsection
