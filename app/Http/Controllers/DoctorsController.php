@@ -215,6 +215,13 @@ class DoctorsController extends Controller
    {
         $doctor = Auth::guard('doctors')->user();
 
+
+        // Automatically decline outdated scheduled appointments
+        Appointment::where('doctor_id', $doctor->id)
+        ->where('status', 'Scheduled')
+        ->where('appointment_date', '<', Carbon::today())
+        ->update(['status' => 'Declined']);
+
         // Fetch scheduled appointments
         $scheduledAppointments = Appointment::with('patient')
             ->where('doctor_id', $doctor->id)

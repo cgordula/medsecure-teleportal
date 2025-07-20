@@ -11,6 +11,7 @@
     <table class="table table-bordered table-striped mt-3">
         <thead>
             <tr>
+                <th>Patient Ref. No.</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Gender</th>
@@ -22,6 +23,7 @@
         <tbody>
             @foreach($patients as $patient)
                 <tr>
+                    <td>{{ $patient->reference_number }}</td>
                     <td>{{ $patient->first_name }} {{ $patient->last_name }}</td>
                     <td>{{ $patient->email }}</td>
                     <td>{{ $patient->gender }}</td>

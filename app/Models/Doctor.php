@@ -11,6 +11,7 @@ class Doctor extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
+        'reference_number',
         'first_name',
         'last_name',
         'email',
