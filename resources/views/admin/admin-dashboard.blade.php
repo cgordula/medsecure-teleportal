@@ -4,6 +4,13 @@
 
 <div class="dashboard-header">
     <h1>Admin Dashboard</h1>
+
+    
+    <!-- Quick Action Buttons -->
+    <div class="d-flex flex-wrap gap-3 my-4">
+        <a href="{{ route('admin.appointments.create') }}" class="btn btn-primary">+ Create Appointment</a>
+
+    </div>
 </div>
 
 <!-- First Row: Main Metrics -->

@@ -310,6 +310,12 @@
             <span class="sidebar-text">Create Appointment</span>
         </a>
 
+         <!-- Add Appointment List Link -->
+        <a href="{{ route('admin.appointments.index') }}" class="sidebar-link" data-title="Appointment List">
+            <i class="fas fa-calendar-alt"></i>
+            <span class="sidebar-text">Appointment List</span>
+        </a>
+
         <a href="{{ route('admin.profile') }}" class="sidebar-link" data-title="Profile">
             <i class="fas fa-user"></i>
             <span class="sidebar-text">Profile</span>

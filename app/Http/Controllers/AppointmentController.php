@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Patient;
 use App\Models\Appointment;
@@ -64,5 +65,37 @@ class AppointmentController extends Controller
         return back()->with('success', 'Appointment booked successfully!');
     }
 
+
+    // Show all appointments (Admin View)
+    public function index(Request $request)
+    {
+        $sortField = $request->get('sort_by', 'appointment_date');
+        $sortDirection = $request->get('sort_dir', 'asc');
+
+        $allowedSorts = [
+            'appointment_date' => 'appointments.appointment_date',
+            'appointment_time' => 'appointments.appointment_time',
+            'status' => 'appointments.status',
+        ];
+
+        if ($sortField === 'patient_name') {
+            $orderColumn = DB::raw("CONCAT(patients.first_name, ' ', patients.last_name)");
+        } elseif ($sortField === 'doctor_name') {
+            $orderColumn = DB::raw("CONCAT(doctors.first_name, ' ', doctors.last_name)");
+        } else {
+            $orderColumn = $allowedSorts[$sortField] ?? 'appointments.appointment_date';
+        }
+
+        $appointments = Appointment::select('appointments.*')
+            ->leftJoin('patients', 'appointments.patient_id', '=', 'patients.id')
+            ->leftJoin('doctors', 'appointments.doctor_id', '=', 'doctors.id')
+            ->orderBy($orderColumn, $sortDirection)
+            ->with(['patient', 'doctor'])
+            ->paginate(10)
+            ->appends(['sort_by' => $sortField, 'sort_dir' => $sortDirection]);
+
+        return view('admin.appointments.index', compact('appointments', 'sortField', 'sortDirection'));
+    }
+ 
 
 }

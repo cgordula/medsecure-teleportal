@@ -55,41 +55,82 @@
     </div>
 
 
-     <!-- Contact Information Section -->
-     <div class="container mt-5">
-        <div class="contact-info p-4 border rounded shadow-sm">
-            <h4>For urgent support, contact us:</h4>
-            <ul class="list-unstyled">
-                <li><strong>Email:</strong> <a href="mailto:support@medsecureassistance.com">support@medsecureassistance.com</a></li>
-                <li><strong>Phone:</strong> <a href="tel:+66837063201">+66 83 706 3201</a></li>
-                <li><strong>WhatsApp:</strong> <a href="https://wa.me/+66837063201" target="_blank">Chat with us</a></li>
-            </ul>
+    <!-- Contact Us and Support Hours -->
+<div class="container my-5">
+    <div class="row g-4">
+        <!-- Contact Us -->
+        <div class="col-md-6">
+            <div class="p-4 border rounded shadow-sm h-100 contact-box">
+                <h4 class="mb-3 text-primary">Contact Us</h4>
+                <p class="mb-1"><strong>Email:</strong> support@example.com</p>
+                <p class="mb-1"><strong>Phone:</strong> +66 123 456 789</p>
+                <p class="mb-0"><strong>Address:</strong> 1234 Clinic Road, Bangkok, Thailand</p>
+            </div>
+        </div>
+
+        <!-- Support Hours -->
+        <div class="col-md-6">
+            <div class="p-4 border rounded shadow-sm h-100 hours-box">
+                <h4 class="mb-3 text-success">Support Hours</h4>
+                <ul class="list-unstyled mb-0">
+                    <li><strong>Monday – Friday:</strong> 8:00 AM – 6:00 PM</li>
+                    <li><strong>Saturday:</strong> 9:00 AM – 1:00 PM</li>
+                    <li><strong>Sunday & Public Holidays:</strong> Closed</li>
+                </ul>
+            </div>
         </div>
     </div>
+</div>
+
 
     <!-- FAQ Section -->
     <div class="container mt-5">
         <div class="faq-section p-4 border rounded shadow-sm">
-            <h4>Frequently Asked Questions</h4>
-            <ul class="list-unstyled">
-                <li><strong>How can I reset my password?</strong> Go to the login page and click "Forgot Password."</li>
-                <li><strong>What do I do if I’m unable to book an appointment?</strong> Ensure all required fields are filled and try again.</li>
-                <li><strong>How can I update my profile?</strong> Navigate to your profile settings and click "Edit."</li>
-            </ul>
+            <h4 class="mb-4">Frequently Asked Questions</h4>
+            
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faqOneHeading">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqOne" aria-expanded="true" aria-controls="faqOne">
+                            How can I reset my password?
+                        </button>
+                    </h2>
+                    <div id="faqOne" class="accordion-collapse collapse show" aria-labelledby="faqOneHeading" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Go to the login page and click "Forgot Password."
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faqTwoHeading">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqTwo" aria-expanded="false" aria-controls="faqTwo">
+                            What do I do if I’m unable to book an appointment?
+                        </button>
+                    </h2>
+                    <div id="faqTwo" class="accordion-collapse collapse" aria-labelledby="faqTwoHeading" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Ensure all required fields are filled and try again.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faqThreeHeading">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqThree" aria-expanded="false" aria-controls="faqThree">
+                            How can I update my profile?
+                        </button>
+                    </h2>
+                    <div id="faqThree" class="accordion-collapse collapse" aria-labelledby="faqThreeHeading" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Navigate to your profile settings and click "Edit."
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Support Hours Section -->
-    <div class="container mt-5">
-        <div class="support-hours p-4 border rounded shadow-sm">
-            <h4>Support Hours</h4>
-            <ul class="list-unstyled">
-                <li><strong>Monday to Friday:</strong> 9:00 AM - 6:00 PM</li>
-                <li><strong>Saturday:</strong> 10:00 AM - 4:00 PM</li>
-                <li><strong>Sunday:</strong> Closed</li>
-            </ul>
-        </div>
-    </div>
 
 
     

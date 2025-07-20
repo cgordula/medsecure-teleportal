@@ -203,8 +203,6 @@
         }
 
 
-
-
         /* For screens smaller than or equal to 767px, show the mobile logo */
         @media (max-width: 767px) {
             #desktop-logo {

@@ -90,6 +90,9 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/doctors/{id}/edit', [DoctorManagementController::class, 'edit'])->name('admin.doctors.edit');
     Route::put('/admin/doctors/{id}', [DoctorManagementController::class, 'update'])->name('admin.doctors.update');
 
+    Route::get('/admin/appointments', [AppointmentController::class, 'index'])->name('admin.appointments.index');
+
+
 });
 
 Route::post('/admin/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');

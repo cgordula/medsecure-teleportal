@@ -1,9 +1,11 @@
 @extends('admin.admin_layout')
 
 @section('content')
-<div class="container mt-4">
-    <h2>All Patients</h2>
+<div class="dashboard-header">
+    <h1>All Patients</h1>
+</div>
 
+<div class="container mt-4">
     @if (session('success'))
         <div id="success-message" class="alert alert-success">{{ session('success') }}</div>
     @endif

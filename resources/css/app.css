@@ -217,6 +217,30 @@ html, body {
     display: block;
 }
 
+/* Contact Support Team */
+.contact-box h4,
+.hours-box h4 {
+    font-weight: 600;
+}
+
+.contact-box p,
+.hours-box li {
+    font-size: 16px;
+    color: #333;
+}
+
+.contact-box,
+.hours-box {
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+}
+
+.contact-box:hover,
+.hours-box:hover {
+    background-color: #eef6ff;
+}
+
+
 
 /* Styling the Appointment Form */
 /* .appointment-form-container {
