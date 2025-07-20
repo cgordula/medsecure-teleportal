@@ -10,6 +10,7 @@ use App\Http\Controllers\TechSupportController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\PatientManagementController;
+use App\Http\Controllers\DoctorManagementController;
 
 
 /*
@@ -85,7 +86,9 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/patients/{id}/edit', [PatientManagementController::class, 'edit'])->name('admin.patients.edit');
     Route::put('/admin/patients/{id}', [PatientManagementController::class, 'update'])->name('admin.patients.update');
 
-
+    Route::get('/admin/doctors', [DoctorManagementController::class, 'index'])->name('admin.doctors.index');
+    Route::get('/admin/doctors/{id}/edit', [DoctorManagementController::class, 'edit'])->name('admin.doctors.edit');
+    Route::put('/admin/doctors/{id}', [DoctorManagementController::class, 'update'])->name('admin.doctors.update');
 
 });
 

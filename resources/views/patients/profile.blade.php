@@ -38,7 +38,7 @@
 
                 <p class="mt-5"><i class="fas fa-hourglass-half text-warning me-2 mt-1"></i><strong>Age<span class="text-danger">*</span>:</strong> {{ \Carbon\Carbon::parse($patient->birthdate)->age }} years</p>
                 <p><i class="fas fa-venus-mars text-info me-2 mt-1"></i><strong>Gender<span class="text-danger">*</span>:</strong> {{ $patient->gender }}</p>
-                <p><i class="fas fa-birthday-cake text-danger me-2 mt-1"></i><strong>Birthdate<span class="text-danger">*</span>:</strong> {{ $patient->birthdate ? \Carbon\Carbon::parse($patient->birthdate)->format('F j, Y') : '' }}</p>
+                <p><i class="fas fa-birthday-cake text-danger me-2 mt-1"></i><strong>Birthdate<span class="text-danger">*</span>:</strong> {{ $patient->birthdate ? \Carbon\Carbon::parse($patient->birthdate)->format('j F Y') : '' }}</p>
 
                 <p><i class="fas fa-phone text-primary me-2 mt-1"></i><strong>Phone<span class="text-danger">*</span>:</strong> {{ $patient->phone }}</p>
                 <p><i class="fas fa-envelope text-danger me-2 mt-1"></i><strong>Email<span class="text-danger">*</span>:</strong> {{ $patient->email }}</p>

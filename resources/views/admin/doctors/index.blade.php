@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-4">
-    <h2>All Patients</h2>
+    <h2>All Doctors</h2>
 
     @if (session('success'))
         <div id="success-message" class="alert alert-success">{{ session('success') }}</div>
@@ -19,26 +19,26 @@
     <table class="table table-bordered table-striped mt-3">
         <thead>
             <tr>
-                <th>Patient Ref. No.</th>
+                <th>Ref. No.</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Gender</th>
-                <th>Birthdate</th>
                 <th>Phone</th>
+                <th>Specialization</th>
+                <th>License No.</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($patients as $patient)
+            @foreach($doctors as $doctor)
                 <tr>
-                    <td>{{ $patient->reference_number }}</td>
-                    <td>{{ $patient->first_name }} {{ $patient->last_name }}</td>
-                    <td>{{ $patient->email }}</td>
-                    <td>{{ $patient->gender }}</td>
-                    <td>{{ $patient->birthdate ? \Carbon\Carbon::parse($patient->birthdate)->format('j F Y') : '' }}</td>
-                    <td>{{ $patient->phone }}</td>
+                    <td>{{ $doctor->reference_number }}</td>
+                    <td>{{ $doctor->first_name }} {{ $doctor->last_name }}</td>
+                    <td>{{ $doctor->email }}</td>
+                    <td>{{ $doctor->phone }}</td>
+                    <td>{{ $doctor->specialization }}</td>
+                    <td>{{ $doctor->license_number }}</td>
                     <td>
-                        <a href="{{ route('admin.patients.edit', $patient->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="{{ route('admin.doctors.edit', $doctor->id) }}" class="btn btn-sm btn-primary">Edit</a>
                     </td>
                 </tr>
             @endforeach

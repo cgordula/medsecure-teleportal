@@ -8,18 +8,30 @@
         @csrf
         @method('PUT')
 
+        @if (session('success'))
+            <div id="success-message" class="alert alert-success">{{ session('success') }}</div>
+        @endif
+
+        @if ($errors->any())
+            <div id="error-message" class="alert alert-danger">
+                @foreach ($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                @endforeach
+            </div>
+        @endif
+
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label>First Name</label>
-                <input type="text" name="first_name" value="{{ old('first_name', $patient->first_name) }}" class="form-control" required>
+                <input type="text" name="first_name" value="{{ old('first_name', $patient->first_name) }}" class="form-control">
             </div>
             <div class="col-md-6 mb-3">
                 <label>Last Name</label>
-                <input type="text" name="last_name" value="{{ old('last_name', $patient->last_name) }}" class="form-control" required>
+                <input type="text" name="last_name" value="{{ old('last_name', $patient->last_name) }}" class="form-control">
             </div>
             <div class="col-md-6 mb-3">
                 <label>Email</label>
-                <input type="email" name="email" value="{{ old('email', $patient->email) }}" class="form-control" required>
+                <input type="email" name="email" value="{{ old('email', $patient->email) }}" class="form-control">
             </div>
             <div class="col-md-6 mb-3">
                 <label>Phone</label>
@@ -27,37 +39,37 @@
             </div>
             <div class="col-md-6 mb-3">
                 <label>Gender</label>
-                <select name="gender" class="form-control" required>
-                    <option value="Male" {{ $patient->gender === 'Male' ? 'selected' : '' }}>Male</option>
-                    <option value="Female" {{ $patient->gender === 'Female' ? 'selected' : '' }}>Female</option>
-                    <option value="Other" {{ $patient->gender === 'Other' ? 'selected' : '' }}>Other</option>
+                <select name="gender" class="form-control">
+                    <option value="Male" {{ $patient->gender == 'Male' ? 'selected' : '' }}>Male</option>
+                    <option value="Female" {{ $patient->gender == 'Female' ? 'selected' : '' }}>Female</option>
+                    <option value="Other" {{ $patient->gender == 'Other' ? 'selected' : '' }}>Other</option>
                 </select>
             </div>
             <div class="col-md-6 mb-3">
                 <label>Birthdate</label>
-                <input type="date" name="birthdate" value="{{ old('birthdate', $patient->birthdate) }}" class="form-control" required>
+                <input type="date" class="form-control" name="birthdate" value="{{ old('birthdate', $patient->birthdate ? $patient->birthdate->format('Y-m-d') : '') }}">
             </div>
 
             <!-- Address -->
             <div class="col-md-6 mb-3">
                 <label>Address Line 1</label>
-                <input type="text" name="address_line1" value="{{ old('address_line1', $patient->address_line1) }}" class="form-control" required>
+                <input type="text" name="address_line1" value="{{ old('address_line1', $patient->address_line1) }}" class="form-control">
             </div>
             <div class="col-md-6 mb-3">
                 <label>City</label>
-                <input type="text" name="city" value="{{ old('city', $patient->city) }}" class="form-control" required>
+                <input type="text" name="city" value="{{ old('city', $patient->city) }}" class="form-control">
             </div>
             <div class="col-md-6 mb-3">
                 <label>State</label>
-                <input type="text" name="state" value="{{ old('state', $patient->state) }}" class="form-control" required>
+                <input type="text" name="state" value="{{ old('state', $patient->state) }}" class="form-control">
             </div>
             <div class="col-md-6 mb-3">
                 <label>Postal Code</label>
-                <input type="text" name="postal_code" value="{{ old('postal_code', $patient->postal_code) }}" class="form-control" required>
+                <input type="text" name="postal_code" value="{{ old('postal_code', $patient->postal_code) }}" class="form-control">
             </div>
             <div class="col-md-6 mb-3">
                 <label>Country</label>
-                <input type="text" name="country" value="{{ old('country', $patient->country) }}" class="form-control" required>
+                <input type="text" name="country" value="{{ old('country', $patient->country) }}" class="form-control">
             </div>
         </div>
 

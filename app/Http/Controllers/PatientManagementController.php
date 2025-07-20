@@ -24,17 +24,17 @@ class PatientManagementController extends Controller
         $patient = Patient::findOrFail($id);
 
         $validated = $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email|unique:patients,email,' . $id,
-            'phone' => 'nullable',
-            'gender' => 'required',
-            'birthdate' => 'required|date',
-            'address_line1' => 'required',
-            'city' => 'required',
-            'state' => 'required',
-            'postal_code' => 'required',
-            'country' => 'required',
+            'first_name'     => 'nullable|string|max:255',
+            'last_name'      => 'nullable|string|max:255',
+            'email'          => 'nullable|email|unique:patients,email,' . $id,
+            'phone'          => 'nullable|string|max:20',
+            'gender'         => 'nullable|string|max:10',
+            'birthdate'      => 'nullable|date',
+            'address_line1'  => 'nullable|string|max:255',
+            'city'           => 'nullable|string|max:255',
+            'state'          => 'nullable|string|max:255',
+            'postal_code'    => 'nullable|string|max:20',
+            'country'        => 'nullable|string|max:255',
         ]);
 
         $patient->update($validated);

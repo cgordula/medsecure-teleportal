@@ -320,6 +320,12 @@
             <span class="sidebar-text">Manage Patients</span>
         </a>
 
+        <a href="{{ route('admin.doctors.index') }}" class="sidebar-link" data-title="Manage Doctors">
+            <i class="fas fa-user-md"></i>
+            <span class="sidebar-text">Manage Doctors</span>
+        </a>
+
+
     </div>
 
     <!-- Navbar -->
