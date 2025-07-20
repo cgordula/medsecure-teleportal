@@ -35,7 +35,7 @@
                         <th>Appointment Date</th>
                         <th>Doctor</th>
                         <th>Reason</th>
-                        <th class="text-center">Actions</th>
+                        <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>

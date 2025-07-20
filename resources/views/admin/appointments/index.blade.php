@@ -6,6 +6,18 @@
     <h1>Appointments</h1>
 </div>
 
+@if (session('success'))
+    <div id="success-message" class="alert alert-success">{{ session('success') }}</div>
+@endif
+
+@if ($errors->any())
+    <div id="error-message" class="alert alert-danger">
+        @foreach ($errors->all() as $error)
+            <div>{{ $error }}</div>
+        @endforeach
+    </div>
+@endif
+
 <div class="container">
     @if($appointments->count())
         <table class="table table-bordered">
@@ -31,6 +43,7 @@
                     <th>{!! sortLink('appointment_time', 'Time', $sortField ?? '', $sortDirection ?? '') !!}</th>
                     <th>{!! sortLink('status', 'Status', $sortField ?? '', $sortDirection ?? '') !!}</th>
                     <th>Message</th>
+                    <th>Action</th> {{-- New column header --}}
                 </tr>
             </thead>
 
@@ -43,6 +56,15 @@
                         <td>{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}</td>
                         <td>{{ $appointment->status }}</td>
                         <td>{{ $appointment->message ?? '-' }}</td>
+                        <td>
+                            <a href="{{ route('admin.appointments.edit', $appointment->id) }}" class="btn btn-sm btn-primary">Edit</a>
+
+                            <form action="{{ route('admin.appointments.destroy', $appointment->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this appointment?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

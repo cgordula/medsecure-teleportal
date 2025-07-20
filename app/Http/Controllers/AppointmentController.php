@@ -96,6 +96,43 @@ class AppointmentController extends Controller
 
         return view('admin.appointments.index', compact('appointments', 'sortField', 'sortDirection'));
     }
+
+    // Admin - Edit
+    public function edit(Appointment $appointment)
+    {
+        $patients = Patient::all();
+        $doctors = Doctor::all();
+
+        return view('admin.appointments.edit', compact('appointment', 'patients', 'doctors'));
+    }
+
+    // Admin - Delete
+    public function destroy($id)
+    {
+        $appointment = Appointment::findOrFail($id);
+        $appointment->delete();
+
+        return redirect()->route('admin.appointments.index')->with('success', 'Appointment deleted successfully.');
+    }
+
+    // Admin - Update
+    public function update(Request $request, Appointment $appointment)
+    {
+        $validated = $request->validate([
+            'patient_id' => 'sometimes|exists:patients,id',
+            'doctor_id' => 'sometimes|exists:doctors,id',
+            'appointment_date' => 'sometimes|date',
+            'appointment_time' => 'sometimes',
+            'status' => 'sometimes|string',
+            'message' => 'nullable|string',
+        ]);
+
+        $appointment->update($validated);
+
+        return redirect()->route('admin.appointments.index')->with('success', 'Appointment updated successfully.');
+    }
+
+
  
 
 }
