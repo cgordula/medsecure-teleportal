@@ -29,15 +29,20 @@
     {{-- Appointments --}}
     @if(!$appointments->isEmpty())
         <h5 class="mt-4">Appointments</h5>
-        <ul class="list-group mb-4">
+        <div class="row">
             @foreach($appointments as $appt)
-                <li class="list-group-item">
-                    <strong>ID:</strong> {{ $appt->id }}<br>
-                    <strong>Date:</strong> {{ $appt->appointment_date }}<br>
-                    <strong>Time:</strong> {{ $appt->appointment_time }}
-                </li>
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <h6 class="card-title">Appointment ID: {{ $appt->id }}</h6>
+                            <p class="mb-1"><strong>Date:</strong> {{ \Carbon\Carbon::parse($appt->appointment_date)->format('j F Y') }}</p>
+                            <p class="mb-1"><strong>Time:</strong> {{ \Carbon\Carbon::parse($appt->appointment_time)->format('h:i A') }}</p>
+                            <p class="mb-0"><strong>Status:</strong> {{ ucfirst($appt->status) }}</p>
+                        </div>
+                    </div>
+                </div>
             @endforeach
-        </ul>
+        </div>
         {{ $appointments->appends(request()->input())->links() }}
     @endif
 

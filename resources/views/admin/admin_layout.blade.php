@@ -364,7 +364,7 @@
                             type="text" 
                             name="query" 
                             class="form-control" 
-                            placeholder="Search patients by name/email, appointments by ID/date, or doctors by specialization..."
+                            placeholder="Search by name, email, specialization, reference number, appointment status, or date"
                             value="{{ request('query') }}"
                         >
                         <button type="submit" class="btn btn-primary">

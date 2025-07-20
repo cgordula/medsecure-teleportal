@@ -52,7 +52,7 @@
                     <tr>
                         <td>{{ $appointment->patient->first_name }} {{ $appointment->patient->last_name }}</td>
                         <td>{{ $appointment->doctor->first_name }} {{ $appointment->doctor->last_name }}</td>
-                        <td>{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('F j, Y') }}</td>
+                        <td>{{ $appointment->appointment_date ? \Carbon\Carbon::parse($appointment->appointment_date)->format('j F Y') : '' }}</td>
                         <td>{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}</td>
                         <td>{{ $appointment->status }}</td>
                         <td>{{ $appointment->message ?? '-' }}</td>
