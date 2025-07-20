@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\PatientManagementController;
 use App\Http\Controllers\DoctorManagementController;
+use App\Http\Controllers\AppointmentManagementController;
 
 
 /*
@@ -90,10 +91,10 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/doctors/{id}/edit', [DoctorManagementController::class, 'edit'])->name('admin.doctors.edit');
     Route::put('/admin/doctors/{id}', [DoctorManagementController::class, 'update'])->name('admin.doctors.update');
 
-    Route::get('/admin/appointments', [AppointmentController::class, 'index'])->name('admin.appointments.index');
-    Route::get('/admin/appointments/{appointment}/edit', [AppointmentController::class, 'edit'])->name('admin.appointments.edit');
-    Route::put('/admin/appointments/{appointment}', [AppointmentController::class, 'update'])->name('admin.appointments.update');
-    Route::delete('/admin/appointments/{appointment}', [AppointmentController::class, 'destroy'])->name('admin.appointments.destroy');
+    Route::get('/admin/appointments', [AppointmentManagementController::class, 'index'])->name('admin.appointments.index');
+    Route::get('/admin/appointments/{appointment}/edit', [AppointmentManagementController::class, 'edit'])->name('admin.appointments.edit');
+    Route::put('/admin/appointments/{appointment}', [AppointmentManagementController::class, 'update'])->name('admin.appointments.update');
+    Route::delete('/admin/appointments/{appointment}', [AppointmentManagementController::class, 'destroy'])->name('admin.appointments.destroy');
 
 
 });
