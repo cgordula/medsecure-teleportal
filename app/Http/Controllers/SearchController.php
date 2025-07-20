@@ -19,11 +19,13 @@ class SearchController extends Controller
         $patients = Patient::where('first_name', 'like', "%$query%")
             ->orWhere('last_name', 'like', "%$query%")
             ->orWhere('email', 'like', "%$query%")
+            ->orWhere('reference_number', 'like', "%$query%")
             ->get();
 
         // Appointments: ID or date
         $appointments = Appointment::where('id', $query)
             ->orWhere('appointment_date', 'like', "%$query%")
+            ->orWhere('status', 'like', "%$query%")
             ->get();
 
 
@@ -32,6 +34,7 @@ class SearchController extends Controller
         ->orWhere('last_name', 'like', "%$query%")
         ->orWhere('specialization', 'like', "%$query%")
         ->orWhere('email', 'like', "%$query%")
+        ->orWhere('reference_number', 'like', "%$query%")
         ->get();
 
         // Admins: first name, last name, or email
