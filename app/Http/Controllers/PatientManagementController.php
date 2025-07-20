@@ -7,11 +7,32 @@ use Illuminate\Http\Request;
 
 class PatientManagementController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $patients = Patient::orderBy('created_at', 'desc')->get();
-        return view('admin.patients.index', compact('patients'));
+        $sortField = $request->get('sort_by', 'first_name');  // default sort field
+        $sortDirection = $request->get('sort_dir', 'asc');    // default sort direction
+
+        $allowedSortFields = [
+            'reference_number',
+            'first_name',
+            'last_name',
+            'email',
+            'gender',
+            'birthdate',
+            'phone',
+        ];
+
+        if (!in_array($sortField, $allowedSortFields)) {
+            $sortField = 'first_name';  // fallback default
+        }
+
+        $patients = Patient::orderBy($sortField, $sortDirection)
+            ->paginate(10)
+            ->appends(['sort_by' => $sortField, 'sort_dir' => $sortDirection]);
+
+        return view('admin.patients.index', compact('patients', 'sortField', 'sortDirection'));
     }
+
 
     public function edit($id)
     {

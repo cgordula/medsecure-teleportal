@@ -7,11 +7,25 @@ use Illuminate\Http\Request;
 
 class DoctorManagementController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $doctors = Doctor::orderBy('created_at', 'desc')->get();
-        return view('admin.doctors.index', compact('doctors'));
+        $sortField = $request->get('sort_by', 'first_name'); // default sort field
+        $sortDirection = $request->get('sort_dir', 'asc');   // default sort direction
+
+        $allowedSortFields = ['reference_number', 'first_name', 'last_name', 'email', 'phone', 'specialization', 'license_number'];
+
+        // Validate sort field to prevent SQL injection
+        if (!in_array($sortField, $allowedSortFields)) {
+            $sortField = 'first_name';
+        }
+
+        $doctors = Doctor::orderBy($sortField, $sortDirection)
+            ->paginate(10)
+            ->appends(['sort_by' => $sortField, 'sort_dir' => $sortDirection]);
+
+        return view('admin.doctors.index', compact('doctors', 'sortField', 'sortDirection'));
     }
+
 
     public function edit($id)
     {
@@ -19,6 +33,7 @@ class DoctorManagementController extends Controller
         return view('admin.doctors.edit', compact('doctor'));
     }
 
+    
     public function update(Request $request, $id)
     {
         $doctor = Doctor::findOrFail($id);
