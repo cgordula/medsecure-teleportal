@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
@@ -251,9 +252,30 @@ class PatientController extends Controller
     {
         $patient = Auth::guard('patients')->user();
 
+        // Automatically decline outdated scheduled appointments
+        Appointment::where('patient_id', $patient->id)
+            ->where('status', 'Scheduled')
+            ->where('appointment_date', '<', Carbon::today())
+            ->update(['status' => 'Declined']);
+
         $scheduledAppointments = Appointment::with('doctor')
             ->where('patient_id', $patient->id)
             ->where('status', 'Scheduled')
+            ->where('appointment_date', '>=', Carbon::today()) // optional: only future or today
+            ->orderBy('appointment_date', 'asc')
+            ->get();        
+        
+        // Fetch accepted appointments
+        $acceptedAppointments = Appointment::with('doctor')
+            ->where('patient_id', $patient->id)
+            ->where('status', 'Accepted')
+            ->orderBy('appointment_date', 'asc')
+            ->get();
+        
+        // Fetch declined appointments
+        $declinedAppointments = Appointment::with('doctor')
+            ->where('patient_id', $patient->id)
+            ->where('status', 'Declined')
             ->orderBy('appointment_date', 'asc')
             ->get();
 
@@ -263,8 +285,9 @@ class PatientController extends Controller
             ->orderBy('appointment_date', 'desc')
             ->get();
 
-        return view('patients.my-appointments', compact('scheduledAppointments', 'cancelledAppointments'));
+        return view('patients.my-appointments', compact('scheduledAppointments', 'acceptedAppointments', 'declinedAppointments', 'cancelledAppointments'));
     }
+
 
     public function cancelAppointment($id)
     {

@@ -64,6 +64,74 @@
         </div>
     </div>
 
+    {{-- Accepted Appointments --}}
+    <div class="card mb-5 shadow">
+        <div class="card-header bg-success text-white">
+            <h4>Accepted Appointments</h4>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-bordered table-striped mb-0">
+                <thead>
+                    <tr>
+                        <th>Appointment Date</th>
+                        <th>Doctor</th>
+                        <th>Reason</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($acceptedAppointments as $appointment)
+                        <tr>
+                            <td>
+                                {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d M Y') }},
+                                {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('g:i A') }}
+                            </td>
+                            <td>{{ $appointment->doctor->first_name }} {{ $appointment->doctor->last_name }}</td>
+                            <td>{{ $appointment->message }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="3" class="text-center">No accepted appointments.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {{-- Declined Appointments --}}
+    <div class="card mb-5 shadow">
+        <div class="card-header bg-danger text-white">
+            <h4>Declined Appointments</h4>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-bordered table-striped mb-0">
+                <thead>
+                    <tr>
+                        <th>Appointment Date</th>
+                        <th>Doctor</th>
+                        <th>Reason</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($declinedAppointments as $appointment)
+                        <tr>
+                            <td>
+                                {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d M Y') }},
+                                {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('g:i A') }}
+                            </td>
+                            <td>{{ $appointment->doctor->first_name }} {{ $appointment->doctor->last_name }}</td>
+                            <td>{{ $appointment->message }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="3" class="text-center">No declined appointments.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     {{-- Cancelled Appointments --}}
     <div class="card shadow">
         <div class="card-header bg-warning text-white">
