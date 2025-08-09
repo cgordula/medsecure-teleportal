@@ -396,102 +396,7 @@
         <!-- If running locally or in a non-production environment -->
         <script src="{{ asset('js/app.js') }}"></script>
     @endif
-
-    <!-- chart -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Pie Chart for Top 5 Doctors -->
-    <script>
-        const ctxDoctorPie = document.getElementById('doctorPieChart').getContext('2d');
-        const doctorPieChart = new Chart(ctxDoctorPie, {
-            type: 'pie',
-            data: {
-                labels: {!! json_encode($doctorAppointmentCounts->pluck('name')) !!},
-                datasets: [{
-                    data: {!! json_encode($doctorAppointmentCounts->pluck('count')) !!},
-                    backgroundColor: [
-                        '#FF6384', // Red
-                        '#36A2EB', // Blue
-                        '#FFCE56', // Yellow
-                        '#4BC0C0', // Teal
-                        '#9966FF'  // Purple
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                    }
-                }
-            }
-        });
-    </script>
-
-    <!-- Bar Chart for Top Specializations -->
-    <script>
-        const ctxSpecialization = document.getElementById('specializationChart').getContext('2d');
-
-        const specializationLabels = {!! json_encode($appointmentsBySpecialization->pluck('specialization')) !!};
-        const specializationData = {!! json_encode($appointmentsBySpecialization->pluck('total')) !!};
-
-        new Chart(ctxSpecialization, {
-            type: 'bar',
-            data: {
-                labels: specializationLabels,
-                datasets: [{
-                    label: 'Appointments',
-                    data: specializationData,
-                    backgroundColor: '#007bff'
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
-
-    <script>
-        const ctxStatus = document.getElementById('appointmentStatusChart').getContext('2d');
-
-        const statusLabels = {!! json_encode(array_keys($appointmentStatusBreakdown)) !!};
-        const statusCounts = {!! json_encode(array_values($appointmentStatusBreakdown)) !!};
-
-        const statusChart = new Chart(ctxStatus, {
-            type: 'doughnut',
-            data: {
-                labels: statusLabels,
-                datasets: [{
-                    data: statusCounts,
-                    backgroundColor: [
-                        '#007bff', // Scheduled
-                        '#28a745', // Completed
-                        '#ffc107', // Cancelled
-                        '#dc3545', // Declined
-                        '#17a2b8'  // Accepted
-                    ],
-                    borderColor: '#fff',
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }
-        });
-    </script>
-
-
+   
     <script>
         function updateDateTime() {
             const dateTimeElement = document.getElementById('current-date-time');
@@ -555,5 +460,6 @@
             });
         </script>
     @endif
+
 </body>
 </html>

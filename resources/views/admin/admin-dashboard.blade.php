@@ -88,26 +88,101 @@
 
 <!-- Charts Section -->
 <div class="row g-4 mt-5">
-    <div class="col-md-6 text-center">
+    <div class="col-md-6 text-center card shadow-sm border-0 ">
         <h5>📊 Appointment Status Breakdown</h5>
         <canvas id="appointmentStatusChart" style="max-height: 300px;"></canvas>
     </div>
-    <div class="col-md-6 text-center">
+    <div class="col-md-6 text-center card shadow-sm border-0 ">
         <h5>🏆 Top 5 Doctors by Appointments</h5>
         <canvas id="doctorPieChart" style="max-height: 300px;"></canvas>
     </div>
 </div>
 
-<!-- Specialization Chart -->
-<div class="mt-5 text-center">
-    <h5>🏥 Top 5 Specializations by Appointment Volume</h5>
-    <canvas id="specializationChart" style="max-height: 350px;"></canvas>
+
+<div class="row g-4 mt-5">
+    <!-- Specialization Chart -->
+    <div class="col-md-6 text-center card shadow-sm border-0 ">
+        <h5>🏥 Top 5 Specializations by Appointment Volume</h5>
+        <canvas id="specializationChart" style="max-height: 350px;"></canvas>
+    </div>
 </div>
+
 
 <!-- Calendar -->
 <div class="mt-5">
     <h5>🗓 Real-Time Calendar</h5>
     <div id="realTimeCalendar"></div>
 </div>
+
+
+@section('scripts')
+    <!-- chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Top 5 Doctors Pie Chart
+        const ctxDoctorPie = document.getElementById('doctorPieChart');
+        if (ctxDoctorPie) {
+            new Chart(ctxDoctorPie.getContext('2d'), {
+                type: 'pie',
+                data: {
+                    labels: {!! json_encode($doctorAppointmentCounts->pluck('name')) !!},
+                    datasets: [{
+                        data: {!! json_encode($doctorAppointmentCounts->pluck('count')) !!},
+                        backgroundColor: ['#FF6384','#36A2EB','#FFCE56','#4BC0C0','#9966FF'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+        }
+
+        // Specialization Bar Chart
+        const ctxSpecialization = document.getElementById('specializationChart');
+        if (ctxSpecialization) {
+            new Chart(ctxSpecialization.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: {!! json_encode($appointmentsBySpecialization->pluck('specialization')) !!},
+                    datasets: [{
+                        label: 'Appointments',
+                        data: {!! json_encode($appointmentsBySpecialization->pluck('total')) !!},
+                        backgroundColor: '#007bff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        }
+
+        // Appointment Status Doughnut Chart
+        const ctxStatus = document.getElementById('appointmentStatusChart');
+        if (ctxStatus) {
+            new Chart(ctxStatus.getContext('2d'), {
+                type: 'doughnut',
+                data: {
+                    labels: {!! json_encode(array_keys($appointmentStatusBreakdown)) !!},
+                    datasets: [{
+                        data: {!! json_encode(array_values($appointmentStatusBreakdown)) !!},
+                        backgroundColor: ['#007bff','#28a745','#ffc107','#dc3545','#17a2b8'],
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+        }
+    });
+    </script>
+    @endsection
+
 
 @endsection
