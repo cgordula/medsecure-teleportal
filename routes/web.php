@@ -45,6 +45,7 @@ Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEm
 Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('patients.password.reset');
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('patients.password.update');
 
+Route::get('/available-times', [AppointmentController::class, 'availableTimes']);
 
 
 Route::middleware(['auth:patients'])->group(function () {
@@ -121,6 +122,10 @@ Route::middleware(['auth:doctors'])->group(function () {
 
     Route::get('/doctors/edit-profile', [DoctorsController::class, 'editDoctorProfile'])->name('doctors.edit-profile');
     Route::put('/doctors/update-profile', [DoctorsController::class, 'updateDoctorProfile'])->name('doctors.update-profile');
+
+
+    Route::get('/doctor/accepted-appointments', [AppointmentController::class, 'showAcceptedAppointments'])
+    ->name('doctor.acceptedAppointments');
 
     Route::get('/doctors/tech-support', [DoctorsController::class, 'techSupport'])->name('doctors.tech-support');
     Route::post('/doctors/submit-tech-support', [TechSupportController::class, 'submitTechSupport'])->name('doctors.submit-tech-support');

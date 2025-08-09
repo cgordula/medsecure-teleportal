@@ -308,6 +308,11 @@
             <span class="sidebar-text">Patients & Requests</span>
         </a>
 
+        <a href="{{ route('doctor.acceptedAppointments') }}" class="sidebar-link" data-title="Accepted Appointments">
+            <i class="fas fa-check-circle"></i>
+            <span class="sidebar-text">Accepted Appointments</span>
+        </a>
+
         <a href="{{ route('doctors.tech-support') }}" class="sidebar-link" data-title="Contact Support Team">
             <i class="fas fa-headset"></i>
             <span class="sidebar-text">Contact Support Team</span>

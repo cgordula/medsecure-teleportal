@@ -76,6 +76,7 @@
                         <th>Appointment Date</th>
                         <th>Doctor</th>
                         <th>Reason</th>
+                        <th>Meeting Link</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -87,10 +88,19 @@
                             </td>
                             <td>{{ $appointment->doctor->first_name }} {{ $appointment->doctor->last_name }}</td>
                             <td>{{ $appointment->message }}</td>
+                            <td>
+                                @if (!empty($appointment->meeting_link))
+                                    <a href="{{ $appointment->meeting_link }}" target="_blank" class="btn btn-info btn-sm">
+                                        Join Meeting
+                                    </a>
+                                @else
+                                    <span class="text-muted">No meeting link available</span>
+                                @endif
+                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="3" class="text-center">No accepted appointments.</td>
+                            <td colspan="4" class="text-center">No accepted appointments.</td>
                         </tr>
                     @endforelse
                 </tbody>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str; 
 use Carbon\Carbon;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
@@ -232,10 +233,19 @@ class DoctorsController extends Controller
 
         // Fetch accepted appointments
         $acceptedAppointments = Appointment::with('patient')
-            ->where('doctor_id', $doctor->id)
-            ->where('status', 'Accepted')
-            ->orderBy('appointment_date', 'asc')
-            ->get();
+        ->where('doctor_id', $doctor->id)
+        ->where('status', 'Accepted')
+        ->orderBy('appointment_date', 'asc')
+        ->get()
+        ->map(function ($appointment) {
+            // If no meeting_link, generate one and save it (optional)
+            if (empty($appointment->meeting_link)) {
+                $meetingCode = Str::random(10);
+                $appointment->meeting_link = "https://meet.jit.si/" . $meetingCode;
+                $appointment->save();
+            }
+            return $appointment;
+        });
 
         // Fetch declined appointments
         $declinedAppointments = Appointment::with('patient')

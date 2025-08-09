@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str; 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Patient;
@@ -72,6 +74,43 @@ class AppointmentController extends Controller
         ]);
 
         return back()->with('success', 'Appointment booked successfully!');
+    }
+
+
+    // Doctor accepts appointment
+    public function acceptAppointment($appointmentId)
+    {
+        $appointment = Appointment::findOrFail($appointmentId);
+
+        // Check doctor authorization to accept this appointment, for security
+        if (auth()->user()->id !== $appointment->doctor_id) {
+            abort(403, "Unauthorized action.");
+        }
+
+        $appointment->status = 'Accepted';
+
+        // Generate meeting link (example with Jitsi)
+        $meetingCode = \Illuminate\Support\Str::random(10);
+        $meetingUrl = "https://meet.jit.si/" . $meetingCode;
+
+        $appointment->meeting_link = $meetingUrl;
+        $appointment->save();
+
+
+        return back()->with('success', 'Appointment accepted and meeting link sent.');
+    }
+
+    public function showAcceptedAppointments()
+    {
+        $doctorId = auth()->user()->id;
+
+        $acceptedAppointments = Appointment::with('patient')
+            ->where('doctor_id', $doctorId)
+            ->where('status', 'Accepted')
+            ->orderBy('appointment_date', 'asc')
+            ->get();
+
+        return view('doctors.accepted_appointments', compact('acceptedAppointments'));
     }
 
 
