@@ -51,7 +51,7 @@ Route::middleware(['auth:patients'])->group(function () {
     Route::get('/patients/patient-dashboard', [PatientController::class, 'patientDashboard'])->name('patients.patient-dashboard');
     Route::get('/patients/profile', [PatientController::class, 'patientProfile'])->name('patients.profile');
     Route::get('/patient/edit-profile', [PatientController::class, 'editPatientProfile'])->name('patients.edit-profile');
-    Route::put('/patient/edit-profile', [EmergencyContactController::class, 'updateEmergencyContact'])->name('patients.edit-contact');
+    Route::put('/patient/update-emergency-contact', [EmergencyContactController::class, 'updateEmergencyContact'])->name('patients.edit-emergency-contact');
     Route::put('/patient/update-profile', [PatientController::class, 'updatePatientProfile'])->name('patients.update-profile');
     
     Route::get('/patients/create-appointment', [AppointmentController::class, 'createAppointment'])->name('patients.create-appointment');

@@ -21,6 +21,12 @@
     </div>
 @endif
 
+@if (session('warning'))
+    <div class="alert alert-warning">
+        {{ session('warning') }}
+    </div>
+@endif
+
 
 <div class="row">
     <!-- Profile Section -->
@@ -262,7 +268,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('patients.edit-profile') }}" method="POST">
+            <form action="{{ route('patients.edit-emergency-contact') }}" method="POST">
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="patient_id" value="{{ auth()->user()->id }}">
