@@ -305,7 +305,7 @@
 
         <a href="{{ route('doctors.patient-list') }}" class="sidebar-link" data-title="Doctor's Patient List">
             <i class="fas fa-user"></i>
-            <span class="sidebar-text">Doctor's Patient List</span>
+            <span class="sidebar-text">Patients & Requests</span>
         </a>
 
         <a href="{{ route('doctors.tech-support') }}" class="sidebar-link" data-title="Contact Support Team">

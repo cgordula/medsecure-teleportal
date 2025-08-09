@@ -4,7 +4,7 @@
 
 <div class="dashboard-header mb-4">
     <h1 class="fw-bold">📊 Admin Dashboard</h1>
-    <p class="text-muted">Overview of your clinic’s key metrics, appointments, and performance trends.</p>
+    <p class="text-muted">Overview of telehealth system’s key metrics, appointments, and performance trends.</p>
 
     <!-- Quick Action Buttons -->
     <div class="d-flex flex-wrap gap-2 mt-3">
@@ -106,7 +106,7 @@
 
 <!-- Calendar -->
 <div class="mt-5">
-    <h5>🗓 Real-Time Appointment Calendar</h5>
+    <h5>🗓 Real-Time Calendar</h5>
     <div id="realTimeCalendar"></div>
 </div>
 
