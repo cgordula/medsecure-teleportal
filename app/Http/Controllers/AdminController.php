@@ -108,6 +108,19 @@ class AdminController extends Controller
             ->where('status', 'Completed')
             ->orderBy('appointment_date', 'desc')
             ->get();
+
+        
+            // NEW: Patients today, this week, this month
+        $patientsToday = Appointment::whereDate('appointment_date', now())->count();
+
+        $patientsThisWeek = Appointment::whereBetween('appointment_date', [
+            now()->startOfWeek(),
+            now()->endOfWeek()
+        ])->count();
+
+        $patientsThisMonth = Appointment::whereMonth('appointment_date', now()->month)
+            ->whereYear('appointment_date', now()->year)
+            ->count();
         
 
         // Get top 5 doctors with most appointments
@@ -147,6 +160,9 @@ class AdminController extends Controller
             'cancelledAppointmentsCount',
             'declinedAppointmentsCount',
             'acceptedAppointmentsCount',
+            'patientsToday',
+            'patientsThisWeek',
+            'patientsThisMonth',
             'allPatients',
             'allDoctors',
             'upcomingAppointments',
