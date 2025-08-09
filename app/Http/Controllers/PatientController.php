@@ -178,7 +178,7 @@ class PatientController extends Controller
      {
          $patient = Auth::guard('patients')->user(); // Get the authenticated patient's data
          
-         $medicalInfo = $patient->medical_information;
+         $medicalInfo = MedicalInformation::firstOrNew(['patient_id' => $patient->id]);
          $emergencyContact = $patient->emergency_contact;
      
          // Return the profile view with the necessary data
@@ -247,6 +247,33 @@ class PatientController extends Controller
         // Return to the profile page with a success message
         return redirect()->route('patients.profile')->with('success', 'Profile updated successfully!');
     }
+
+
+    // Update medical information
+    public function updateMedicalInfo(Request $request)
+    {
+        $patient = auth()->guard('patients')->user();
+
+        $medicalInfo = MedicalInformation::firstOrNew(['patient_id' => $patient->id]);
+
+        // Validate inputs here as needed (for simplicity, omitted)
+
+        // Store JSON or arrays as JSON strings
+        $medicalInfo->medical_history = $request->input('medical_history');
+        $medicalInfo->current_medications = $request->input('current_medications');
+        $medicalInfo->allergies = $request->input('allergies');
+        $medicalInfo->primary_complaint = $request->input('primary_complaint');
+        $medicalInfo->consultation_notes = $request->input('consultation_notes');
+        $medicalInfo->diagnoses = $request->input('diagnoses');
+        $medicalInfo->prescriptions = $request->input('prescriptions');
+        $medicalInfo->body_measures = $request->input('body_measures');
+        $medicalInfo->patient_id = $patient->id;
+
+        $medicalInfo->save();
+
+        return redirect()->back()->with('success', 'Medical information updated successfully.');
+    }
+
 
     public function myAppointments()
     {

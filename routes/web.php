@@ -62,7 +62,7 @@ Route::middleware(['auth:patients'])->group(function () {
     Route::get('/patients/tech-support', [PatientController::class, 'techSupport'])->name('patients.tech-support');
     Route::post('/patients/submit-tech-support', [TechSupportController::class, 'submitTechSupport'])->name('patients.submit-tech-support');
     
-
+    Route::put('/patients/update-medical-info', [PatientController::class, 'updateMedicalInfo'])->name('patients.update-medical-info');
 
 });
 

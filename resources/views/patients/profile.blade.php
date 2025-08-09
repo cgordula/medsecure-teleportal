@@ -65,7 +65,8 @@
                 <p><strong>Relationship<span class="text-danger">*</span>:</strong> {{ $emergencyContact->relationship ?? 'N/A' }}</p>
                 <p><strong>Phone<span class="text-danger">*</span>:</strong> {{ $emergencyContact->phone ?? 'N/A' }}</p>
 
-                <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#editEmergencyContactModal">Edit Contact</a>
+                <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#editEmergencyContactModal">
+                    <i class="fas fa-edit me-1"></i>Edit Contact</a>
             </div>
         </div>
     </div>
@@ -80,57 +81,17 @@
             <div class="card-body">
                 <!-- Medical History -->
                 <p class="text-muted"><strong>Medical History:</strong></p>
-                @php
-                    $medicalHistory = json_decode($medicalInfo->medical_history ?? '{}', true);
-                @endphp
-                @if(is_array($medicalHistory) && count($medicalHistory) > 0)
-                    <ul>
-                        @foreach($medicalHistory as $key => $value)
-                            <li>
-                                <strong>{{ ucfirst($key) }}:</strong>
-                                @if(is_array($value))
-                                    {{ implode(', ', $value) }}
-                                @else
-                                    {{ $value }}
-                                @endif
-                            </li>
-                        @endforeach
-                    </ul>
-                @else
-                    <p>No medical history available.</p>
-                @endif
+                <p>{{ $medicalInfo->medical_history ?? 'No medical history available.' }}</p>
                 <hr>
 
                 <!-- Current Medications -->
                 <p class="text-muted"><strong>Current Medication(s):</strong></p>
-                <ul>
-                    @php
-                        $currentMedications = json_decode($medicalInfo->current_medications ?? '[]', true);
-                    @endphp
-                    @if(is_array($currentMedications) && count($currentMedications) > 0)
-                        @foreach($currentMedications as $medication)
-                            <li>{{ $medication }}</li>
-                        @endforeach
-                    @else
-                        <li>No current medications listed.</li>
-                    @endif
-                </ul>
+                <p>{{ $medicalInfo->current_medications ?? 'No current medications listed.' }}</p>
                 <hr>
 
                 <!-- Allergies -->
                 <p class="text-muted"><strong>Allergies:</strong></p>
-                @php
-                    $allergies = json_decode($medicalInfo->allergies ?? '[]', true);
-                @endphp
-                @if(is_array($allergies) && count($allergies) > 0)
-                    <ul>
-                        @foreach($allergies as $allergy)
-                            <li>{{ $allergy }}</li>
-                        @endforeach
-                    </ul>
-                @else
-                    <p>No allergies available.</p>
-                @endif
+                <p>{{ $medicalInfo->allergies ?? 'No allergies available.' }}</p>
                 <hr>
 
                 <!-- Primary Complaint -->
@@ -145,51 +106,24 @@
 
                 <!-- Diagnoses -->
                 <p class="text-muted"><strong>Diagnoses:</strong></p>
-                @php
-                    $diagnoses = json_decode($medicalInfo->diagnoses ?? '[]', true);
-                @endphp
-                @if(is_array($diagnoses) && count($diagnoses) > 0)
-                    <ul>
-                        @foreach($diagnoses as $diagnosis)
-                            <li>{{ $diagnosis }}</li>
-                        @endforeach
-                    </ul>
-                @else
-                    <p>No diagnoses available.</p>
-                @endif
+                <p>{{ $medicalInfo->diagnoses ?? 'No diagnoses available.' }}</p>
                 <hr>
 
                 <!-- Prescriptions -->
                 <p class="text-muted"><strong>Prescriptions:</strong></p>
-                @php
-                    $prescriptions = json_decode($medicalInfo->prescriptions ?? '[]', true);
-                @endphp
-                @if(is_array($prescriptions) && count($prescriptions) > 0)
-                    <ul>
-                        @foreach($prescriptions as $prescription)
-                            <li>{{ $prescription }}</li>
-                        @endforeach
-                    </ul>
-                @else
-                    <p>No prescriptions available.</p>
-                @endif
+                <p>{{ $medicalInfo->prescriptions ?? 'No prescriptions available.' }}</p>
                 <hr>
 
                 <!-- Body Measurements -->
                 <p class="text-muted"><strong>Body Measurements (cm):</strong></p>
-                @php
-                    $bodyMeasures = json_decode($medicalInfo->body_measures ?? '{}', true);
-                @endphp
-                @if(is_array($bodyMeasures) && count($bodyMeasures) > 0)
-                    <ul>
-                        @foreach($bodyMeasures as $key => $value)
-                            <li><strong>{{ ucfirst(str_replace('_', ' ', $key)) }}:</strong> {{ $value }}</li>
-                        @endforeach
-                    </ul>
-                @else
-                    <p>N/A</p>
-                @endif
+                <p>{{ $medicalInfo->body_measures ?? 'N/A' }}</p>
+
             </div>
+        </div>
+        <div class="mt-4 text-end">
+            <button class="btn btn-outline-primary" data-toggle="modal" data-target="#editMedicalInfoModal">
+                <i class="fas fa-edit me-1"></i> Edit
+            </button>
         </div>
     </div>
 
@@ -352,6 +286,80 @@
                 </div>
             </form>
         </div>
+    </div>
+</div>
+
+<!-- Edit Medical Information Modal -->
+<div class="modal fade" id="editMedicalInfoModal" tabindex="-1" role="dialog" aria-labelledby="editMedicalInfoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <form action="{{ route('patients.update-medical-info') }}" method="POST" id="medicalInfoForm">
+            @csrf
+            @method('PUT')
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editMedicalInfoModalLabel">Edit Medical Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <!-- Medical History -->
+                    <div class="form-group mb-3">
+                        <label for="medical_history">Medical History</label>
+                        <textarea class="form-control" id="medical_history" name="medical_history" rows="3">{{ old('medical_history', $medicalInfo->medical_history ?? '') }}</textarea>
+                    </div>
+
+                    <!-- Current Medications -->
+                    <div class="form-group mb-3">
+                        <label for="current_medications">Current Medications</label>
+                        <textarea class="form-control" id="current_medications" name="current_medications" rows="2">{{ old('current_medications', $medicalInfo->current_medications ?? '') }}</textarea>
+                    </div>
+
+                    <!-- Allergies -->
+                    <div class="form-group mb-3">
+                        <label for="allergies">Allergies</label>
+                        <textarea class="form-control" id="allergies" name="allergies" rows="2">{{ old('allergies', $medicalInfo->allergies ?? '') }}</textarea>
+                    </div>
+
+                    <!-- Primary Complaint -->
+                    <div class="form-group mb-3">
+                        <label for="primary_complaint">Primary Complaint</label>
+                        <textarea class="form-control" id="primary_complaint" name="primary_complaint" rows="4">{{ old('primary_complaint', $medicalInfo->primary_complaint ?? '') }}</textarea>
+                    </div>
+
+                    <!-- Consultation Notes -->
+                    <div class="form-group mb-3">
+                        <label for="consultation_notes">Consultation Notes</label>
+                        <textarea class="form-control" id="consultation_notes" name="consultation_notes" rows="3">{{ old('consultation_notes', $medicalInfo->consultation_notes ?? '') }}</textarea>
+                    </div>
+
+                    <!-- Diagnoses -->
+                    <div class="form-group mb-3">
+                        <label for="diagnoses">Diagnoses</label>
+                        <textarea class="form-control" id="diagnoses" name="diagnoses" rows="2">{{ old('diagnoses', $medicalInfo->diagnoses ?? '') }}</textarea>
+                    </div>
+
+                    <!-- Prescriptions -->
+                    <div class="form-group mb-3">
+                        <label for="prescriptions">Prescriptions</label>
+                        <textarea class="form-control" id="prescriptions" name="prescriptions" rows="2">{{ old('prescriptions', $medicalInfo->prescriptions ?? '') }}</textarea>
+                    </div>
+
+                    <!-- Body Measurements -->
+                    <div class="form-group mb-3">
+                        <label for="body_measures">Body Measurements</label>
+                        <textarea class="form-control" id="body_measures" name="body_measures" rows="3">{{ old('body_measures', $medicalInfo->body_measures ?? '') }}</textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Medical Info</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
