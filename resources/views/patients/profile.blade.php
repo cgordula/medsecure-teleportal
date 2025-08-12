@@ -170,7 +170,10 @@
                         <div class="col-md-6 form-group">
                             <label for="gender">Gender</label>
                             <select class="form-control" id="gender" name="gender">
-                                <option value="Male" {{ $patient->gender == 'Male' ? 'selected' : '' }}>Male</option>
+                                <!-- Placeholder option -->
+                                <option value="" {{ ($patient->gender == 'Male' || empty($patient->gender)) ? 'selected' : '' }} disabled>Select Gender</option>
+
+                                <option value="Male" {{ ($patient->gender == 'Male') ? '' : '' }}>Male</option>
                                 <option value="Female" {{ $patient->gender == 'Female' ? 'selected' : '' }}>Female</option>
                                 <option value="Other" {{ $patient->gender == 'Other' ? 'selected' : '' }}>Other</option>
                             </select>
